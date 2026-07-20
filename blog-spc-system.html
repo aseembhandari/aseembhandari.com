@@ -84,6 +84,13 @@
   </div>
 </section>
 
+<section>
+  <div class="wrap detail-body">
+    <span class="eyebrow" style="display:block;margin-bottom:22px;">Comments</span>
+    <div id="giscus-comments"></div>
+  </div>
+</section>
+
 <footer class="foot">
   <div class="wrap">
     <small>© <span id="yr"></span> Aseem Bhandari</small>
@@ -93,5 +100,6 @@
 <script>document.getElementById('yr').textContent=new Date().getFullYear();
 document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav').classList.remove('open')));</script>
 <script src="enhance.js"></script>
+<script src="giscus.js"></script>
 </body>
 </html>

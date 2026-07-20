@@ -2,8 +2,8 @@
 
 This folder is the source of truth for everything you publish — so a `netlify deploy`
 (which just re-uploads the site folder as-is) never loses anything. It also has
-nothing to do with comments: those live in GitHub Discussions via giscus, entirely
-outside this folder, for the same reason.
+nothing to do with comments: those live in GitHub Discussions via giscus (see
+below), entirely outside this folder, for the same reason.
 
 ## How to publish something new
 
@@ -12,8 +12,9 @@ outside this folder, for the same reason.
    polished — bullet points are fine.
 2. Ask Claude (in this project) to "publish this as an article" and point it at the
    file. It will:
-   - Write the full site post as `blog-<slug>.html`, matching the existing template,
-     voice, and brand (Fraunces/Plex, copper accents, `.detail-body` structure).
+   - Write the full site post as `blog-<slug>.html`, copied from an existing post
+     (e.g. `blog-spc-system.html`) so the template, voice, brand, and the Comments
+     section / `giscus.js` include at the bottom all carry over automatically.
    - Add the entry to `posts.js` (title, date, tag, excerpt) so it shows up on
      `blog.html` and the homepage Knowledge Hub automatically.
    - Write a separate LinkedIn-optimized version to
@@ -41,3 +42,14 @@ markdown here means:
 `YYYY-MM-DD-slug.md` — the date is when you *start* the draft, not necessarily
 publish date (the real publish date goes in the post's frontmatter / `posts.js`
 entry and can differ).
+
+## Comments (giscus)
+
+Comments run on [giscus](https://giscus.app), backed by GitHub Discussions on
+[github.com/aseembhandari/aseembhandari.com](https://github.com/aseembhandari/aseembhandari.com)
+(category: "Announcements" — deliberately locked so visitors can't create
+discussions directly on GitHub; giscus creates one thread per post automatically).
+Config lives in `giscus.js` at the site root; brand-matched light/dark themes are
+`giscus-theme-light.css` / `giscus-theme-dark.css`. To read or moderate comments,
+go to the repo's Discussions tab directly — deleting/editing a comment there is
+immediate, no redeploy needed.
