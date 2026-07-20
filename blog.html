@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Writing — Aseem Bhandari</title>
+<meta name="description" content="Notes on manufacturing, process engineering, statistical process control, and building intelligent data systems on the factory floor.">
+<link rel="canonical" href="https://aseembhandari.com/blog.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aseem Bhandari">
+<meta property="og:title" content="Writing — Aseem Bhandari">
+<meta property="og:description" content="Notes on manufacturing, process engineering, statistical process control, and building intelligent data systems on the factory floor.">
+<meta property="og:url" content="https://aseembhandari.com/blog.html">
+<meta property="og:image" content="https://aseembhandari.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://aseembhandari.com/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="index.html" class="brand">Aseem <b>Bhandari</b></a>
+    <button class="nav-toggle" aria-label="Menu" aria-controls="nav" aria-expanded="false" onclick="var n=document.getElementById('nav');this.setAttribute('aria-expanded', n.classList.toggle('open'))">≡</button>
+    <nav class="nav-links" id="nav">
+      <a href="index.html#about">About</a>
+      <a href="index.html#capabilities">Capabilities</a>
+      <a href="index.html#work">Work</a>
+      <a href="blog.html">Writing</a>
+      <a href="index.html#hub">Knowledge Hub</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="detail-hero">
+  <div class="wrap">
+    <a href="index.html" class="back-link">← Home</a>
+    <span class="eyebrow" style="display:block;margin-top:22px;">Writing</span>
+    <h1>From the floor.</h1>
+    <p class="lede" style="max-width:60ch;">Notes on manufacturing, process, statistical process control, and building data systems that engineers and operators actually use.</p>
+  </div>
+</section>
+
+<section style="border-top:1px solid var(--line-soft);">
+  <div class="wrap">
+    <div class="hub-grid" id="post-list"></div>
+    <p id="empty" hidden style="color:var(--ink-soft);">No posts yet — check back soon.</p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <small>© <span id="yr"></span> Aseem Bhandari</small>
+    <small><a href="https://www.linkedin.com/in/aseembhandari21" target="_blank" rel="noopener">LinkedIn</a> · aseembhandari.com</small>
+  </div>
+</footer>
+
+<script src="posts.js"></script>
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => document.getElementById('nav').classList.remove('open')));
+  var list = document.getElementById('post-list');
+  if (window.POSTS && window.POSTS.length) {
+    list.innerHTML = window.POSTS.map(function(p){
+      return '<a class="hub-card" href="' + p.url + '">' +
+        '<span class="kicker">' + p.tag + '</span>' +
+        '<h3>' + p.title + ' →</h3>' +
+        '<p>' + p.excerpt + '</p>' +
+        '<span class="date">' + p.date + '</span></a>';
+    }).join('');
+  } else {
+    document.getElementById('empty').hidden = false;
+  }
+</script>
+<script src="enhance.js"></script>
+</body>
+</html>

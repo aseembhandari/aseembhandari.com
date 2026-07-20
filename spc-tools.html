@@ -1,0 +1,725 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SPC & Capability Calculators — Aseem Bhandari</title>
+<meta name="description" content="Free interactive SPC and MSA calculators: process capability (Cp, Cpk, Pp, Ppk), yield / DPMO / process sigma, and Gage R&R (ANOVA method) — built for the manufacturing floor.">
+<link rel="canonical" href="https://aseembhandari.com/spc-tools.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aseem Bhandari">
+<meta property="og:title" content="SPC & Capability Calculators">
+<meta property="og:description" content="Interactive Cpk/Ppk, Yield/DPMO/Sigma, and Gage R&R (ANOVA) calculators — built for the manufacturing floor.">
+<meta property="og:url" content="https://aseembhandari.com/spc-tools.html">
+<meta property="og:image" content="https://aseembhandari.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://aseembhandari.com/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* tabs */
+  .tabs { display:flex; gap:6px; flex-wrap:wrap; border-bottom:1px solid var(--line); margin:36px 0 30px; }
+  .tab { font-family:'IBM Plex Mono',monospace; font-size:.8rem; letter-spacing:.03em; color:var(--ink-soft); background:none; border:0; border-bottom:2px solid transparent; padding:12px 16px; margin-bottom:-1px; cursor:pointer; transition:color .2s var(--ease), border-color .2s var(--ease); }
+  .tab:hover { color:var(--ink); }
+  .tab.active { color:var(--copper-text); border-bottom-color:var(--copper); }
+  .tabpanel[hidden] { display:none; }
+
+  /* input layout */
+  .calc-grid { display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start; }
+  @media(max-width:820px){ .calc-grid{ grid-template-columns:1fr; gap:28px; } }
+  .lbl { font-family:'IBM Plex Mono',monospace; font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:7px; display:block; }
+  .in { width:100%; background:var(--bg-card); border:1px solid var(--line); color:var(--ink); font-family:'IBM Plex Sans',sans-serif; font-size:.95rem; padding:11px 13px; border-radius:2px; transition:border-color .2s var(--ease); }
+  .in:focus { outline:2px solid var(--copper); outline-offset:1px; border-color:var(--copper); }
+  textarea.in { resize:vertical; min-height:140px; font-family:'IBM Plex Mono',monospace; font-size:.86rem; line-height:1.7; }
+  .row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
+  .row2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .field { margin-bottom:18px; }
+  .hint { font-family:'IBM Plex Mono',monospace; font-size:.72rem; color:var(--ink-faint); margin-top:8px; }
+  select.in { cursor:pointer; }
+
+  /* KPI outputs */
+  .kpis { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:3px; overflow:hidden; }
+  .kpi { background:var(--bg-card); padding:16px 18px; }
+  .kpi .k { font-family:'IBM Plex Mono',monospace; font-size:.66rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); }
+  .kpi .v { font-family:'Fraunces',serif; font-size:1.7rem; font-weight:600; color:var(--ink); line-height:1.1; margin-top:4px; font-variant-numeric:tabular-nums; }
+  .kpi.hi .v { color:var(--copper-bright); }
+  .kpi .u { font-family:'IBM Plex Mono',monospace; font-size:.66rem; color:var(--ink-faint); }
+
+  .out-head { font-family:'IBM Plex Mono',monospace; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--copper-text); margin:0 0 14px; }
+  .hist { margin-top:22px; border:1px solid var(--line); border-radius:3px; background:var(--bg-card); padding:10px; }
+
+  /* gage r&r table */
+  .grr-scroll { overflow-x:auto; border:1px solid var(--line); border-radius:3px; }
+  table.grr { border-collapse:collapse; width:100%; font-size:.82rem; }
+  table.grr th, table.grr td { border:1px solid var(--line-soft); padding:0; text-align:center; }
+  table.grr th { font-family:'IBM Plex Mono',monospace; font-size:.68rem; letter-spacing:.04em; color:var(--ink-soft); background:var(--bg-raise); padding:8px 6px; font-weight:600; }
+  table.grr td.rowlbl { font-family:'IBM Plex Mono',monospace; font-size:.68rem; color:var(--ink-soft); background:var(--bg-raise); padding:6px 10px; white-space:nowrap; }
+  table.grr input { width:62px; border:0; background:transparent; text-align:center; font-family:'IBM Plex Mono',monospace; font-size:.8rem; color:var(--ink); padding:8px 4px; }
+  table.grr input:focus { outline:2px solid var(--copper); outline-offset:-2px; background:var(--bg-hover); }
+
+  .anova { width:100%; border-collapse:collapse; font-size:.84rem; margin-top:4px; }
+  .anova th, .anova td { border-bottom:1px solid var(--line-soft); padding:9px 10px; text-align:right; font-family:'IBM Plex Mono',monospace; }
+  .anova th { color:var(--ink-soft); font-size:.7rem; letter-spacing:.05em; text-transform:uppercase; text-align:right; }
+  .anova td:first-child, .anova th:first-child { text-align:left; color:var(--ink); }
+  .note-line { font-family:'IBM Plex Mono',monospace; font-size:.74rem; color:var(--ink-faint); border-left:2px solid var(--copper); padding:8px 0 8px 12px; margin-top:16px; background:rgba(199,123,60,.05); }
+  .disclaimer { font-family:'IBM Plex Mono',monospace; font-size:.74rem; color:var(--ink-faint); margin-top:26px; }
+  .cc-mode { font-size:.78rem; padding:9px 16px; }
+  .cc-mode.active { background:var(--copper); color:#fff; border-color:var(--copper); }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="index.html" class="brand">Aseem <b>Bhandari</b></a>
+    <button class="nav-toggle" aria-label="Menu" aria-controls="nav" aria-expanded="false" onclick="var n=document.getElementById('nav');this.setAttribute('aria-expanded', n.classList.toggle('open'))">≡</button>
+    <nav class="nav-links" id="nav">
+      <a href="index.html#about">About</a>
+      <a href="index.html#capabilities">Capabilities</a>
+      <a href="index.html#work">Work</a>
+      <a href="blog.html">Writing</a>
+      <a href="index.html#hub">Knowledge Hub</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="detail-hero">
+  <div class="wrap">
+    <a href="index.html#hub" class="back-link">← Back to Knowledge Hub</a>
+    <span class="eyebrow" style="display:block;margin-top:22px;">Interactive tools</span>
+    <h1>SPC &amp; capability calculators.</h1>
+    <p class="lede" style="max-width:64ch;">Three quick calculators from the floor — process capability, yield &amp; process sigma, and Gage R&amp;R. Everything runs in your browser; nothing is uploaded. Each is pre-loaded with example data so you can see it work, then paste your own.</p>
+  </div>
+</section>
+
+<section style="border-top:1px solid var(--line-soft);">
+  <div class="wrap">
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-tab="cpk">Cp / Cpk / Pp / Ppk</button>
+      <button class="tab" data-tab="yield">Yield · DPMO · Sigma</button>
+      <button class="tab" data-tab="grr">Gage R&amp;R (MSA)</button>
+      <button class="tab" data-tab="cc">Control Limits</button>
+      <button class="tab" data-tab="ss">Sample Size</button>
+      <button class="tab" data-tab="ref">Sigma ↔ Cpk</button>
+    </div>
+
+    <!-- ===== CPK ===== -->
+    <div class="tabpanel" id="tab-cpk">
+      <div class="calc-grid">
+        <div>
+          <div class="field">
+            <label class="lbl" for="cpkData">Measurements (paste any list — spaces, commas, or new lines)</label>
+            <textarea class="in" id="cpkData"></textarea>
+            <div class="hint" id="cpkN">—</div>
+          </div>
+          <div class="row3">
+            <div><label class="lbl" for="cpkLSL">LSL</label><input class="in" id="cpkLSL" inputmode="decimal"></div>
+            <div><label class="lbl" for="cpkTgt">Target</label><input class="in" id="cpkTgt" inputmode="decimal"></div>
+            <div><label class="lbl" for="cpkUSL">USL</label><input class="in" id="cpkUSL" inputmode="decimal"></div>
+          </div>
+          <div class="hint">Leave one spec blank for a one-sided limit. Cp/Pp need both limits; Cpk/Ppk work with either.</div>
+        </div>
+        <div>
+          <p class="out-head">Results</p>
+          <div class="kpis" id="cpkKpis"></div>
+          <div id="cpkBadge"></div>
+          <div class="hist" id="cpkHist"></div>
+        </div>
+      </div>
+      <p class="disclaimer">Cp / Cpk use the <b>within-subgroup (short-term)</b> sigma estimated from the average moving range (σ̂ = MR̄ / 1.128). Pp / Ppk use the <b>overall (long-term)</b> sample sigma. DPMO and yield are estimated from the overall fit assuming a normal distribution.</p>
+    </div>
+
+    <!-- ===== YIELD ===== -->
+    <div class="tabpanel" id="tab-yield" hidden>
+      <div class="calc-grid">
+        <div>
+          <div class="field">
+            <label class="lbl">DPMO &amp; process sigma</label>
+            <div class="row3">
+              <div><label class="lbl" for="yUnits">Units</label><input class="in" id="yUnits" inputmode="decimal"></div>
+              <div><label class="lbl" for="yDef">Defects</label><input class="in" id="yDef" inputmode="decimal"></div>
+              <div><label class="lbl" for="yOpp">Opp / unit</label><input class="in" id="yOpp" inputmode="decimal"></div>
+            </div>
+            <div class="hint">"Opportunities per unit" = the number of ways one unit can be defective.</div>
+          </div>
+          <div class="field" style="margin-top:26px;">
+            <label class="lbl" for="rtyData">Rolled throughput yield — step yields in % (one per line or comma)</label>
+            <textarea class="in" id="rtyData" style="min-height:120px;"></textarea>
+            <div class="hint">RTY = the product of every step's first-pass yield.</div>
+          </div>
+        </div>
+        <div>
+          <p class="out-head">Defects &amp; sigma</p>
+          <div class="kpis" id="yKpis"></div>
+          <div id="yBadge"></div>
+          <p class="out-head" style="margin-top:30px;">Rolled throughput yield</p>
+          <div class="kpis" id="rtyKpis"></div>
+        </div>
+      </div>
+      <p class="disclaimer">Throughput yield uses the Poisson model Y = e<sup>−DPU</sup>. Process sigma is the short-term sigma level (Z<sub>bench</sub> + 1.5 shift), the common Six Sigma convention.</p>
+    </div>
+
+    <!-- ===== GAGE R&R ===== -->
+    <div class="tabpanel" id="tab-grr" hidden>
+      <div class="row3" style="max-width:520px;">
+        <div><label class="lbl" for="grrParts">Parts</label>
+          <select class="in" id="grrParts"></select></div>
+        <div><label class="lbl" for="grrOps">Operators</label>
+          <select class="in" id="grrOps"></select></div>
+        <div><label class="lbl" for="grrTrials">Trials</label>
+          <select class="in" id="grrTrials"></select></div>
+      </div>
+      <div class="row2" style="max-width:520px;margin-top:12px;">
+        <div><label class="lbl" for="grrTol">Tolerance (USL − LSL, optional)</label><input class="in" id="grrTol" inputmode="decimal" placeholder="for % of tolerance"></div>
+        <div style="display:flex;align-items:flex-end;"><button class="btn ghost" id="grrReset" style="width:100%;justify-content:center;">↺ Reload example data</button></div>
+      </div>
+
+      <div class="grr-scroll" style="margin-top:22px;">
+        <table class="grr" id="grrTable"></table>
+      </div>
+
+      <div class="calc-grid" style="margin-top:30px;">
+        <div>
+          <p class="out-head">Variance components (ANOVA)</p>
+          <div class="grr-scroll"><table class="anova" id="grrAnova"></table></div>
+          <div id="grrNote"></div>
+        </div>
+        <div>
+          <p class="out-head">Gage R&amp;R summary</p>
+          <div class="kpis" id="grrKpis"></div>
+          <div id="grrBadge"></div>
+        </div>
+      </div>
+      <p class="disclaimer">Computed with the <b>ANOVA method</b> (two-way with operator×part interaction). If the interaction is not significant it is pooled into repeatability. Study variation uses 6σ; %contributions are reported on the standard-deviation (study-variation) basis. ndc = 1.41 × (PV / GRR). AIAG guidance: %GRR &lt; 10% acceptable, 10–30% marginal, &gt; 30% unacceptable; ndc ≥ 5.</p>
+    </div>
+
+    <!-- ===== CONTROL LIMITS ===== -->
+    <div class="tabpanel" id="tab-cc" hidden>
+      <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;">
+        <button class="btn ghost cc-mode active" data-mode="xbar">X̄–R (subgroups)</button>
+        <button class="btn ghost cc-mode" data-mode="imr">I–MR (individuals)</button>
+      </div>
+      <div class="calc-grid">
+        <div>
+          <div class="field">
+            <label class="lbl" for="ccData" id="ccLbl">Subgroups — one per line, values separated by spaces or commas</label>
+            <textarea class="in" id="ccData" style="min-height:220px;"></textarea>
+            <div class="hint" id="ccHint">—</div>
+          </div>
+        </div>
+        <div>
+          <p class="out-head">Control limits</p>
+          <div class="grr-scroll"><table class="anova" id="ccLimits"></table></div>
+          <div class="kpis" id="ccKpis" style="margin-top:18px;"></div>
+          <div id="ccBadge"></div>
+        </div>
+      </div>
+      <div class="hist" id="ccChart" style="margin-top:10px;"></div>
+      <p class="disclaimer">X̄–R uses the standard Shewhart constants (A₂, D₃, D₄, d₂) for the detected subgroup size (n = 2–10). I–MR uses a moving range of two (E₂ = 2.66, D₄ = 3.267). σ̂ is estimated from R̄/d₂ (or MR̄/1.128). These are the process's own <b>control</b> limits, not spec limits.</p>
+    </div>
+
+    <!-- ===== SAMPLE SIZE ===== -->
+    <div class="tabpanel" id="tab-ss" hidden>
+      <div class="calc-grid">
+        <div>
+          <div class="field">
+            <label class="lbl">Sample size — estimate a MEAN</label>
+            <div class="row3">
+              <div><label class="lbl" for="ssConfM">Confidence</label><select class="in" id="ssConfM"></select></div>
+              <div><label class="lbl" for="ssE">Margin ±E</label><input class="in" id="ssE" inputmode="decimal"></div>
+              <div><label class="lbl" for="ssSigma">Std dev σ</label><input class="in" id="ssSigma" inputmode="decimal"></div>
+            </div>
+            <div class="hint">n = (Z · σ / E)². Uses your estimate of the process σ.</div>
+          </div>
+          <div class="field" style="margin-top:28px;">
+            <label class="lbl">Sample size — estimate a PROPORTION</label>
+            <div class="row3">
+              <div><label class="lbl" for="ssConfP">Confidence</label><select class="in" id="ssConfP"></select></div>
+              <div><label class="lbl" for="ssEp">Margin ±E</label><input class="in" id="ssEp" inputmode="decimal"></div>
+              <div><label class="lbl" for="ssP">Est. p</label><input class="in" id="ssP" inputmode="decimal"></div>
+            </div>
+            <label class="lbl" for="ssPop" style="margin-top:12px;">Population size (optional — finite correction)</label>
+            <input class="in" id="ssPop" inputmode="decimal" placeholder="leave blank for a large / infinite lot">
+            <div class="hint">n = Z² · p(1−p) / E². p = 0.5 is the worst case (largest n).</div>
+          </div>
+        </div>
+        <div>
+          <p class="out-head">Required n — mean</p>
+          <div class="kpis" id="ssMeanKpis"></div>
+          <p class="out-head" style="margin-top:30px;">Required n — proportion</p>
+          <div class="kpis" id="ssPropKpis"></div>
+        </div>
+      </div>
+      <p class="disclaimer">Large-sample normal approximation. For a proportion with a small lot, enter the population to apply the finite-population correction.</p>
+    </div>
+
+    <!-- ===== SIGMA / CPK REFERENCE ===== -->
+    <div class="tabpanel" id="tab-ref" hidden>
+      <div class="calc-grid">
+        <div>
+          <div class="field">
+            <label class="lbl" for="refCpk">Enter a Cpk / Ppk →</label>
+            <input class="in" id="refCpk" inputmode="decimal">
+            <div class="hint">Converts capability into short-term sigma level, DPMO, and yield (two-sided, centered process).</div>
+          </div>
+        </div>
+        <div>
+          <p class="out-head">Conversion</p>
+          <div class="kpis" id="refKpis"></div>
+        </div>
+      </div>
+      <p class="out-head" style="margin-top:30px;">Reference table</p>
+      <div class="grr-scroll">
+        <table class="anova" id="refTable" style="min-width:520px;"></table>
+      </div>
+      <p class="disclaimer">Short-term sigma level = 3·Cpk + 1.5 (the +1.5 long-term shift convention). DPMO is the two-sided nonconforming fraction for a centered normal process, 2·Φ(−3·Cpk)·10⁶.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <small>© <span id="yr"></span> Aseem Bhandari</small>
+    <small><a href="https://www.linkedin.com/in/aseembhandari21" target="_blank" rel="noopener">LinkedIn</a> · aseembhandari.com</small>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => document.getElementById('nav').classList.remove('open')));
+
+  /* ---------- math helpers ---------- */
+  function erf(x){
+    var s = x < 0 ? -1 : 1; x = Math.abs(x);
+    var t = 1/(1+0.3275911*x);
+    var y = 1-(((((1.061405429*t-1.453152027)*t)+1.421413741)*t-0.284496736)*t+0.254829592)*t*Math.exp(-x*x);
+    return s*y;
+  }
+  function ncdf(z){ return 0.5*(1+erf(z/Math.SQRT2)); }
+  function normInv(p){
+    if(p<=0) return -Infinity; if(p>=1) return Infinity;
+    var a=[-3.969683028665376e+01,2.209460984245205e+02,-2.759285104469687e+02,1.383577518672690e+02,-3.066479806614716e+01,2.506628277459239e+00];
+    var b=[-5.447609879822406e+01,1.615858368580409e+02,-1.556989798598866e+02,6.680131188771972e+01,-1.328068155288572e+01];
+    var c=[-7.784894002430293e-03,-3.223964580411365e-01,-2.400758277161838e+00,-2.549732539343734e+00,4.374664141464968e+00,2.938163982698783e+00];
+    var d=[7.784695709041462e-03,3.224671290700398e-01,2.445134137142996e+00,3.754408661907416e+00];
+    var plow=0.02425, phigh=1-plow, q, r;
+    if(p<plow){ q=Math.sqrt(-2*Math.log(p)); return (((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1); }
+    if(p<=phigh){ q=p-0.5; r=q*q; return (((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5])*q/(((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1); }
+    q=Math.sqrt(-2*Math.log(1-p)); return -(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1);
+  }
+  function parseNums(s){ return (s||'').split(/[\s,;]+/).map(function(x){return parseFloat(x);}).filter(function(x){return !isNaN(x);}); }
+  function fmt(x,d){ if(!isFinite(x)) return '—'; return x.toFixed(d==null?3:d); }
+  function kpi(k,v,u,hi){ return '<div class="kpi'+(hi?' hi':'')+'"><div class="k">'+k+'</div><div class="v">'+v+(u?' <span class="u">'+u+'</span>':'')+'</div></div>'; }
+
+  /* ---------- Cpk / Ppk ---------- */
+  var cpkEls = { data:'cpkData', lsl:'cpkLSL', usl:'cpkUSL', tgt:'cpkTgt' };
+  document.getElementById('cpkData').value =
+    '10.04 10.08 10.07 10.13 10.10 9.96 9.93 9.97 9.93 9.98\n10.10 10.09 10.02 10.03 9.96 9.84 9.88 9.96 9.97 10.04\n10.15 10.10 10.01 10.02 9.96 9.89 9.97 10.06 10.04 10.08';
+  document.getElementById('cpkLSL').value = '9.70';
+  document.getElementById('cpkUSL').value = '10.30';
+  document.getElementById('cpkTgt').value = '10.00';
+
+  function calcCpk(){
+    var x = parseNums(document.getElementById('cpkData').value);
+    var lsl = parseFloat(document.getElementById('cpkLSL').value);
+    var usl = parseFloat(document.getElementById('cpkUSL').value);
+    var nEl = document.getElementById('cpkN');
+    if(x.length < 2){ nEl.textContent = 'Enter at least 2 measurements.'; document.getElementById('cpkKpis').innerHTML=''; document.getElementById('cpkBadge').innerHTML=''; document.getElementById('cpkHist').innerHTML=''; return; }
+    var n = x.length;
+    var mean = x.reduce(function(a,b){return a+b;},0)/n;
+    var ss = x.reduce(function(a,b){return a+(b-mean)*(b-mean);},0);
+    var sdOverall = Math.sqrt(ss/(n-1));
+    // within sigma from average moving range
+    var mrSum=0; for(var i=1;i<n;i++) mrSum += Math.abs(x[i]-x[i-1]);
+    var mrBar = mrSum/(n-1);
+    var sdWithin = mrBar/1.128;
+    nEl.textContent = 'n = '+n+'   ·   x̄ = '+fmt(mean,4)+'   ·   overall σ = '+fmt(sdOverall,4)+'   ·   within σ = '+fmt(sdWithin,4);
+
+    var hasL = isFinite(lsl), hasU = isFinite(usl);
+    function cap(sd){
+      var cp=NaN, cpk=NaN, cpu=NaN, cpl=NaN;
+      if(hasU) cpu=(usl-mean)/(3*sd);
+      if(hasL) cpl=(mean-lsl)/(3*sd);
+      if(hasL&&hasU) cp=(usl-lsl)/(6*sd);
+      if(hasL&&hasU) cpk=Math.min(cpu,cpl);
+      else if(hasU) cpk=cpu;
+      else if(hasL) cpk=cpl;
+      return {cp:cp,cpk:cpk};
+    }
+    var shortC = cap(sdWithin), longC = cap(sdOverall);
+    // DPMO / yield from overall fit
+    var pOut = 0;
+    if(hasL) pOut += ncdf((lsl-mean)/sdOverall);
+    if(hasU) pOut += 1-ncdf((usl-mean)/sdOverall);
+    if(pOut>1) pOut=1; if(pOut<0) pOut=0;
+    var dpmo = pOut*1e6;
+    var yield = (1-pOut)*100;
+    var zbench = normInv(1-pOut);
+
+    var html = '';
+    html += kpi('Cp', fmt(shortC.cp,2), '', false);
+    html += kpi('Cpk', fmt(shortC.cpk,2), '', true);
+    html += kpi('Pp', fmt(longC.cp,2), '', false);
+    html += kpi('Ppk', fmt(longC.cpk,2), '', true);
+    html += kpi('Est. DPMO', isFinite(dpmo)? Math.round(dpmo).toLocaleString() : '—', '', false);
+    html += kpi('Est. yield', fmt(yield,3), '%', false);
+    html += kpi('Sigma level', isFinite(zbench)? fmt(zbench+1.5,2) : '—', 'σ (ST)', false);
+    html += kpi('Z bench', isFinite(zbench)? fmt(zbench,2) : '—', '', false);
+    document.getElementById('cpkKpis').innerHTML = html;
+
+    var v = shortC.cpk;
+    var bClass='bad', bText='Cpk < 1.00 — not capable';
+    if(v>=1.67){ bClass='good'; bText='Cpk ≥ 1.67 — excellent'; }
+    else if(v>=1.33){ bClass='good'; bText='Cpk ≥ 1.33 — capable'; }
+    else if(v>=1.00){ bClass='warn'; bText='1.00 ≤ Cpk < 1.33 — marginal'; }
+    document.getElementById('cpkBadge').innerHTML = isFinite(v) ? '<span class="badge '+bClass+'">● '+bText+'</span>' : '';
+    document.getElementById('cpkHist').innerHTML = histSVG(x, lsl, usl, mean);
+  }
+
+  function histSVG(data,lsl,usl,mean){
+    var W=680,H=210,pad=34;
+    var lo=Math.min.apply(null,data), hi=Math.max.apply(null,data);
+    if(isFinite(lsl)) lo=Math.min(lo,lsl);
+    if(isFinite(usl)) hi=Math.max(hi,usl);
+    if(hi===lo){ hi=lo+1; }
+    var span=hi-lo; lo-=span*0.06; hi+=span*0.06; span=hi-lo;
+    var bins=14, counts=[]; for(var b=0;b<bins;b++) counts[b]=0;
+    data.forEach(function(v){ var idx=Math.floor((v-lo)/span*bins); if(idx<0)idx=0; if(idx>=bins)idx=bins-1; counts[idx]++; });
+    var maxc=Math.max.apply(null,counts)||1;
+    var bw=(W-2*pad)/bins, bars='';
+    for(var i=0;i<bins;i++){
+      var h=(counts[i]/maxc)*(H-2*pad-6);
+      var x=pad+i*bw, yy=H-pad-h;
+      bars+='<rect x="'+(x+1.5).toFixed(1)+'" y="'+yy.toFixed(1)+'" width="'+(bw-3).toFixed(1)+'" height="'+h.toFixed(1)+'" fill="var(--copper-bright)" opacity="0.72" rx="1"/>';
+    }
+    function xOf(v){ return pad+(v-lo)/span*(W-2*pad); }
+    function vline(v,color,label,dash){ if(!isFinite(v)) return ''; var x=xOf(v).toFixed(1); return '<line x1="'+x+'" y1="'+(pad-4)+'" x2="'+x+'" y2="'+(H-pad)+'" stroke="'+color+'" stroke-width="1.6"'+(dash?' stroke-dasharray="4 3"':'')+'/><text x="'+x+'" y="'+(pad-8)+'" fill="'+color+'" font-size="11" font-family="monospace" text-anchor="middle">'+label+'</text>'; }
+    var axis='<line x1="'+pad+'" y1="'+(H-pad)+'" x2="'+(W-pad)+'" y2="'+(H-pad)+'" stroke="var(--line)" stroke-width="1"/>';
+    var lines=vline(lsl,'var(--copper-text)','LSL',true)+vline(usl,'var(--copper-text)','USL',true)+vline(mean,'var(--ink)','x̄',false);
+    return '<svg viewBox="0 0 '+W+' '+H+'" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Histogram of measurements with spec limits">'+axis+bars+lines+'</svg>';
+  }
+
+  ['cpkData','cpkLSL','cpkUSL','cpkTgt'].forEach(function(id){ document.getElementById(id).addEventListener('input', calcCpk); });
+
+  /* ---------- Yield / DPMO / Sigma ---------- */
+  document.getElementById('yUnits').value='1200';
+  document.getElementById('yDef').value='18';
+  document.getElementById('yOpp').value='5';
+  document.getElementById('rtyData').value='99.2\n98.5\n99.8\n97.9';
+
+  function calcYield(){
+    var units=parseFloat(document.getElementById('yUnits').value);
+    var defects=parseFloat(document.getElementById('yDef').value);
+    var opp=parseFloat(document.getElementById('yOpp').value);
+    var out='';
+    if(units>0 && isFinite(defects) && opp>0){
+      var dpu=defects/units;
+      var dpo=defects/(units*opp);
+      var dpmo=dpo*1e6;
+      var ty=Math.exp(-dpu)*100;
+      var zbench=normInv(1-dpo);
+      var sigma=isFinite(zbench)? zbench+1.5 : NaN;
+      out += kpi('DPU', fmt(dpu,4), '', false);
+      out += kpi('DPMO', Math.round(dpmo).toLocaleString(), '', true);
+      out += kpi('Throughput yield', fmt(ty,3), '%', false);
+      out += kpi('Process sigma', isFinite(sigma)? fmt(sigma,2):'—', 'σ (ST)', true);
+      document.getElementById('yKpis').innerHTML=out;
+      var s=sigma, bc='bad', bt='< 3σ — needs work';
+      if(s>=6){bc='good';bt='≥ 6σ — world class';} else if(s>=4.5){bc='good';bt='≥ 4.5σ — strong';} else if(s>=3){bc='warn';bt='3–4.5σ — typical';}
+      document.getElementById('yBadge').innerHTML = isFinite(s)?'<span class="badge '+bc+'">● '+bt+'</span>':'';
+    } else { document.getElementById('yKpis').innerHTML=''; document.getElementById('yBadge').innerHTML=''; }
+
+    var ys=parseNums(document.getElementById('rtyData').value).filter(function(v){return v>0;});
+    if(ys.length){
+      var rty=ys.reduce(function(a,b){return a*(b/100);},1);
+      var norm=Math.pow(rty, 1/ys.length);
+      document.getElementById('rtyKpis').innerHTML =
+        kpi('Steps', ys.length, '', false) +
+        kpi('RTY', fmt(rty*100,3), '%', true) +
+        kpi('Normalized yield', fmt(norm*100,3), '% / step', false) +
+        kpi('Total fallout', fmt((1-rty)*100,3), '%', false);
+    } else { document.getElementById('rtyKpis').innerHTML=''; }
+  }
+  ['yUnits','yDef','yOpp','rtyData'].forEach(function(id){ document.getElementById(id).addEventListener('input', calcYield); });
+
+  /* ---------- Gage R&R (ANOVA) ---------- */
+  var OPNAMES=['A','B','C','D'];
+  function fillSelect(id, min, max, def){
+    var s=document.getElementById(id);
+    for(var v=min;v<=max;v++){ var o=document.createElement('option'); o.value=v; o.textContent=v; if(v===def)o.selected=true; s.appendChild(o); }
+  }
+  fillSelect('grrParts',2,10,10); fillSelect('grrOps',2,3,3); fillSelect('grrTrials',2,3,3);
+
+  function exampleValue(i,j,k){
+    // deterministic, realistic: part effect + operator bias + trial/cell noise (no RNG)
+    var partBase=[10.00,10.55,9.70,10.80,10.10,9.55,10.35,10.65,9.40,10.20];
+    var opBias=[0.00,0.06,-0.04,0.02];
+    var base=partBase[i % partBase.length] + opBias[j % opBias.length];
+    var jitter=(((i*7 + j*13 + k*17) % 7) - 3) * 0.012; // small spread for repeatability
+    var trial=(k*0.008);
+    return +(base + jitter + trial).toFixed(3);
+  }
+  function buildGrrTable(fill){
+    var p=+document.getElementById('grrParts').value;
+    var o=+document.getElementById('grrOps').value;
+    var r=+document.getElementById('grrTrials').value;
+    var t=document.getElementById('grrTable');
+    var prev = fill ? null : readGrr(p,o,r,true); // preserve if possible
+    var head='<tr><th>Operator</th><th>Trial</th>';
+    for(var i=0;i<p;i++) head+='<th>Part '+(i+1)+'</th>';
+    head+='</tr>';
+    var body='';
+    for(var j=0;j<o;j++){
+      for(var k=0;k<r;k++){
+        body+='<tr>';
+        body+= k===0 ? '<td class="rowlbl" rowspan="'+r+'">'+OPNAMES[j]+'</td>' : '';
+        body+='<td class="rowlbl">'+(k+1)+'</td>';
+        for(var i2=0;i2<p;i2++){
+          var val = fill ? exampleValue(i2,j,k) : (prev && prev[i2] && prev[i2][j] && prev[i2][j][k]!=null ? prev[i2][j][k] : exampleValue(i2,j,k));
+          body+='<td><input inputmode="decimal" data-i="'+i2+'" data-j="'+j+'" data-k="'+k+'" value="'+val+'"></td>';
+        }
+        body+='</tr>';
+      }
+    }
+    t.innerHTML=head+body;
+    t.querySelectorAll('input').forEach(function(inp){ inp.addEventListener('input', calcGrr); });
+    calcGrr();
+  }
+  function readGrr(p,o,r,silent){
+    var y=[]; for(var i=0;i<p;i++){ y[i]=[]; for(var j=0;j<o;j++){ y[i][j]=[]; } }
+    var ok=true;
+    document.querySelectorAll('#grrTable input').forEach(function(inp){
+      var i=+inp.dataset.i, j=+inp.dataset.j, k=+inp.dataset.k, v=parseFloat(inp.value);
+      if(i<p&&j<o&&k<r){ if(isNaN(v)){ ok=false; } y[i][j][k]=isNaN(v)?null:v; }
+    });
+    y._ok=ok;
+    return y;
+  }
+  function computeGRR(y,p,o,r){
+    var i,j,k,n=p*o*r,grand=0;
+    for(i=0;i<p;i++)for(j=0;j<o;j++)for(k=0;k<r;k++) grand+=y[i][j][k];
+    grand/=n;
+    var partMean=[],operMean=[],cellMean=[];
+    for(i=0;i<p;i++){cellMean[i]=[];}
+    for(i=0;i<p;i++)for(j=0;j<o;j++){ var s=0; for(k=0;k<r;k++)s+=y[i][j][k]; cellMean[i][j]=s/r; }
+    for(i=0;i<p;i++){ var s=0; for(j=0;j<o;j++)for(k=0;k<r;k++)s+=y[i][j][k]; partMean[i]=s/(o*r); }
+    for(j=0;j<o;j++){ var s=0; for(i=0;i<p;i++)for(k=0;k<r;k++)s+=y[i][j][k]; operMean[j]=s/(p*r); }
+    var SSpart=0; for(i=0;i<p;i++) SSpart+=Math.pow(partMean[i]-grand,2); SSpart*=o*r;
+    var SSoper=0; for(j=0;j<o;j++) SSoper+=Math.pow(operMean[j]-grand,2); SSoper*=p*r;
+    var SSint=0; for(i=0;i<p;i++)for(j=0;j<o;j++) SSint+=Math.pow(cellMean[i][j]-partMean[i]-operMean[j]+grand,2); SSint*=r;
+    var SSequip=0; for(i=0;i<p;i++)for(j=0;j<o;j++)for(k=0;k<r;k++) SSequip+=Math.pow(y[i][j][k]-cellMean[i][j],2);
+    var dfPart=p-1,dfOper=o-1,dfInt=(p-1)*(o-1),dfEquip=p*o*(r-1);
+    var MSpart=SSpart/dfPart,MSoper=SSoper/dfOper,MSint=dfInt>0?SSint/dfInt:0,MSequip=dfEquip>0?SSequip/dfEquip:0;
+    var vEquip=MSequip, vInt=(MSint-MSequip)/r, vOper, vPart, note='';
+    if(vInt<0 || dfInt===0){
+      vInt=0;
+      var SSerr=SSequip+SSint, dfErr=dfEquip+dfInt, MSerr=SSerr/dfErr;
+      vEquip=MSerr;
+      vOper=(MSoper-MSerr)/(p*r);
+      vPart=(MSpart-MSerr)/(o*r);
+      note='Operator × Part interaction was negligible, so it was pooled into repeatability (reduced ANOVA model).';
+    } else {
+      vOper=(MSoper-MSint)/(p*r);
+      vPart=(MSpart-MSint)/(o*r);
+    }
+    if(vOper<0)vOper=0; if(vPart<0)vPart=0; if(vEquip<0)vEquip=0;
+    var repeat=vEquip, reprod=vOper+vInt, grr=repeat+reprod, total=grr+vPart;
+    return { vPart:vPart,repeat:repeat,reprod:reprod,vOper:vOper,vInt:vInt,grr:grr,total:total,note:note };
+  }
+
+  function calcGrr(){
+    var p=+document.getElementById('grrParts').value, o=+document.getElementById('grrOps').value, r=+document.getElementById('grrTrials').value;
+    var y=readGrr(p,o,r);
+    if(!y._ok){ document.getElementById('grrKpis').innerHTML='<div class="kpi"><div class="k">Waiting</div><div class="v" style="font-size:1rem;">Fill every cell…</div></div>'; document.getElementById('grrAnova').innerHTML=''; document.getElementById('grrBadge').innerHTML=''; document.getElementById('grrNote').innerHTML=''; return; }
+    var R=computeGRR(y,p,o,r);
+    var tol=parseFloat(document.getElementById('grrTol').value);
+    function sv(v){ return 6*Math.sqrt(Math.max(v,0)); }
+    function pct(v){ return R.total>0 ? Math.sqrt(v/R.total)*100 : 0; }
+    var pctGRR=pct(R.grr);
+    var ndc = R.grr>0 ? Math.floor(1.41*Math.sqrt(R.vPart/R.grr)) : 0;
+
+    // ANOVA-style component table (variance + study var + %)
+    var rows=[
+      ['Repeatability (EV)', R.repeat],
+      ['Reproducibility (AV)', R.reprod],
+      ['Gage R&R', R.grr],
+      ['Part-to-part (PV)', R.vPart],
+      ['Total variation (TV)', R.total]
+    ];
+    var at='<tr><th>Source</th><th>Variance</th><th>Study var (6σ)</th><th>% study</th></tr>';
+    rows.forEach(function(row){
+      at+='<tr><td>'+row[0]+'</td><td>'+fmt(row[1],5)+'</td><td>'+fmt(sv(row[1]),4)+'</td><td>'+fmt(pct(row[1]),1)+'%</td></tr>';
+    });
+    document.getElementById('grrAnova').innerHTML=at;
+
+    var k='';
+    k+=kpi('% Gage R&R', fmt(pctGRR,1), '%', true);
+    k+=kpi('ndc', ndc, 'categories', true);
+    k+=kpi('% Repeatability', fmt(pct(R.repeat),1), '%', false);
+    k+=kpi('% Reproducibility', fmt(pct(R.reprod),1), '%', false);
+    if(isFinite(tol) && tol>0){
+      k+=kpi('% of tolerance', fmt(sv(R.grr)/tol*100,1), '%', false);
+      k+=kpi('% Part-to-part', fmt(pct(R.vPart),1), '%', false);
+    } else {
+      k+=kpi('% Part-to-part', fmt(pct(R.vPart),1), '%', false);
+      k+=kpi('Total study var', fmt(sv(R.total),4), '', false);
+    }
+    document.getElementById('grrKpis').innerHTML=k;
+
+    var bc='bad', bt='%GRR > 30% — unacceptable';
+    if(pctGRR<10){ bc='good'; bt='%GRR < 10% — acceptable'; }
+    else if(pctGRR<=30){ bc='warn'; bt='%GRR 10–30% — marginal'; }
+    var ndcNote = ndc>=5 ? '' : '  ·  ndc < 5';
+    document.getElementById('grrBadge').innerHTML='<span class="badge '+bc+'">● '+bt+ndcNote+'</span>';
+    document.getElementById('grrNote').innerHTML = R.note ? '<div class="note-line">'+R.note+'</div>' : '';
+  }
+
+  document.getElementById('grrParts').addEventListener('change', function(){ buildGrrTable(false); });
+  document.getElementById('grrOps').addEventListener('change', function(){ buildGrrTable(false); });
+  document.getElementById('grrTrials').addEventListener('change', function(){ buildGrrTable(false); });
+  document.getElementById('grrTol').addEventListener('input', calcGrr);
+  document.getElementById('grrReset').addEventListener('click', function(){ buildGrrTable(true); });
+
+  /* ---------- Control chart limits ---------- */
+  var CC_K={2:{A2:1.880,D3:0,D4:3.267,d2:1.128},3:{A2:1.023,D3:0,D4:2.574,d2:1.693},4:{A2:0.729,D3:0,D4:2.282,d2:2.059},5:{A2:0.577,D3:0,D4:2.114,d2:2.326},6:{A2:0.483,D3:0,D4:2.004,d2:2.534},7:{A2:0.419,D3:0.076,D4:1.924,d2:2.704},8:{A2:0.373,D3:0.136,D4:1.864,d2:2.847},9:{A2:0.337,D3:0.184,D4:1.816,d2:2.970},10:{A2:0.308,D3:0.223,D4:1.777,d2:3.078}};
+  var ccMode='xbar';
+  function ccExampleXbar(){ var rows=[]; for(var s=0;s<12;s++){ var r=[]; for(var m=0;m<5;m++){ r.push((10 + 0.08*Math.sin(s*0.6+m) + 0.05*Math.cos(s*1.3+m*0.7)).toFixed(2)); } rows.push(r.join(' ')); } return rows.join('\n'); }
+  function ccExampleImr(){ var r=[]; for(var i=0;i<24;i++){ r.push((10 + 0.10*Math.sin(i*0.5) + 0.06*Math.sin(i*1.7+1)).toFixed(2)); } return r.join('\n'); }
+  function ccChartSVG(pts,ucl,cl,lcl,title){
+    var W=680,H=230,padL=54,padR=54,padT=20,padB=20;
+    var lo=Math.min(lcl,Math.min.apply(null,pts)), hi=Math.max(ucl,Math.max.apply(null,pts));
+    var span=(hi-lo)||1; lo-=span*0.12; hi+=span*0.12; span=hi-lo;
+    function xOf(i){ return padL+(pts.length<=1?0:i/(pts.length-1)*(W-padL-padR)); }
+    function yOf(v){ return padT+(1-(v-lo)/span)*(H-padT-padB); }
+    function hline(v,color,dash,label){ var y=yOf(v).toFixed(1); return '<line x1="'+padL+'" y1="'+y+'" x2="'+(W-padR)+'" y2="'+y+'" stroke="'+color+'" stroke-width="1.2"'+(dash?' stroke-dasharray="5 3"':'')+'/><text x="'+(W-padR+4)+'" y="'+(+y+3)+'" fill="'+color+'" font-size="10" font-family="monospace">'+label+'</text>'; }
+    var path=''; pts.forEach(function(v,i){ path+=(i?'L':'M')+xOf(i).toFixed(1)+' '+yOf(v).toFixed(1)+' '; });
+    var dots=''; pts.forEach(function(v,i){ var ooc=(v>ucl||v<lcl); dots+='<circle cx="'+xOf(i).toFixed(1)+'" cy="'+yOf(v).toFixed(1)+'" r="'+(ooc?4.5:3)+'" fill="'+(ooc?'var(--bad)':'var(--ink)')+'"/>'; });
+    return '<svg viewBox="0 0 '+W+' '+H+'" width="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+title+'">'+
+      hline(ucl,'var(--copper-text)',true,'UCL')+hline(cl,'var(--ink-soft)',false,'CL')+hline(lcl,'var(--copper-text)',true,'LCL')+
+      '<path d="'+path+'" fill="none" stroke="var(--copper-bright)" stroke-width="1.4"/>'+dots+'</svg>';
+  }
+  function setupCC(){
+    document.getElementById('ccData').value=ccExampleXbar();
+    document.getElementById('ccData').addEventListener('input', calcCC);
+    document.querySelectorAll('.cc-mode').forEach(function(b){
+      b.addEventListener('click', function(){
+        document.querySelectorAll('.cc-mode').forEach(function(x){ x.classList.remove('active'); });
+        b.classList.add('active'); ccMode=b.dataset.mode;
+        document.getElementById('ccLbl').textContent = ccMode==='xbar' ? 'Subgroups — one per line, values separated by spaces or commas' : 'Individual measurements — one per line (or any list)';
+        document.getElementById('ccData').value = ccMode==='xbar' ? ccExampleXbar() : ccExampleImr();
+        calcCC();
+      });
+    });
+    calcCC();
+  }
+  function calcCC(){
+    var limitsEl=document.getElementById('ccLimits'), kpiEl=document.getElementById('ccKpis'), badgeEl=document.getElementById('ccBadge'), chartEl=document.getElementById('ccChart'), hintEl=document.getElementById('ccHint');
+    function clear(msg){ hintEl.textContent=msg; limitsEl.innerHTML=''; kpiEl.innerHTML=''; badgeEl.innerHTML=''; chartEl.innerHTML=''; }
+    var text=document.getElementById('ccData').value;
+    if(ccMode==='imr'){
+      var x=parseNums(text);
+      if(x.length<2){ clear('Enter at least 2 values.'); return; }
+      var n=x.length, xbar=x.reduce(function(a,b){return a+b;},0)/n;
+      var mrSum=0; for(var i=1;i<n;i++) mrSum+=Math.abs(x[i]-x[i-1]); var mrBar=mrSum/(n-1);
+      var sigma=mrBar/1.128, iUCL=xbar+2.66*mrBar, iLCL=xbar-2.66*mrBar, mUCL=3.267*mrBar;
+      hintEl.textContent='n = '+n+' individuals   ·   x̄ = '+fmt(xbar,4)+'   ·   MR̄ = '+fmt(mrBar,4);
+      limitsEl.innerHTML='<tr><th>Chart</th><th>UCL</th><th>CL</th><th>LCL</th></tr>'+
+        '<tr><td>Individuals (I)</td><td>'+fmt(iUCL,4)+'</td><td>'+fmt(xbar,4)+'</td><td>'+fmt(iLCL,4)+'</td></tr>'+
+        '<tr><td>Moving range (MR)</td><td>'+fmt(mUCL,4)+'</td><td>'+fmt(mrBar,4)+'</td><td>0.0000</td></tr>';
+      var ooc=x.filter(function(v){return v>iUCL||v<iLCL;}).length;
+      kpiEl.innerHTML=kpi('Est. σ (MR̄/1.128)',fmt(sigma,4),'',true)+kpi('Out of control',ooc,'points',false);
+      badgeEl.innerHTML= ooc? '<span class="badge warn">● '+ooc+' point(s) beyond limits</span>' : '<span class="badge good">● All points in control</span>';
+      chartEl.innerHTML=ccChartSVG(x,iUCL,xbar,iLCL,'Individuals chart');
+    } else {
+      var lines=text.split(/\n/).map(function(l){return parseNums(l);}).filter(function(a){return a.length>=2;});
+      if(!lines.length){ clear('Enter subgroups, one per line.'); return; }
+      var nsz=lines[0].length, subs=lines.filter(function(a){return a.length===nsz;});
+      if(nsz<2||nsz>10){ clear('Subgroup size must be 2–10 (found '+nsz+').'); return; }
+      var K=CC_K[nsz];
+      var means=subs.map(function(a){return a.reduce(function(x,y){return x+y;},0)/a.length;});
+      var ranges=subs.map(function(a){return Math.max.apply(null,a)-Math.min.apply(null,a);});
+      var xbb=means.reduce(function(a,b){return a+b;},0)/means.length;
+      var rbar=ranges.reduce(function(a,b){return a+b;},0)/ranges.length;
+      var xUCL=xbb+K.A2*rbar, xLCL=xbb-K.A2*rbar, rUCL=K.D4*rbar, rLCL=K.D3*rbar, sigma=rbar/K.d2;
+      hintEl.textContent=subs.length+' subgroups · n='+nsz+'   ·   X̿ = '+fmt(xbb,4)+'   ·   R̄ = '+fmt(rbar,4);
+      limitsEl.innerHTML='<tr><th>Chart</th><th>UCL</th><th>CL</th><th>LCL</th></tr>'+
+        '<tr><td>X̄ (averages)</td><td>'+fmt(xUCL,4)+'</td><td>'+fmt(xbb,4)+'</td><td>'+fmt(xLCL,4)+'</td></tr>'+
+        '<tr><td>R (ranges)</td><td>'+fmt(rUCL,4)+'</td><td>'+fmt(rbar,4)+'</td><td>'+fmt(rLCL,4)+'</td></tr>';
+      var ooc=means.filter(function(v){return v>xUCL||v<xLCL;}).length + ranges.filter(function(v){return v>rUCL||v<rLCL;}).length;
+      kpiEl.innerHTML=kpi('Est. σ (R̄/d₂)',fmt(sigma,4),'',true)+kpi('Out of control',ooc,'points',false);
+      badgeEl.innerHTML= ooc? '<span class="badge warn">● '+ooc+' point(s) beyond limits</span>' : '<span class="badge good">● All points in control</span>';
+      chartEl.innerHTML=ccChartSVG(means,xUCL,xbb,xLCL,'X-bar chart');
+    }
+  }
+
+  /* ---------- Sample size ---------- */
+  function fillConf(id){ var s=document.getElementById(id); [['90%',0.90],['95%',0.95],['99%',0.99]].forEach(function(o){ var op=document.createElement('option'); op.value=o[1]; op.textContent=o[0]; if(o[1]===0.95)op.selected=true; s.appendChild(op); }); }
+  function zForConf(c){ return normInv(1-(1-c)/2); }
+  function setupSS(){
+    fillConf('ssConfM'); fillConf('ssConfP');
+    document.getElementById('ssE').value='0.05'; document.getElementById('ssSigma').value='0.20';
+    document.getElementById('ssEp').value='0.05'; document.getElementById('ssP').value='0.5';
+    ['ssConfM','ssE','ssSigma','ssConfP','ssEp','ssP','ssPop'].forEach(function(id){ var el=document.getElementById(id); el.addEventListener('input', calcSS); el.addEventListener('change', calcSS); });
+    calcSS();
+  }
+  function calcSS(){
+    var cM=parseFloat(document.getElementById('ssConfM').value), E=parseFloat(document.getElementById('ssE').value), sig=parseFloat(document.getElementById('ssSigma').value);
+    if(E>0 && sig>0){ var z=zForConf(cM); var n=Math.ceil(Math.pow(z*sig/E,2)); document.getElementById('ssMeanKpis').innerHTML=kpi('Z',fmt(z,3),'',false)+kpi('Sample size n',n,'units',true); }
+    else document.getElementById('ssMeanKpis').innerHTML='';
+    var cP=parseFloat(document.getElementById('ssConfP').value), Ep=parseFloat(document.getElementById('ssEp').value), p=parseFloat(document.getElementById('ssP').value), N=parseFloat(document.getElementById('ssPop').value);
+    if(Ep>0 && p>=0 && p<=1){ var z2=zForConf(cP); var n0=Math.pow(z2,2)*p*(1-p)/Math.pow(Ep,2); var nn=n0; if(isFinite(N)&&N>0){ nn=n0/(1+(n0-1)/N); } nn=Math.ceil(nn); document.getElementById('ssPropKpis').innerHTML=kpi('Z',fmt(z2,3),'',false)+kpi('Sample size n',nn,'units',true); }
+    else document.getElementById('ssPropKpis').innerHTML='';
+  }
+
+  /* ---------- Sigma / Cpk reference ---------- */
+  function refRow(c){ var z=3*c; var dpmo=2*(1-ncdf(z))*1e6; return {cpk:c,z:z,sigma:z+1.5,dpmo:dpmo,yield:(1-dpmo/1e6)*100}; }
+  function setupRef(){
+    var vals=[0.33,0.50,0.67,1.00,1.33,1.67,2.00];
+    var t='<tr><th>Cpk / Ppk</th><th>Z (3·Cpk)</th><th>Sigma (ST)</th><th>DPMO</th><th>Yield %</th></tr>';
+    vals.forEach(function(c){ var r=refRow(c); t+='<tr><td>'+c.toFixed(2)+'</td><td>'+fmt(r.z,2)+'</td><td>'+fmt(r.sigma,2)+'</td><td>'+Math.round(r.dpmo).toLocaleString()+'</td><td>'+fmt(r.yield,4)+'</td></tr>'; });
+    document.getElementById('refTable').innerHTML=t;
+    document.getElementById('refCpk').value='1.33';
+    document.getElementById('refCpk').addEventListener('input', calcRef);
+    calcRef();
+  }
+  function calcRef(){
+    var c=parseFloat(document.getElementById('refCpk').value);
+    if(!(c>0)){ document.getElementById('refKpis').innerHTML=''; return; }
+    var r=refRow(c);
+    document.getElementById('refKpis').innerHTML=
+      kpi('Z (3·Cpk)',fmt(r.z,2),'',false)+kpi('Sigma level',fmt(r.sigma,2),'σ (ST)',true)+
+      kpi('DPMO',Math.round(r.dpmo).toLocaleString(),'',true)+kpi('Yield',fmt(r.yield,4),'%',false);
+  }
+
+  /* ---------- tabs ---------- */
+  var built={cpk:false,yield:false,grr:false,cc:false,ss:false,ref:false};
+  function initTab(name){
+    if(built[name]) return; built[name]=true;
+    if(name==='cpk') calcCpk();
+    if(name==='yield') calcYield();
+    if(name==='grr') buildGrrTable(true);
+    if(name==='cc') setupCC();
+    if(name==='ss') setupSS();
+    if(name==='ref') setupRef();
+  }
+  document.querySelectorAll('.tab').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.tab').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var name=btn.dataset.tab;
+      document.querySelectorAll('.tabpanel').forEach(function(pnl){ pnl.hidden = (pnl.id!=='tab-'+name); });
+      initTab(name);
+    });
+  });
+  initTab('cpk'); // first tab visible on load
+</script>
+<script src="enhance.js"></script>
+</body>
+</html>

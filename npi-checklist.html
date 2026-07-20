@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NPI Readiness Checklist — Aseem Bhandari</title>
+<meta name="description" content="An interactive New Product Introduction (NPI) readiness checklist — the questions worth answering before a pilot build: DFM, BOM, fixtures, test coverage, traceability, and exit criteria.">
+<link rel="canonical" href="https://aseembhandari.com/npi-checklist.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aseem Bhandari">
+<meta property="og:title" content="NPI Readiness Checklist">
+<meta property="og:description" content="The questions worth answering before a pilot build — an interactive readiness checklist covering DFM, BOM, fixtures, test coverage, traceability, and exit criteria.">
+<meta property="og:url" content="https://aseembhandari.com/npi-checklist.html">
+<meta property="og:image" content="https://aseembhandari.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://aseembhandari.com/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* progress header */
+  .ck-progress { position: sticky; top: 64px; z-index: 40; background: rgba(var(--bg-rgb),.9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); padding: 16px 0; }
+  .ck-progress .wrap { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .ck-bar { flex: 1; min-width: 180px; height: 8px; background: var(--line); border-radius: 100px; overflow: hidden; }
+  .ck-bar > i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--copper), var(--copper-bright)); transition: width .35s var(--ease); }
+  .ck-count { font-family: 'IBM Plex Mono', monospace; font-size: .78rem; color: var(--ink-soft); letter-spacing: .04em; white-space: nowrap; }
+  .ck-count b { color: var(--copper-text); font-weight: 600; }
+  .ck-verdict { font-family: 'IBM Plex Mono', monospace; font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; padding: 5px 11px; border-radius: 100px; border: 1px solid var(--line); color: var(--ink-faint); white-space: nowrap; }
+  .ck-verdict.go { color: var(--good); border-color: var(--good-border); background: var(--good-bg); }
+  .ck-verdict.warn { color: var(--warn); border-color: var(--warn-border); background: var(--warn-bg); }
+
+  /* category groups */
+  .ck-group { margin: 40px 0; }
+  .ck-group > .ghead { display: flex; align-items: baseline; gap: 14px; border-bottom: 1px solid var(--line); padding-bottom: 12px; margin-bottom: 6px; }
+  .ck-group .gnum { font-family: 'IBM Plex Mono', monospace; font-size: .72rem; color: var(--copper-text); letter-spacing: .1em; }
+  .ck-group .gname { font-family: 'Fraunces', serif; font-size: 1.5rem; color: var(--ink); }
+  .ck-group .gcount { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: .72rem; color: var(--ink-faint); }
+
+  .ck-item { display: flex; gap: 14px; align-items: flex-start; padding: 15px 8px; border-bottom: 1px solid var(--line-soft); cursor: pointer; transition: background .2s var(--ease); }
+  .ck-item:hover { background: rgba(199,123,60,.05); }
+  .ck-item input { appearance: none; -webkit-appearance: none; margin: 2px 0 0; min-width: 22px; height: 22px; border: 1.5px solid var(--line); border-radius: 5px; background: var(--bg-card); cursor: pointer; position: relative; transition: border-color .2s var(--ease), background .2s var(--ease); }
+  .ck-item input:checked { background: var(--copper); border-color: var(--copper); }
+  .ck-item input:focus-visible { outline: 2px solid var(--copper); outline-offset: 2px; }
+  .ck-item input:checked::after { content: '✓'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #fff; font-size: .8rem; font-weight: 700; }
+  .ck-item .body .q { color: var(--ink); font-size: .98rem; }
+  .ck-item.done .body .q { color: var(--ink-faint); text-decoration: line-through; }
+  .ck-item .body .hint { display: block; color: var(--ink-soft); font-size: .84rem; margin-top: 3px; }
+
+  .ck-actions { display: flex; gap: 14px; flex-wrap: wrap; margin: 40px 0 8px; }
+  .ck-note { font-family: 'IBM Plex Mono', monospace; font-size: .74rem; color: var(--ink-faint); margin-top: 18px; }
+
+  @media print {
+    .nav, .ck-progress, .ck-actions, .foot, .back-link, .scroll-progress { display: none !important; }
+    .ck-item input { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { background: #fff; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="index.html" class="brand">Aseem <b>Bhandari</b></a>
+    <button class="nav-toggle" aria-label="Menu" aria-controls="nav" aria-expanded="false" onclick="var n=document.getElementById('nav');this.setAttribute('aria-expanded', n.classList.toggle('open'))">≡</button>
+    <nav class="nav-links" id="nav">
+      <a href="index.html#about">About</a>
+      <a href="index.html#capabilities">Capabilities</a>
+      <a href="index.html#work">Work</a>
+      <a href="blog.html">Writing</a>
+      <a href="index.html#hub">Knowledge Hub</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="detail-hero">
+  <div class="wrap">
+    <a href="index.html#hub" class="back-link">← Back to Knowledge Hub</a>
+    <span class="eyebrow" style="display:block;margin-top:22px;">Interactive tool</span>
+    <h1>NPI Readiness Checklist.</h1>
+    <p class="lede" style="max-width:62ch;">The questions worth answering before you commit to a pilot build. Work through each section — the bar tracks your readiness, your answers save in this browser, and you can print or export the result as a sign-off sheet.</p>
+  </div>
+</section>
+
+<div class="ck-progress">
+  <div class="wrap">
+    <div class="ck-bar"><i id="barFill"></i></div>
+    <span class="ck-count"><b id="ckDone">0</b> / <span id="ckTotal">0</span> ready</span>
+    <span class="ck-verdict" id="verdict">Not started</span>
+  </div>
+</div>
+
+<section style="border-top:0;padding-top:40px;">
+  <div class="wrap">
+    <div id="checklist"></div>
+
+    <div class="ck-actions">
+      <button class="btn solid" onclick="window.print()">⎙ Print / save as PDF</button>
+      <button class="btn ghost" id="resetBtn">↺ Reset checklist</button>
+      <a class="btn ghost" href="index.html#contact">Need help getting to a build? →</a>
+    </div>
+    <p class="ck-note">Your progress is stored locally in this browser only — nothing is uploaded. This is a starting framework, not a substitute for your program's own gate criteria.</p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <small>© <span id="yr"></span> Aseem Bhandari</small>
+    <small><a href="https://www.linkedin.com/in/aseembhandari21" target="_blank" rel="noopener">LinkedIn</a> · aseembhandari.com</small>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => document.getElementById('nav').classList.remove('open')));
+
+  const GROUPS = [
+    {
+      name: 'Design & DFM',
+      items: [
+        { q: 'Design is frozen for the build (revision locked, ECOs closed)', hint: 'A moving design guarantees a moving process. Lock the rev you\'re building.' },
+        { q: 'DFM / DFA review completed and feedback dispositioned', hint: 'Every manufacturability flag either fixed or formally accepted with a reason.' },
+        { q: 'Critical-to-quality (CTQ) features identified', hint: 'You know which dimensions and characteristics actually matter for function.' },
+        { q: 'Tolerances verified as producible on the intended process', hint: 'Not just drawable — achievable at the Cpk you need.' }
+      ]
+    },
+    {
+      name: 'BOM & Supply',
+      items: [
+        { q: 'BOM is complete, costed, and matches the build revision', hint: 'Every reference designator has a real, sourced part.' },
+        { q: 'Long-lead and sole-source items identified and secured', hint: 'The one part that gates the whole build should not surprise you.' },
+        { q: 'Incoming inspection criteria defined for critical components', hint: 'You know how you\'ll catch a bad lot before it reaches the line.' },
+        { q: 'Enough material kitted for the full pilot quantity + attrition', hint: 'Plan for scrap; running out mid-build corrupts your yield data.' }
+      ]
+    },
+    {
+      name: 'Fixtures & Tooling',
+      items: [
+        { q: 'Assembly fixtures designed, built, and verified', hint: 'Fit-checked against real parts, not just CAD.' },
+        { q: 'Test fixtures / ICT / FCT hardware ready and debugged', hint: 'The test station passes a known-good and fails a known-bad.' },
+        { q: 'Tooling for critical steps (press, torque, alignment) calibrated', hint: 'Calibration current and traceable for anything that sets a CTQ.' },
+        { q: 'Fixture and station capacity matches the pilot rate', hint: 'One bottleneck fixture can stall the whole run.' }
+      ]
+    },
+    {
+      name: 'Process & Documentation',
+      items: [
+        { q: 'Process flow / routing defined end-to-end', hint: 'Every unit follows one documented path, not tribal knowledge.' },
+        { q: 'Work instructions / SOPs written for each station', hint: 'An operator who has never seen the product can follow them.' },
+        { q: 'Process windows set for critical steps (temp, time, pressure)', hint: 'Limits, not just targets — with what to do when you\'re outside them.' },
+        { q: 'Operators trained and signed off on their stations', hint: 'Training is recorded, not assumed.' }
+      ]
+    },
+    {
+      name: 'Test & Traceability',
+      items: [
+        { q: 'Test strategy defined — what\'s tested, where, and to what limits', hint: 'Coverage mapped to the failure modes you actually care about.' },
+        { q: 'Every unit carries a unique serial / traceability ID', hint: 'You can tie any result back to its part, station, and time.' },
+        { q: 'Measurement data captured automatically, not hand-logged', hint: 'Re-keyed data is late and suspect before the chart even sees it.' },
+        { q: 'Gauge R&R / MSA done on critical measurements', hint: 'Trust the measurement system before you trust the measurement.' }
+      ]
+    },
+    {
+      name: 'Quality & Exit Criteria',
+      items: [
+        { q: 'First-pass-yield target and pass/fail gate defined', hint: 'You decided what "good enough to proceed" means before you built.' },
+        { q: 'Defect capture and disposition (MRB) process in place', hint: 'Failures get recorded and routed, not quietly reworked away.' },
+        { q: 'Root-cause / corrective-action loop ready for the build', hint: 'A found defect turns into a process change, not just a rework.' },
+        { q: 'Clear exit criteria to move from pilot to volume', hint: 'The ramp decision is made on data, against criteria set in advance.' }
+      ]
+    }
+  ];
+
+  const KEY = 'npi-checklist-v1';
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { saved = {}; }
+
+  const root = document.getElementById('checklist');
+  let total = 0;
+  GROUPS.forEach((g, gi) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'ck-group';
+    let itemsHtml = '';
+    g.items.forEach((it, ii) => {
+      const id = 'g' + gi + 'i' + ii;
+      const on = saved[id] ? 'checked' : '';
+      const donec = saved[id] ? 'done' : '';
+      itemsHtml +=
+        '<label class="ck-item ' + donec + '" data-id="' + id + '">' +
+          '<input type="checkbox" ' + on + '>' +
+          '<span class="body"><span class="q">' + it.q + '</span><span class="hint">' + it.hint + '</span></span>' +
+        '</label>';
+      total++;
+    });
+    wrap.innerHTML =
+      '<div class="ghead"><span class="gnum">/ 0' + (gi + 1) + '</span><span class="gname">' + g.name + '</span>' +
+      '<span class="gcount" data-gcount="' + gi + '"></span></div>' + itemsHtml;
+    root.appendChild(wrap);
+  });
+  document.getElementById('ckTotal').textContent = total;
+
+  const barFill = document.getElementById('barFill');
+  const ckDone = document.getElementById('ckDone');
+  const verdict = document.getElementById('verdict');
+
+  function refresh() {
+    let done = 0;
+    document.querySelectorAll('.ck-group').forEach((grp, gi) => {
+      const boxes = grp.querySelectorAll('input');
+      let gdone = 0;
+      boxes.forEach(b => { if (b.checked) gdone++; });
+      done += gdone;
+      grp.querySelector('[data-gcount]').textContent = gdone + '/' + boxes.length;
+    });
+    const pct = total ? Math.round((done / total) * 100) : 0;
+    barFill.style.width = pct + '%';
+    ckDone.textContent = done;
+    verdict.className = 'ck-verdict';
+    if (done === 0) { verdict.textContent = 'Not started'; }
+    else if (pct === 100) { verdict.textContent = '✓ Build-ready'; verdict.classList.add('go'); }
+    else if (pct >= 80) { verdict.textContent = pct + '% — nearly there'; verdict.classList.add('warn'); }
+    else { verdict.textContent = pct + '% — gaps remain'; verdict.classList.add('warn'); }
+  }
+
+  root.querySelectorAll('.ck-item').forEach(label => {
+    const box = label.querySelector('input');
+    box.addEventListener('change', () => {
+      label.classList.toggle('done', box.checked);
+      saved[label.dataset.id] = box.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+      refresh();
+    });
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    saved = {};
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    root.querySelectorAll('input').forEach(b => b.checked = false);
+    root.querySelectorAll('.ck-item').forEach(l => l.classList.remove('done'));
+    refresh();
+  });
+
+  refresh();
+</script>
+<script src="enhance.js"></script>
+</body>
+</html>

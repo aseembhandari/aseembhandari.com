@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reading a yield signal: from noise to a ranked cause list — Aseem Bhandari</title>
+<meta name="description" content="A practical approach to yield and root-cause analysis on a running line — turning a noisy yield number into a stratified, ranked, fixable list of causes.">
+<link rel="canonical" href="https://aseembhandari.com/blog-yield-signal.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="favicon.svg">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Aseem Bhandari">
+<meta property="og:title" content="Reading a yield signal: from noise to a ranked cause list">
+<meta property="og:description" content="Turning a noisy yield number into a stratified, ranked, fixable list of causes.">
+<meta property="og:url" content="https://aseembhandari.com/blog-yield-signal.html">
+<meta property="og:image" content="https://aseembhandari.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://aseembhandari.com/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="index.html" class="brand">Aseem <b>Bhandari</b></a>
+    <button class="nav-toggle" aria-label="Menu" aria-controls="nav" aria-expanded="false" onclick="var n=document.getElementById('nav');this.setAttribute('aria-expanded', n.classList.toggle('open'))">≡</button>
+    <nav class="nav-links" id="nav">
+      <a href="index.html#about">About</a>
+      <a href="index.html#capabilities">Capabilities</a>
+      <a href="index.html#work">Work</a>
+      <a href="blog.html">Writing</a>
+      <a href="index.html#hub">Knowledge Hub</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="detail-hero">
+  <div class="wrap">
+    <a href="blog.html" class="back-link">← All writing</a>
+    <span class="eyebrow" style="display:block;margin-top:22px;">Yield · Root-Cause — June 2026</span>
+    <h1>Reading a yield signal: from noise to a ranked cause list.</h1>
+  </div>
+</section>
+
+<section style="border-top:1px solid var(--line-soft);">
+  <div class="wrap detail-body">
+    <p>"Yield dropped to 84%." That sentence starts more bad meetings than almost anything else on a line. It feels like information, but on its own it's just an alarm — it tells you something is wrong and nothing about what. The work is turning that single number into a short, ranked list of things you can actually go fix.</p>
+
+    <h2>One number is never the problem</h2>
+    <p>A yield figure is a sum of many different failures stacked on top of each other. The first move is always to break it apart. Before touching the process, I want the drop <em>stratified</em>: by failure mode, by station, by shift, by lot, by fixture, by position on the panel. The question isn't "why did yield drop" — it's "which slice of the yield drop is biggest, and is it concentrated somewhere?"</p>
+
+    <blockquote>A Pareto chart is worth more than a hundred opinions about what's wrong.</blockquote>
+
+    <p>Nine times out of ten, stratifying collapses a scary aggregate into something specific: one defect code is 60% of the loss, and it's showing up on one station, on parts from one lot. Now you have a target instead of a mystery.</p>
+
+    <h2>Bound it before you theorize</h2>
+    <p>Once there's a target, the temptation is to jump straight to a cause. Resist it. First <strong>bound</strong> the problem in time and space:</p>
+    <ul>
+      <li><strong>When did it start?</strong> A step change points at something that changed — a lot, a setting, a maintenance event, a new operator. A slow drift points at wear, contamination, or aging.</li>
+      <li><strong>Where does it live?</strong> If the defect follows a fixture position or a nozzle, the cause is mechanical and local. If it's uniform across everything, it's upstream — material or a global setting.</li>
+      <li><strong>What doesn't have it?</strong> The good units are evidence too. The difference between the population that fails and the one that doesn't <em>is</em> the cause, narrowed down.</li>
+    </ul>
+
+    <h2>Make it happen on demand</h2>
+    <p>A cause you can't reproduce is still a guess. The strongest step in the whole loop is recreating the defect deliberately — dialing the suspected variable and watching the failure appear and disappear. If you can turn it on and off, you understand it. If you can't, you're still theorizing, and you shouldn't be spending money on a "fix" yet.</p>
+
+    <h2>Close the loop, don't just clear the board</h2>
+    <p>Reworking the failed units clears today's number and changes nothing. The output of root-cause work isn't a pile of saved units — it's a <em>change to the process</em> that makes the same failure less likely next time: a corrected setting, a tightened incoming spec, a poka-yoke on the station, a new control on the chart. Then you verify with data that the slice you targeted actually shrank.</p>
+
+    <p>That's the whole discipline, and it's the same everywhere I've used it: don't argue about the aggregate. Stratify it, bound it, reproduce it, kill it, and prove it stayed dead. The line gets quieter one ranked cause at a time.</p>
+
+    <p style="margin-top:40px;"><a href="blog.html" class="btn ghost">← All writing</a></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <small>© <span id="yr"></span> Aseem Bhandari</small>
+    <small><a href="https://www.linkedin.com/in/aseembhandari21" target="_blank" rel="noopener">LinkedIn</a> · aseembhandari.com</small>
+  </div>
+</footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav').classList.remove('open')));</script>
+<script src="enhance.js"></script>
+</body>
+</html>

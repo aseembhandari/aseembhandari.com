@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building an SPC system operators actually use — Aseem Bhandari</title>
+<meta name="description" content="Notes on standing up statistical process control and the data systems underneath it.">
+<link rel="canonical" href="https://aseembhandari.com/blog-spc-system.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="favicon.svg">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Aseem Bhandari">
+<meta property="og:title" content="Building an SPC system operators actually use">
+<meta property="og:description" content="Notes on standing up statistical process control and the data systems underneath it.">
+<meta property="og:url" content="https://aseembhandari.com/blog-spc-system.html">
+<meta property="og:image" content="https://aseembhandari.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://aseembhandari.com/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ===== POST TEMPLATE =====
+  To create a new post: copy this file, rename it, edit the <title>,
+  the hero (date / kicker / headline), and the .detail-body content,
+  then add a matching entry to posts.js. Keep everything else as-is. -->
+
+<header class="nav">
+  <div class="wrap">
+    <a href="index.html" class="brand">Aseem <b>Bhandari</b></a>
+    <button class="nav-toggle" aria-label="Menu" aria-controls="nav" aria-expanded="false" onclick="var n=document.getElementById('nav');this.setAttribute('aria-expanded', n.classList.toggle('open'))">≡</button>
+    <nav class="nav-links" id="nav">
+      <a href="index.html#about">About</a>
+      <a href="index.html#capabilities">Capabilities</a>
+      <a href="index.html#work">Work</a>
+      <a href="blog.html">Writing</a>
+      <a href="index.html#hub">Knowledge Hub</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="detail-hero">
+  <div class="wrap">
+    <a href="blog.html" class="back-link">← All writing</a>
+    <span class="eyebrow" style="display:block;margin-top:22px;">Process · Data — June 2026</span>
+    <h1>Building an SPC system operators actually use.</h1>
+  </div>
+</section>
+
+<section style="border-top:1px solid var(--line-soft);">
+  <div class="wrap detail-body">
+    <p>Most statistical process control fails quietly. The charts get built, the limits get set, and within a month nobody looks at them. The data is technically there — it just never changes a decision. That's the problem I've been working on: not "do we have SPC," but "does the line actually run on it."</p>
+
+    <h2>Charts are the easy part</h2>
+    <p>Drawing an X-bar and R chart is trivial. The hard part is everything around it: getting trustworthy measurements off the floor automatically, tying each point to the right part, machine, and operator, and surfacing it fast enough that someone can act before the next hundred units go through.</p>
+    <p>If an operator has to type a reading into a spreadsheet, the data is already late and already suspect. The control chart inherits every bit of that noise.</p>
+
+    <blockquote>A control chart is only as honest as the data pipe feeding it.</blockquote>
+
+    <h2>Start with the data backbone</h2>
+    <p>So before the statistics, we built the plumbing — the part I'd call the intelligent data system:</p>
+    <ul>
+      <li><strong>Capture at the source.</strong> Pull measurements directly from test stations, inspection, and process equipment instead of re-keying them.</li>
+      <li><strong>Tag everything.</strong> Every reading carries its part serial, station, recipe, and timestamp, so any point on a chart can be traced back to exactly what made it.</li>
+      <li><strong>One place to look.</strong> Land it all in a single store the line and the engineers share, rather than scattered logs nobody reconciles.</li>
+    </ul>
+    <p>Once the data is clean and current, SPC stops being a reporting exercise and starts being a control loop.</p>
+
+    <h2>Then make the reaction obvious</h2>
+    <p>The chart isn't the deliverable — the <em>reaction plan</em> is. A point goes out of control; what happens next has to be unambiguous and owned. We paired each monitored characteristic with a clear rule and a clear first action, so the answer to "the chart is red, now what?" is written down, not improvised.</p>
+    <p>That's the difference between SPC as decoration and SPC as a system: capability studies (Cp/Cpk) tell you whether the process can hold the spec at all, control charts tell you whether it's holding it right now, and the reaction plan turns a signal into a fix before it becomes scrap.</p>
+
+    <h2>What it buys you</h2>
+    <p>When it works, the factory starts telling you what's happening instead of you going to ask it. Drift shows up as a trend, not as a yield surprise at final test. And the same data that runs the charts becomes the foundation for everything downstream — traceability, root-cause, and eventually models that predict a problem before the chart even flags it.</p>
+    <p>That's the direction I'm building toward at Infinitum: a line that's instrumented well enough to be genuinely intelligent about its own quality.</p>
+
+    <p style="margin-top:40px;"><a href="blog.html" class="btn ghost">← All writing</a></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <small>© <span id="yr"></span> Aseem Bhandari</small>
+    <small><a href="https://www.linkedin.com/in/aseembhandari21" target="_blank" rel="noopener">LinkedIn</a> · aseembhandari.com</small>
+  </div>
+</footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav').classList.remove('open')));</script>
+<script src="enhance.js"></script>
+</body>
+</html>

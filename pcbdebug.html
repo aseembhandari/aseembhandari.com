@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PCB / SMT Defect Debugger — Aseem Bhandari</title>
+<meta name="description" content="A guided decision tree for diagnosing SMT solder and assembly defects: observe the symptom, answer a follow-up, and route to the specific root cause with check-and-fix steps.">
+<link rel="canonical" href="https://aseembhandari.com/pcbdebug.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aseem Bhandari">
+<meta property="og:title" content="PCB / SMT Defect Debugger">
+<meta property="og:description" content="A guided decision tree for diagnosing SMT solder and assembly defects: observe the symptom, answer a follow-up, and route to the specific root cause with check-and-fix steps.">
+<meta property="og:url" content="https://aseembhandari.com/pcbdebug.html">
+<meta property="og:image" content="https://aseembhandari.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://aseembhandari.com/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .framework { display:grid; grid-template-columns:repeat(7,1fr); gap:1px; background:var(--line-soft); border:1px solid var(--line-soft); margin:36px 0 8px; }
+  .framework .step { background:var(--bg); padding:16px 12px; text-align:center; }
+  .framework .step .n { font-family:'IBM Plex Mono',monospace; font-size:.66rem; color:var(--copper-text); letter-spacing:.1em; }
+  .framework .step .w { font-family:'Fraunces',serif; font-size:1rem; margin-top:6px; color:var(--ink); }
+  @media(max-width:820px){ .framework{ grid-template-columns:repeat(2,1fr);} }
+
+  /* wizard */
+  .wiz { margin-top:42px; }
+  .wiz-step { font-family:'IBM Plex Mono',monospace; font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--copper-text); }
+  .breadcrumb { font-family:'IBM Plex Mono',monospace; font-size:.72rem; color:var(--ink-faint); letter-spacing:.03em; margin:10px 0 0; min-height:1em; }
+  .breadcrumb b { color:var(--ink-soft); font-weight:500; }
+  .breadcrumb .sep { color:var(--copper-text); margin:0 8px; }
+  .wiz .q { font-family:'Fraunces',serif; font-size:1.5rem; margin:14px 0 6px; color:var(--ink); }
+  .wiz .q-hint { color:var(--ink-soft); font-size:.92rem; margin-bottom:22px; max-width:64ch; }
+  .options { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; }
+  .opt {
+    text-align:left; background:var(--bg-card); border:1px solid var(--line); color:var(--ink);
+    padding:18px; border-radius:3px; cursor:pointer; font-family:'IBM Plex Sans',sans-serif;
+    font-size:.95rem; transition:border-color .25s var(--ease), transform .25s var(--ease), box-shadow .25s var(--ease);
+  }
+  .opt:hover { border-color:var(--copper); transform:translateY(-2px); box-shadow:var(--shadow); }
+  .opt .icon { font-family:'IBM Plex Mono',monospace; color:var(--copper-text); font-size:.72rem; letter-spacing:.1em; display:block; margin-bottom:8px; }
+  .opt b { font-weight:600; }
+  .opt .oh { display:block; color:var(--ink-soft); font-size:.84rem; margin-top:5px; }
+
+  .wiz-actions { margin-top:24px; display:flex; gap:12px; flex-wrap:wrap; }
+  .link-btn { font-family:'IBM Plex Mono',monospace; font-size:.78rem; letter-spacing:.04em; color:var(--ink-soft); background:none; border:0; cursor:pointer; padding:6px 0; }
+  .link-btn:hover { color:var(--copper-text); }
+
+  .card { background:var(--bg-raise); border:1px solid var(--line); border-left:3px solid var(--copper); border-radius:3px; padding:28px 30px; }
+  .card h3 { font-family:'Fraunces',serif; font-size:1.6rem; color:var(--ink); }
+  .card .defect-tag { font-family:'IBM Plex Mono',monospace; font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--copper-text); }
+  .card .block { margin-top:22px; }
+  .card .block .label { font-family:'IBM Plex Mono',monospace; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--copper-text); margin-bottom:8px; }
+  .card ul { margin:0 0 0 20px; color:var(--ink-soft); }
+  .card li { margin-bottom:7px; }
+  [hidden]{ display:none !important; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="index.html" class="brand">Aseem <b>Bhandari</b></a>
+    <button class="nav-toggle" aria-label="Menu" aria-controls="nav" aria-expanded="false" onclick="var n=document.getElementById('nav');this.setAttribute('aria-expanded', n.classList.toggle('open'))">≡</button>
+    <nav class="nav-links" id="nav">
+      <a href="index.html#about">About</a>
+      <a href="index.html#capabilities">Capabilities</a>
+      <a href="index.html#work">Work</a>
+      <a href="blog.html">Writing</a>
+      <a href="index.html#hub">Knowledge Hub</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="detail-hero">
+  <div class="wrap">
+    <a href="index.html#hub" class="back-link">← Back to Knowledge Hub</a>
+    <span class="eyebrow" style="display:block;margin-top:22px;">Interactive tool</span>
+    <h1>PCB / SMT Defect Debugger.</h1>
+    <p class="lede" style="max-width:62ch;">Start with the symptom you see on the board. Each answer narrows the branch — one follow-up question routes you from a defect family to the specific likely cause, then gives you what to check and how to fix it.</p>
+  </div>
+</section>
+
+<section style="border-top:1px solid var(--line-soft);">
+  <div class="wrap">
+    <span class="eyebrow">The framework — OBSERVE → PREVENT</span>
+    <div class="framework">
+      <div class="step"><div class="n">01</div><div class="w">Observe</div></div>
+      <div class="step"><div class="n">02</div><div class="w">Bound</div></div>
+      <div class="step"><div class="n">03</div><div class="w">Stratify</div></div>
+      <div class="step"><div class="n">04</div><div class="w">Examine</div></div>
+      <div class="step"><div class="n">05</div><div class="w">Recreate</div></div>
+      <div class="step"><div class="n">06</div><div class="w">Verify</div></div>
+      <div class="step"><div class="n">07</div><div class="w">Prevent</div></div>
+    </div>
+    <p style="color:var(--ink-soft);max-width:70ch;margin-top:14px;font-size:.92rem;">Start by <b style="color:var(--ink)">observing</b> the defect precisely, <b style="color:var(--ink)">bound</b> where and when it happens, <b style="color:var(--ink)">stratify</b> by board / position / lot, <b style="color:var(--ink)">examine</b> the process step responsible, <b style="color:var(--ink)">recreate</b> it on demand, <b style="color:var(--ink)">verify</b> the fix with data, then <b style="color:var(--ink)">prevent</b> recurrence with a control.</p>
+
+    <div class="wiz">
+      <span class="wiz-step" id="wizStep">Step 01</span>
+      <div class="breadcrumb" id="crumb"></div>
+      <div id="panel"></div>
+      <div class="wiz-actions" id="actions"></div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <small>© <span id="yr"></span> Aseem Bhandari</small>
+    <small><a href="https://www.linkedin.com/in/aseembhandari21" target="_blank" rel="noopener">LinkedIn</a> · aseembhandari.com</small>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => document.getElementById('nav').classList.remove('open')));
+
+  // ---- decision tree ----
+  // Each node is either a question {q, hint, opts:[{icon,label,hint,to}]}
+  // or a result {result:{name,tag,causes[],check[],fix[]}}.
+  const NODES = {
+    start: {
+      q: 'Step 01 — What do you observe on the board?',
+      hint: 'Pick the symptom that best matches what you’re seeing.',
+      opts: [
+        { icon:'/ lifted',  label:'A component is standing up on one end', hint:'Lifted, skewed, or only one pad soldered (tombstoning).', to:'tomb_q' },
+        { icon:'/ shorts',  label:'Solder is bridging between pins or pads', hint:'Shorts, especially on fine-pitch parts.', to:'bridge_q' },
+        { icon:'/ dull/open', label:'Joints look starved, dull, or open', hint:'Non-wetting, cold, or grainy joints.', to:'insuff_q' },
+        { icon:'/ scatter', label:'Loose solder balls or spatter', hint:'Balls around joints and on the board surface.', to:'balls_q' },
+        { icon:'/ internal', label:'Voids or weak joints under parts', hint:'Voiding, head-in-pillow, BGA opens (on X-ray).', to:'voids_q' }
+      ]
+    },
+
+    /* ---------- TOMBSTONE ---------- */
+    tomb_q: {
+      q: 'Step 02 — Where is the lifting concentrated?',
+      hint: 'Stratify: is it thermal, paste/placement, or oven-driven?',
+      opts: [
+        { icon:'/ thermal', label:'On parts beside large copper pours, planes, or thermal vias', hint:'One pad sinks heat away from the other.', to:'r_tomb_thermal' },
+        { icon:'/ paste', label:'Random — and paste or placement looks off on one end', hint:'Uneven paste volume or an offset part.', to:'r_tomb_paste' },
+        { icon:'/ oven', label:'Clustered in one oven zone or along a board edge', hint:'The reflow profile isn’t symmetric.', to:'r_tomb_profile' }
+      ]
+    },
+    r_tomb_thermal: { result: {
+      name:'Tombstoning — thermal imbalance', tag:'Pad heat-sinking · uneven wetting',
+      causes:['One termination is tied to a copper plane / thermal mass and heats slower','The hotter pad reflows first and its surface tension lifts the part','Missing or uneven thermal relief between the two pads'],
+      check:['Compare copper connections and thermal relief on the two ends','Profile across the part — is one pad reaching liquidus well before the other?','Confirm both terminations wet at the same point in the profile'],
+      fix:['Add / balance thermal relief so both pads have similar thermal mass','Lengthen the soak and reduce ramp so both ends reach liquidus together','Match pad geometry; consider layout change on the heavy pad'] } },
+    r_tomb_paste: { result: {
+      name:'Tombstoning — paste / placement imbalance', tag:'Deposit volume · placement offset',
+      causes:['More paste on one pad than the other','Placement offset — part not centered across both pads','Aperture imbalance depositing unequal volume'],
+      check:['SPI / inspect deposit volume on both pads','Verify placement centering is within tolerance','Check stencil aperture symmetry for the footprint'],
+      fix:['Equalize aperture design so both pads get matched volume','Correct placement offset / nozzle centering','Confirm paste is in spec and printing evenly'] } },
+    r_tomb_profile: { result: {
+      name:'Tombstoning — reflow profile asymmetry', tag:'Oven zones · ramp balance',
+      causes:['Steep or asymmetric ramp heats one end first','Oven zone imbalance or uneven airflow','Board orientation / spacing creating a thermal gradient'],
+      check:['Run a profiled board across all zones','Measure delta-T across the part and across the board','Review conveyor speed and per-zone setpoints'],
+      fix:['Flatten and lengthen the soak to even out heating','Balance oven zone temperatures / airflow','Adjust board orientation and spacing on the belt'] } },
+
+    /* ---------- BRIDGING ---------- */
+    bridge_q: {
+      q: 'Step 02 — Inspect the printed paste before reflow. What do you see?',
+      hint: 'This separates a print problem from a reflow problem.',
+      opts: [
+        { icon:'/ excess', label:'Too much paste — already touching between pads', hint:'A print / stencil volume issue.', to:'r_bridge_print' },
+        { icon:'/ after', label:'Paste looks clean before reflow; bridges appear after', hint:'Slump or collapse during the profile.', to:'r_bridge_reflow' },
+        { icon:'/ smear', label:'Paste is smeared, offset, or double-printed', hint:'Registration or placement smear.', to:'r_bridge_reg' }
+      ]
+    },
+    r_bridge_print: { result: {
+      name:'Bridging — excess paste / aperture', tag:'Stencil design · over-print',
+      causes:['Aperture too large or over-printing for the pitch','Stencil too thick — poor area ratio on fine-pitch','Excess volume collapses across the gap in reflow'],
+      check:['SPI volume vs target at the affected pitch','Aperture design vs pad (area / aspect ratio)','Stencil thickness appropriate for the finest pitch'],
+      fix:['Reduce aperture — home-plate or trapezoidal on fine-pitch','Thinner stencil or local step-down','Verify print pressure / speed aren’t over-depositing'] } },
+    r_bridge_reflow: { result: {
+      name:'Bridging — slump / profile collapse', tag:'Soak · paste rheology',
+      causes:['Hot slump before reflow spreads paste across the gap','Soak too long or too hot for the paste','Paste rheology out of spec / expired'],
+      check:['Review soak length and ramp in the profile','Check paste spec, shelf life, and storage','Run a slump test on the current paste'],
+      fix:['Shorten / cool the soak to limit slump','Use a paste rated for the pitch and profile','Confirm handling — cold storage, controlled open time'] } },
+    r_bridge_reg: { result: {
+      name:'Bridging — misregistration / smear', tag:'Alignment · placement force',
+      causes:['Stencil-to-board misalignment offsets deposits','Placement Z-force smears paste between pads','Paste bleeding under a poorly gasketed / dirty stencil'],
+      check:['Print registration to the pads','Placement nozzle Z-height / force','Stencil underside cleanliness and wipe frequency'],
+      fix:['Correct stencil alignment / fiducial calibration','Reduce placement force and Z-travel','Increase underside wipe frequency; improve gasketing'] } },
+
+    /* ---------- INSUFFICIENT ---------- */
+    insuff_q: {
+      q: 'Step 02 — Look closely at the joints. Which fits best?',
+      hint: 'Distinguish too-little-paste from too-little-heat from bad surfaces.',
+      opts: [
+        { icon:'/ volume', label:'Too little paste was deposited to begin with', hint:'A print / aperture problem.', to:'r_ins_print' },
+        { icon:'/ dull', label:'Enough paste, but joints are dull, grainy, non-wetting', hint:'Not enough thermal energy at the joint.', to:'r_ins_thermal' },
+        { icon:'/ oxide', label:'Pads or leads look oxidized or discolored', hint:'A solderability / contamination problem.', to:'r_ins_solder' }
+      ]
+    },
+    r_ins_print: { result: {
+      name:'Insufficient — low deposit', tag:'Print · aperture release',
+      causes:['Clogged or undersized apertures','Low print pressure / worn squeegee','Poor paste release (area ratio, underside)'],
+      check:['Measure deposit volume vs target','Inspect apertures for clogging; check area ratio','Squeegee condition, pressure, and speed'],
+      fix:['Clear / resize apertures; verify area ratio','Tune print pressure and speed','Increase underside cleaning; confirm release'] } },
+    r_ins_thermal: { result: {
+      name:'Insufficient — low heat / TAL', tag:'Peak temp · time-above-liquidus',
+      causes:['Peak temperature or time-above-liquidus too low','Profile runs cool at this joint / thermal mass','Flux exhausted before the joint reaches reflow'],
+      check:['Profile the board — peak and TAL at this joint','Review oven zone setpoints and conveyor speed','Confirm flux is still active at the moment of reflow'],
+      fix:['Raise peak / extend TAL within the paste window','Reshape profile for the local thermal mass','Consider N2 atmosphere if available'] } },
+    r_ins_solder: { result: {
+      name:'Insufficient — solderability / oxidation', tag:'Surface finish · contamination',
+      causes:['Oxidized or contaminated pads / leads','Expired finish or poor storage','Flux too weak for the surface condition'],
+      check:['Incoming solderability test on board & parts','Finish type, shelf life, and storage/humidity','Flux activity vs the surface it has to wet'],
+      fix:['Fresh stock or bake; remove oxidation','Match flux activity to the surface','Tighten storage / handling controls'] } },
+
+    /* ---------- SOLDER BALLS ---------- */
+    balls_q: {
+      q: 'Step 02 — When and where do the solder balls show up?',
+      hint: 'Timing points at print, moisture, or ramp.',
+      opts: [
+        { icon:'/ print', label:'Scattered around pads / on soldermask after reflow', hint:'Paste ended up outside the pad.', to:'r_balls_print' },
+        { icon:'/ moisture', label:'Worse when paste has been out a while, or in humid conditions', hint:'Moisture / paste handling.', to:'r_balls_moist' },
+        { icon:'/ ramp', label:'Right after a fast preheat ramp', hint:'Violent outgassing scatters solder.', to:'r_balls_ramp' }
+      ]
+    },
+    r_balls_print: { result: {
+      name:'Solder balls — paste outside the pad', tag:'Print · slump · gasketing',
+      causes:['Paste printed or slumped outside the footprint','Poor stencil gasketing lets paste bleed','Over-print / aperture-to-pad mismatch'],
+      check:['Inspect print vs pad footprint','Stencil underside cleanliness / gasketing','Aperture and pad alignment'],
+      fix:['Tighten aperture and alignment to the pad','Improve gasketing; clean underside frequently','Reduce over-print volume'] } },
+    r_balls_moist: { result: {
+      name:'Solder balls — moisture / handling', tag:'Paste condition · humidity',
+      causes:['Moisture flashing off during ramp scatters solder','Cold or idle paste re-used past its open time','High ambient humidity on the line'],
+      check:['Paste storage, warm-up, and open/idle time','Re-use of dried or previously opened paste','Line humidity vs paste spec'],
+      fix:['Condition paste to spec before use','Control open time; discard dried paste','Manage line humidity / paste handling'] } },
+    r_balls_ramp: { result: {
+      name:'Solder balls — ramp too fast', tag:'Preheat · outgassing',
+      causes:['Rapid preheat outgasses volatiles violently','Solvents boil off and scatter solder particles'],
+      check:['Preheat ramp rate vs paste spec','Overall profile shape through preheat'],
+      fix:['Slow the preheat ramp to drive off volatiles gently','Reshape the profile within the paste window'] } },
+
+    /* ---------- VOIDS / HiP ---------- */
+    voids_q: {
+      q: 'Step 02 — What does X-ray or cross-section show?',
+      hint: 'The signature separates gas voids, head-in-pillow, and warpage.',
+      opts: [
+        { icon:'/ gas', label:'Gas voids trapped inside the joint', hint:'Volatiles couldn’t escape.', to:'r_void_gas' },
+        { icon:'/ HiP', label:'Ball and paste never merged (head-in-pillow)', hint:'They touched but didn’t coalesce.', to:'r_void_hip' },
+        { icon:'/ warp', label:'Opens at package corners or edges', hint:'Dynamic warpage at reflow.', to:'r_void_warp' }
+      ]
+    },
+    r_void_gas: { result: {
+      name:'Voiding — trapped outgassing', tag:'Flux volatiles · profile',
+      causes:['Flux volatiles trapped before they can escape','Profile doesn’t give gas time to work out','Paste volume / aperture over the pad'],
+      check:['X-ray void % and distribution','Profile TAL and ramp into reflow','Paste volume and aperture design'],
+      fix:['Optimize profile — longer TAL, controlled ramp','Adjust paste volume / aperture (e.g. windowpane)','N2 or vacuum reflow if available'] } },
+    r_void_hip: { result: {
+      name:'Voiding — head-in-pillow', tag:'Warpage · oxidation',
+      causes:['Package warpage separates ball and paste at reflow','Oxidation on ball or paste prevents coalescence','Insufficient collapse to bridge the gap'],
+      check:['Warpage / co-planarity across temperature','Ball and paste solderability','Peak and TAL at the joint'],
+      fix:['Shape the profile to counter warpage timing','Ensure oxide-free surfaces; bake MSD parts','Adjust paste volume; consider N2'] } },
+    r_void_warp: { result: {
+      name:'Voiding — warpage opens', tag:'Co-planarity · support',
+      causes:['Dynamic warpage lifts corners during reflow','Package co-planarity out of spec','Corner joints pull open as the part flexes'],
+      check:['Warpage vs temperature (shadow moiré / DIC)','Co-planarity spec vs measured','Board support and orientation in the oven'],
+      fix:['Reshape the profile to reduce peak warpage','Package stiffener / support fixtures','Add paste volume at corner joints; review layout'] } }
+  };
+
+  const START = 'start';
+  let current = START;
+  let stack = [];   // node ids for Back
+  let trail = [];   // chosen option labels for breadcrumb
+
+  const stepEl = document.getElementById('wizStep');
+  const crumbEl = document.getElementById('crumb');
+  const panel = document.getElementById('panel');
+  const actions = document.getElementById('actions');
+
+  function choose(toId, label) {
+    stack.push(current);
+    trail.push(label);
+    current = toId;
+    render();
+    document.querySelector('.wiz').scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+  function back() {
+    if (!stack.length) return;
+    current = stack.pop();
+    trail.pop();
+    render();
+  }
+  function reset() {
+    current = START; stack = []; trail = [];
+    render();
+    document.querySelector('.wiz').scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+
+  function render() {
+    const node = NODES[current];
+    stepEl.textContent = node.result ? 'Diagnosis' : 'Step 0' + (stack.length + 1);
+    crumbEl.innerHTML = trail.length
+      ? trail.map(t => '<b>' + t + '</b>').join('<span class="sep">→</span>')
+      : '';
+
+    if (node.result) {
+      const d = node.result;
+      panel.innerHTML =
+        '<div class="card">' +
+          '<span class="defect-tag">Likely cause — ' + d.tag + '</span>' +
+          '<h3>' + d.name + '</h3>' +
+          '<div class="block"><div class="label">Likely causes</div><ul>' + d.causes.map(x=>'<li>'+x+'</li>').join('') + '</ul></div>' +
+          '<div class="block"><div class="label">What to check (Steps 03–04)</div><ul>' + d.check.map(x=>'<li>'+x+'</li>').join('') + '</ul></div>' +
+          '<div class="block"><div class="label">How to fix &amp; prevent (Steps 05–07)</div><ul>' + d.fix.map(x=>'<li>'+x+'</li>').join('') + '</ul></div>' +
+        '</div>';
+    } else {
+      panel.innerHTML =
+        '<div class="q">' + node.q + '</div>' +
+        (node.hint ? '<div class="q-hint">' + node.hint + '</div>' : '') +
+        '<div class="options">' +
+          node.opts.map((o, i) =>
+            '<button class="opt" data-i="' + i + '">' +
+              '<span class="icon">' + o.icon + '</span>' +
+              '<b>' + o.label + '</b>' +
+              (o.hint ? '<span class="oh">' + o.hint + '</span>' : '') +
+            '</button>'
+          ).join('') +
+        '</div>';
+      panel.querySelectorAll('.opt').forEach(btn => {
+        const o = node.opts[+btn.dataset.i];
+        btn.addEventListener('click', () => choose(o.to, o.label));
+      });
+    }
+
+    // actions row
+    let a = '';
+    if (stack.length) a += '<button class="link-btn" id="backBtn">← Back</button>';
+    if (stack.length) a += '<button class="link-btn" id="resetBtn">↺ Start over</button>';
+    actions.innerHTML = a;
+    const b = document.getElementById('backBtn'); if (b) b.addEventListener('click', back);
+    const r = document.getElementById('resetBtn'); if (r) r.addEventListener('click', reset);
+  }
+
+  render();
+</script>
+<script src="enhance.js"></script>
+</body>
+</html>

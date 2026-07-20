@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The pilot build is a question, not a milestone — Aseem Bhandari</title>
+<meta name="description" content="What a first pilot build is actually for in new product introduction (NPI) — treating the pilot as an experiment that answers whether the process is ready to scale, not a box to tick.">
+<link rel="canonical" href="https://aseembhandari.com/blog-pilot-build.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="favicon.svg">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Aseem Bhandari">
+<meta property="og:title" content="The pilot build is a question, not a milestone">
+<meta property="og:description" content="Treating the first pilot build as an experiment that answers whether the process is ready to scale — not a box to tick.">
+<meta property="og:url" content="https://aseembhandari.com/blog-pilot-build.html">
+<meta property="og:image" content="https://aseembhandari.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://aseembhandari.com/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="index.html" class="brand">Aseem <b>Bhandari</b></a>
+    <button class="nav-toggle" aria-label="Menu" aria-controls="nav" aria-expanded="false" onclick="var n=document.getElementById('nav');this.setAttribute('aria-expanded', n.classList.toggle('open'))">≡</button>
+    <nav class="nav-links" id="nav">
+      <a href="index.html#about">About</a>
+      <a href="index.html#capabilities">Capabilities</a>
+      <a href="index.html#work">Work</a>
+      <a href="blog.html">Writing</a>
+      <a href="index.html#hub">Knowledge Hub</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="detail-hero">
+  <div class="wrap">
+    <a href="blog.html" class="back-link">← All writing</a>
+    <span class="eyebrow" style="display:block;margin-top:22px;">NPI · Process — July 2026</span>
+    <h1>The pilot build is a question, not a milestone.</h1>
+  </div>
+</section>
+
+<section style="border-top:1px solid var(--line-soft);">
+  <div class="wrap detail-body">
+    <p>A pilot build gets treated like a checkpoint: schedule it, run it, celebrate that units came out, move on. But a pilot that only proves "we can build one" has wasted most of its value. The reason to do a pilot at all is to answer a harder question — <em>is this process ready to scale?</em> — and that question has to be asked on purpose, before the first unit is kitted.</p>
+
+    <h2>Design the pilot like an experiment</h2>
+    <p>Before the build, I want to know what we're trying to learn from it. That means writing down the questions in advance: Which steps are we least sure about? Which measurements will tell us the process is capable, not just functional? What would a result look like that says "stop, fix this before volume"? A pilot without those questions is just early production with worse tooling.</p>
+
+    <blockquote>If you can't say what would make the pilot fail, you're not running a pilot — you're just building units early.</blockquote>
+
+    <h2>Instrument it before you run it</h2>
+    <p>The single biggest waste in a pilot is building the units and only <em>then</em> realizing you didn't capture the data that would have explained the yield. Traceability, measurements, and defect capture have to be live on day one:</p>
+    <ul>
+      <li><strong>Serialize everything</strong> so any later question can be traced to a specific unit, station, and time.</li>
+      <li><strong>Capture the process values,</strong> not just pass/fail — the temperatures, torques, and alignments that a failure will later point back to.</li>
+      <li><strong>Log defects as they happen,</strong> with enough context to stratify later, instead of reconstructing them from memory in the post-mortem.</li>
+    </ul>
+    <p>You only get to run the first pilot once. Un-instrumented, it answers almost nothing.</p>
+
+    <h2>Watch the process, not just the parts</h2>
+    <p>It's easy to fixate on whether the units work. But the pilot is really a test of the <strong>process</strong>: Did the work instructions survive contact with an operator who didn't design the product? Did the fixtures hold up over a full run? Where did people improvise because the documented step didn't match reality? Those improvisations are gold — each one is a place the process isn't actually defined yet, and every one of them will multiply at volume.</p>
+
+    <h2>Decide the exit criteria in advance</h2>
+    <p>The worst time to define "good enough to ramp" is after the pilot, when there's schedule pressure and a pile of built units arguing for a yes. Set the exit criteria before you build — the yield gate, the capability numbers, the open-issue count you'll accept — and let the pilot data meet them or not. A pilot's real output isn't the units. It's an evidence-based answer to whether you should build ten thousand more.</p>
+
+    <p style="margin-top:40px;"><a href="npi-checklist.html" class="btn ghost">Run the NPI readiness checklist →</a></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <small>© <span id="yr"></span> Aseem Bhandari</small>
+    <small><a href="https://www.linkedin.com/in/aseembhandari21" target="_blank" rel="noopener">LinkedIn</a> · aseembhandari.com</small>
+  </div>
+</footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav').classList.remove('open')));</script>
+<script src="enhance.js"></script>
+</body>
+</html>

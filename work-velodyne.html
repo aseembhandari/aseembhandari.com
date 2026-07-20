@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Velodyne Lidar — Aseem Bhandari</title>
+<meta name="description" content="NPI and production support for lidar sensor manufacturing at Velodyne Lidar.">
+<link rel="canonical" href="https://aseembhandari.com/work-velodyne.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="favicon.svg">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Aseem Bhandari">
+<meta property="og:title" content="Velodyne Lidar — NPI &amp; production support">
+<meta property="og:description" content="NPI and production support for lidar sensor manufacturing at Velodyne Lidar — optical-mechanical assembly, alignment, and sensor yield.">
+<meta property="og:url" content="https://aseembhandari.com/work-velodyne.html">
+<meta property="og:image" content="https://aseembhandari.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://aseembhandari.com/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="index.html" class="brand">Aseem <b>Bhandari</b></a>
+    <button class="nav-toggle" aria-label="Menu" aria-controls="nav" aria-expanded="false" onclick="var n=document.getElementById('nav');this.setAttribute('aria-expanded', n.classList.toggle('open'))">≡</button>
+    <nav class="nav-links" id="nav">
+      <a href="index.html#about">About</a>
+      <a href="index.html#capabilities">Capabilities</a>
+      <a href="index.html#work">Work</a>
+      <a href="blog.html">Writing</a>
+      <a href="index.html#hub">Knowledge Hub</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="detail-hero">
+  <div class="wrap">
+    <a href="index.html#work" class="back-link">← Back to work</a>
+    <span class="eyebrow" style="display:block;margin-top:22px;">Lidar sensors</span>
+    <h1>Making precision sensors yield at volume.</h1>
+    <div class="detail-meta">
+      <div><span class="k">Company</span><span class="v">Velodyne Lidar</span></div>
+      <div><span class="k">Focus</span><span class="v">Manufacturing / NPI engineering</span></div>
+      <div><span class="k">Domain</span><span class="v">Optical-mechanical sensor assembly</span></div>
+    </div>
+  </div>
+</section>
+
+<section style="border-top:1px solid var(--line-soft);">
+  <div class="wrap detail-body">
+    <h2>The problem</h2>
+    <p>A lidar sensor is an unforgiving thing to build: optical, mechanical, and electronic subsystems all have to come together within tight tolerances, and a small alignment error upstream shows up as a failed unit at final test. The challenge is holding that precision while building enough volume to matter.</p>
+    <p>I worked on the manufacturing and NPI side of that equation — bringing new builds into production and supporting the running line so good design didn't get lost in the transfer to the floor.</p>
+
+    <h2>What I did</h2>
+    <h3>NPI &amp; design-for-manufacturing</h3>
+    <p>Supported the introduction of new sensor builds — feeding manufacturability and assembly feedback back to design, defining assembly and alignment flows, and standing up the processes a new product needs before ramp.</p>
+    <h3>Optical-mechanical assembly &amp; alignment</h3>
+    <p>Developed and tightened the assembly and alignment steps where most of the yield risk lived, building the fixtures and procedures that made a precise operation repeatable across operators.</p>
+    <h3>Production support &amp; defect reduction</h3>
+    <p>Diagnosed line and test failures, traced them to root cause, and drove corrective actions to lift first-pass yield and reduce rework.</p>
+
+    <div class="metrics">
+      <div class="m"><div class="big" data-count="14" data-prefix="+" data-suffix="%">+14%</div><div class="lbl">First-pass yield improvement</div></div>
+      <div class="m"><div class="big" data-count="31" data-prefix="−" data-suffix="%">−31%</div><div class="lbl">Rework rate</div></div>
+      <div class="m"><div class="big" data-count="6">6</div><div class="lbl">NPI builds supported</div></div>
+    </div>
+
+    <h2>The takeaway</h2>
+    <p>When tolerances are tight, yield is a process problem long before it's a people problem. The leverage was in designing the alignment and assembly steps so the right outcome was the easy one — then proving it with data at final test.</p>
+
+    <p style="margin-top:40px;"><a href="index.html#work" class="btn ghost">← All work</a></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <small>© <span id="yr"></span> Aseem Bhandari</small>
+    <small><a href="https://www.linkedin.com/in/aseembhandari21" target="_blank" rel="noopener">LinkedIn</a> · aseembhandari.com</small>
+  </div>
+</footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav').classList.remove('open')));</script>
+<script src="enhance.js"></script>
+</body>
+</html>
