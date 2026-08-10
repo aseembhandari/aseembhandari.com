@@ -2,46 +2,57 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://aseembhandari.com/</loc>
+    <lastmod>2026-08-10</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://aseembhandari.com/work-infinitum.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://aseembhandari.com/work-velodyne.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://aseembhandari.com/work-fabrinet.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://aseembhandari.com/pcbdebug.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://aseembhandari.com/npi-checklist.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://aseembhandari.com/spc-tools.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://aseembhandari.com/blog.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://aseembhandari.com/blog-pilot-build.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://aseembhandari.com/blog-yield-signal.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://aseembhandari.com/blog-spc-system.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <priority>0.6</priority>
   </url>
 </urlset>
