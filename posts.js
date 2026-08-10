@@ -7,6 +7,13 @@
    ============================================================ */
 window.POSTS = [
   {
+    title: "Why we built our own MES — and shipped it to two factories",
+    url: "blog-mes-build.html",
+    date: "2026-08-10",
+    tag: "MES · Leadership",
+    excerpt: "The build-vs-buy call behind an in-house manufacturing execution system — and why the hard parts were bilingual launch gates and floor trust, not code."
+  },
+  {
     title: "The pilot build is a question, not a milestone",
     url: "blog-pilot-build.html",
     date: "2026-07-05",

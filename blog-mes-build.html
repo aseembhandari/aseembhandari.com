@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why we built our own MES — and shipped it to two factories — Aseem Bhandari</title>
+<meta name="description" content="The build-vs-buy decision behind an in-house manufacturing execution system, and what it took to deploy it in production across plants in two countries.">
+<link rel="canonical" href="https://aseembhandari.com/blog-mes-build.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="favicon.svg">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Aseem Bhandari">
+<meta property="og:title" content="Why we built our own MES — and shipped it to two factories">
+<meta property="og:description" content="The build-vs-buy decision behind an in-house manufacturing execution system, and what it took to deploy it in production across plants in two countries.">
+<meta property="og:url" content="https://aseembhandari.com/blog-mes-build.html">
+<meta property="og:image" content="https://aseembhandari.com/og/blog-mes-build.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://aseembhandari.com/og/blog-mes-build.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Why we built our own MES — and shipped it to two factories",
+  "description": "The build-vs-buy decision behind an in-house manufacturing execution system, and what it took to deploy it in production across plants in two countries.",
+  "datePublished": "2026-08-10",
+  "image": "https://aseembhandari.com/og/blog-mes-build.png",
+  "url": "https://aseembhandari.com/blog-mes-build.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://aseembhandari.com/blog-mes-build.html"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Aseem Bhandari",
+    "url": "https://aseembhandari.com/"
+  }
+}
+</script>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="index.html" class="brand">Aseem <b>Bhandari</b></a>
+    <button class="nav-toggle" aria-label="Menu" aria-controls="nav" aria-expanded="false" onclick="var n=document.getElementById('nav');this.setAttribute('aria-expanded', n.classList.toggle('open'))">≡</button>
+    <nav class="nav-links" id="nav">
+      <a href="index.html#about">About</a>
+      <a href="index.html#capabilities">Capabilities</a>
+      <a href="index.html#work">Work</a>
+      <a href="index.html#hub">Tools</a>
+      <a href="blog.html">Knowledge Hub</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="detail-hero">
+  <div class="wrap">
+    <a href="blog.html" class="back-link">← Knowledge Hub</a>
+    <span class="eyebrow" style="display:block;margin-top:22px;">MES · Leadership — August 2026</span>
+    <h1>Why we built our own MES — and shipped it to two factories.</h1>
+  </div>
+</section>
+
+<section style="border-top:1px solid var(--line-soft);">
+  <div class="wrap detail-body">
+    <p>Our manufacturing operation runs in two plants, in two countries, in two languages: new-product introduction in Texas, mass production in Mexico. A year ago, the connective tissue between them was what it is in most growing hardware companies — spreadsheets, shared drives, tribal knowledge, and a lot of walking over to ask someone. Today both floors run on a manufacturing execution system we designed, built, and deployed ourselves, and every unit's full genealogy is one search away.</p>
+    <p>This is the story of that decision — because the interesting part isn't the software. It's the build-vs-buy call, and what it takes organizationally to put a system you wrote yourself in charge of a factory.</p>
+
+    <h2>The buy case fell apart on our own floor</h2>
+    <p>We evaluated the conventional route first. Commercial MES platforms are good at what they're designed for: stable, high-volume processes that change slowly. Our reality was different. The NPI line changes weekly — new fixtures, new test steps, new data to capture. A mass-production line in another country needs the same traceability but a completely different rhythm, plus integration with the ERP that owns its work orders. Every quote we looked at had the same shape: a large license fee, a larger integration project, and a change-request process standing between my engineers and every process improvement.</p>
+    <blockquote>The dealbreaker wasn't the price. It was that our process knowledge would live in someone else's configuration.</blockquote>
+    <p>For a factory whose core competence is <em>inventing</em> its process — our product can't be built on inherited industry lines — that last point mattered more than any feature matrix. The system of record for how we build had to be something we could change at the speed we change the build.</p>
+
+    <h2>What we actually built</h2>
+    <p>An end-to-end MES, deliberately boring in its architecture and ambitious in its coverage: production orders and line release, shop-floor execution at every station, serial-level genealogy and quality records, SPC with reaction plans, label printing, and controlled documents. It captures measurements directly from test and inspection equipment — every reading tagged with part, station, and recipe — and syncs with the ERP so work orders and completions stop living in spreadsheets.</p>
+    <p>Both plants run on one shared database. That single decision did more for the organization than any feature: Texas and Mexico stopped being two factories that report to each other and became one operation with two rooms.</p>
+
+    <h2>The hard parts were never the code</h2>
+    <ul>
+      <li><strong>Bilingual as a launch gate, not a feature.</strong> Every screen ships in English and Spanish together — enforced by our release process, not by good intentions. A system operators can't read in their own language is a system they'll work around.</li>
+      <li><strong>Deploy without stopping the line.</strong> With two live sites on one database, every schema change has to be backward-compatible — the other plant's stations are running mid-deploy. We retire fields by removing inputs, never by deleting data; historical records stay readable forever.</li>
+      <li><strong>Earn the floor's trust before automating its judgment.</strong> Adoption came station by station, by replacing the most hated paperwork first and letting operators see their own data. The MES had to make each person's shift easier before it was allowed to make the factory smarter.</li>
+    </ul>
+
+    <h2>What it changed</h2>
+    <p>The factory now reports its own state in real time. A quality question that used to be an afternoon of spreadsheet archaeology — <em>which units saw that fixture, that lot, that operator?</em> — is a query. Drift shows up on a control chart with a named reaction plan, not as a surprise at final test. And when a customer or auditor asks how a unit was built, the answer is its complete, timestamped genealogy.</p>
+    <p>Just as important: process changes deploy in days, because the people who own the process own the system.</p>
+
+    <h2>What I'd tell another manufacturing leader</h2>
+    <p>Build-vs-buy for factory software isn't a technology decision — it's a question about where your process knowledge should live and how fast it needs to move. If your process is stable and standard, buy. If your process <em>is</em> your competitive advantage and it changes weekly, think hard about owning the system of record for it.</p>
+    <p>And either way: an MES project is an organizational change wearing a software costume. The database schema was the easy part. The bilingual launch gate, the station-by-station trust building, the discipline of never breaking the other plant mid-deploy — that's where it was won.</p>
+
+    <p style="margin-top:40px;"><a href="blog.html" class="btn ghost">← Knowledge Hub</a></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap detail-body">
+    <span class="eyebrow" style="display:block;margin-bottom:22px;">Comments</span>
+    <div id="giscus-comments"></div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <small>© <span id="yr"></span> Aseem Bhandari</small>
+    <small><a href="https://www.linkedin.com/in/aseembhandari21" target="_blank" rel="noopener">LinkedIn</a> · aseembhandari.com</small>
+  </div>
+</footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav').classList.remove('open')));</script>
+<script src="enhance.js"></script>
+<script src="giscus.js"></script>
+</body>
+</html>

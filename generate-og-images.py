@@ -16,6 +16,7 @@ SERIF_I = "/System/Library/Fonts/Supplemental/Georgia Italic.ttf"
 MONO = "/System/Library/Fonts/Menlo.ttc"
 
 PAGES = [
+    ("blog-mes-build",    "Why we built our own MES — and shipped it to two factories.", "MES · LEADERSHIP"),
     ("blog-pilot-build",  "The pilot build is a question, not a milestone.", "NPI · PROCESS"),
     ("blog-yield-signal", "Reading a yield signal: from noise to a ranked cause list.", "YIELD · ROOT-CAUSE"),
     ("blog-spc-system",   "Building an SPC system operators actually use.", "PROCESS · DATA"),

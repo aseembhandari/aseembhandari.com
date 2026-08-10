@@ -1,0 +1,21 @@
+A year ago, our two factories ran on spreadsheets, shared drives, and walking over to ask someone.
+
+Today, both plants — NPI in Texas, mass production in Mexico — run on a manufacturing execution system we designed, built, and deployed ourselves. Every unit's full genealogy is one search away.
+
+The interesting part was never the software. It was the build-vs-buy call.
+
+Every commercial MES quote had the same shape: big license, bigger integration project, and a change-request process standing between my engineers and every process improvement. The dealbreaker wasn't the price — it was that our process knowledge would live in someone else's configuration.
+
+For a factory whose core competence is INVENTING its process, the system of record had to move at the speed the process changes.
+
+What actually made it work had little to do with code:
+
+→ Bilingual (EN/ES) as a hard launch gate — a system operators can't read is a system they'll work around
+→ Never breaking the other plant mid-deploy — two live sites, one database, every change backward-compatible
+→ Earning the floor's trust station by station — replace the most hated paperwork first
+
+An MES project is an organizational change wearing a software costume.
+
+Full story on the blog — link in comments.
+
+#manufacturing #MES #leadership
