@@ -441,8 +441,10 @@ section { padding: 108px 0; }
 
 @keyframes illo-drift { from { transform: translateY(0); } to { transform: translateY(-16px); } }
 
-.illo .rotor { animation: illo-spin 60s linear infinite; transform-origin: 160px 160px; }
-@keyframes illo-spin { to { transform: rotate(360deg); } }
+/* dashes crawl around the pitch circle — reads as slow rotation
+   without breaking the tilted perspective */
+.illo .pitch { animation: illo-ring 9s linear infinite; }
+@keyframes illo-ring { to { stroke-dashoffset: -90; } }
 
 .illo .beams { animation: illo-beams 3.6s ease-in-out infinite; }
 @keyframes illo-beams { 0%, 100% { opacity: .3; } 50% { opacity: 1; } }
