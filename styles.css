@@ -383,6 +383,47 @@ form textarea { resize: vertical; min-height: 120px; }
    Kills the marquee, hero glow float, pulsing dot, count-ups,
    and scroll reveals for users who ask the OS for less motion.
    ============================================================ */
+/* ============================================================
+   2026 REFRESH — sharper editorial cut
+   Same brand (paper · copper · Fraunces/Plex); this layer turns
+   the volume up: bigger, tighter display type; zero-radius
+   industrial edges; a copper masthead bar; uppercase mono
+   buttons; more air between sections.
+   ============================================================ */
+
+/* masthead: copper press-bar above the nav */
+.nav { border-top: 3px solid var(--copper); }
+
+/* display type: bigger and tighter, like a broadsheet front page */
+h1, h2, h3 { letter-spacing: -.02em; }
+.hero h1 { font-size: clamp(2.9rem, 7.5vw, 6rem); line-height: 1.02; letter-spacing: -.028em; }
+.hero { padding: 132px 0 104px; }
+.hero .lede { font-size: 1.16rem; }
+.sec-head h2 { font-size: clamp(2.1rem, 4.6vw, 3.4rem); }
+.work-row h3 { font-size: clamp(1.7rem, 3.4vw, 2.5rem); }
+.detail-hero h1 { font-size: clamp(2.6rem, 6.5vw, 4.8rem); letter-spacing: -.028em; }
+.stat-band .s .big { font-size: clamp(2.7rem, 5.5vw, 3.9rem); }
+.metrics .m .big { font-size: 2.7rem; }
+
+/* more air between sections */
+section { padding: 108px 0; }
+@media (max-width: 820px) { section { padding: 72px 0; } }
+
+/* industrial edges: kill the soft radii on rectangles
+   (pills — .status, .badge — deliberately stay round) */
+.portrait, .cap-grid, .hub-card, .metrics, .stat-band,
+.btn, form input, form textarea, .facts span,
+.portrait .tag, .hub-card .pill, .editable-note { border-radius: 0; }
+
+/* buttons: pressroom stamp — uppercase mono, squared */
+.btn { text-transform: uppercase; font-size: .76rem; letter-spacing: .1em; padding: 14px 24px; }
+
+/* eyebrow rule gets a heavier copper lead-in */
+.sec-head::after { background: linear-gradient(90deg, var(--copper) 0, var(--copper) 56px, var(--line) 56px, var(--line) 100%); height: 2px; }
+
+/* work rows read as a front-page index: heavier separators */
+.work-row { border-bottom-width: 1px; padding: 34px 6px; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: .001ms !important;
