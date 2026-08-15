@@ -3,7 +3,12 @@
    To publish a new post:
      1. Create a new HTML file (copy blog-spc-system.html as a template).
      2. Add ONE entry to the TOP of the array below (newest first).
-   That's it — blog.html and the homepage update automatically.
+     3. Mirror it into the static fallback cards in the HTML:
+          - blog.html   → #post-list    (all posts)
+          - index.html  → #writing-list (newest TWO only)
+        This file renders those lists at runtime, but JS-less crawlers — LinkedIn
+        and Slack link previews, most LLM crawlers — only ever see the static
+        markup. Skipping step 3 makes a new post invisible to them.
    ============================================================ */
 window.POSTS = [
   {

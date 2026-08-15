@@ -286,7 +286,14 @@
 <section id="writing">
   <div class="wrap">
     <div class="sec-head reveal"><span class="eyebrow">06 — Knowledge Hub</span><h2>From the floor.</h2><p>Notes on manufacturing, process, and building data systems that engineers and operators actually use.</p></div>
-    <div class="hub-grid" id="writing-list"></div>
+    <!-- The two cards below are a static fallback: posts.js replaces this whole
+         block on load. They exist because crawlers that don't run JavaScript
+         (LinkedIn and Slack link previews, most LLM crawlers) would otherwise find
+         zero links to any article. Keep the newest TWO in sync with posts.js.
+         No "reveal" class here on purpose — .reveal starts at opacity 0 and only
+         fades in from JS, so a static card carrying it would be invisible if the
+         script never runs. -->
+    <div class="hub-grid" id="writing-list"><a class="hub-card" href="blog-mes-build.html"><span class="kicker">MES · Leadership</span><h3>Why we built our own MES — and shipped it to two factories →</h3><p>The build-vs-buy call behind an in-house manufacturing execution system — and why the hard parts were bilingual launch gates and floor trust, not code.</p><span class="date">2026-08-10</span></a><a class="hub-card" href="blog-pilot-build.html"><span class="kicker">NPI · Process</span><h3>The pilot build is a question, not a milestone →</h3><p>A first pilot that only proves "we can build one" wastes most of its value. Treating the pilot as an experiment that answers whether the process is ready to scale.</p><span class="date">2026-07-05</span></a></div>
     <p style="margin-top:28px;" class="reveal"><a href="blog.html" class="btn ghost">All articles →</a></p>
   </div>
 </section>

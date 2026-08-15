@@ -1,0 +1,39 @@
+# Aseem Bhandari
+
+> Senior manufacturing leader. I build the teams, NPI programs, and systems that take
+> complex hardware from prototype to high-yield volume — across optical transceiver,
+> lidar, and electric-machine manufacturing. Currently leading manufacturing for
+> air-core PCB-stator electric motors, including an end-to-end MES built and deployed
+> in production across plants in two countries (US and Mexico).
+
+Personal site of Aseem Bhandari. Static HTML — every page below is the full text of
+itself, there is no separate API or documentation source. Contact is via LinkedIn:
+https://www.linkedin.com/in/aseembhandari21
+
+## Main pages
+
+- [Home](https://aseembhandari.com/): Overview — capabilities, work history, testimonials, and contact.
+- [Knowledge Hub](https://aseembhandari.com/blog.html): Index of written articles on manufacturing, process engineering, SPC, and factory-floor data systems.
+
+## Articles
+
+- [Why we built our own MES — and shipped it to two factories](https://aseembhandari.com/blog-mes-build.html): The build-vs-buy decision behind an in-house manufacturing execution system, and what it took to deploy it in production across plants in two countries. (2026-08-10)
+- [The pilot build is a question, not a milestone](https://aseembhandari.com/blog-pilot-build.html): What a first pilot build is actually for in NPI — treating the pilot as an experiment that answers whether the process is ready to scale, not a box to tick. (2026-07-05)
+- [Reading a yield signal: from noise to a ranked cause list](https://aseembhandari.com/blog-yield-signal.html): A practical approach to yield and root-cause analysis on a running line — turning a noisy yield number into a stratified, ranked, fixable list of causes. (2026-06-22)
+- [Building an SPC system operators actually use](https://aseembhandari.com/blog-spc-system.html): Notes on standing up statistical process control and the data systems underneath it. (2026-06-08)
+
+## Work history
+
+- [Infinitum](https://aseembhandari.com/work-infinitum.html): Manufacturing leadership for air-core PCB-stator electric motors — including an end-to-end MES built and deployed in production.
+- [Velodyne Lidar](https://aseembhandari.com/work-velodyne.html): NPI and production support for lidar sensor manufacturing.
+- [Fabrinet](https://aseembhandari.com/work-fabrinet.html): Optical transceiver and module assembly process engineering at high volume.
+
+## Interactive tools
+
+- [SPC & Capability Calculators](https://aseembhandari.com/spc-tools.html): Free interactive SPC and MSA calculators — process capability (Cp, Cpk, Pp, Ppk), yield / DPMO / process sigma, and Gage R&R (ANOVA method).
+- [NPI Readiness Checklist](https://aseembhandari.com/npi-checklist.html): Interactive New Product Introduction readiness checklist — DFM, BOM, fixtures, test coverage, traceability, and exit criteria.
+- [PCB / SMT Defect Debugger](https://aseembhandari.com/pcbdebug.html): Guided decision tree for diagnosing SMT solder and assembly defects, routing a symptom to a root cause with check-and-fix steps.
+
+## Optional
+
+- [Sitemap](https://aseembhandari.com/sitemap.xml): Machine-readable list of every page with last-modified dates.

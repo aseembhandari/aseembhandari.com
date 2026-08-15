@@ -1,0 +1,20 @@
+# Netlify redirect / rewrite rules for aseembhandari.com
+# Plain text, one rule per line: <from> <to> <status>
+# A trailing "!" forces the rule to win even when a real file exists at that path
+# (without it, an existing file always beats a rule).
+#
+# Why this file exists at all: the site deploys with `netlify deploy --dir .`, which
+# uploads the whole site folder — including working files that were never meant to be
+# public. Nothing is deleted or moved to hide them; they are simply not served.
+
+# --- Working files: uploaded by the deploy, but not public --------------------
+# content/ holds article source markdown and the LinkedIn drafts (including posts
+# not published yet). Root-level .py files are the OG-image and favicon generators.
+/content/*   /404.html   404!
+/*.py        /404.html   404!
+
+# --- security.txt ------------------------------------------------------------
+# RFC 9116 puts the canonical file at /.well-known/security.txt. Serving it as a
+# rewrite from the root copy keeps one source file instead of two that can drift —
+# and avoids depending on whether the deploy uploads dot-directories at all.
+/.well-known/security.txt   /security.txt   200

@@ -17,6 +17,13 @@ below), entirely outside this folder, for the same reason.
      section / `giscus.js` include at the bottom all carry over automatically.
    - Add the entry to `posts.js` (title, date, tag, excerpt) so it shows up on
      `blog.html` and the homepage Knowledge Hub automatically.
+   - Mirror that entry into the **static fallback cards** in the HTML itself —
+     `#post-list` in `blog.html` (all posts) and `#writing-list` in `index.html`
+     (newest two). `posts.js` builds those lists in the browser, but crawlers that
+     don't run JavaScript — LinkedIn/Slack link previews, most LLM crawlers — only
+     see the static markup, so a post missing from it is invisible to them.
+   - Add the post to `llms.txt` (Articles section) alongside the `sitemap.xml`
+     entry, for the same discoverability reason.
    - Write a separate LinkedIn-optimized version to
      `content/YYYY-MM-DD-slug.linkedin.txt` — shorter, hook-first, short line-broken
      paragraphs (LinkedIn strips most formatting), ending with a link back to the

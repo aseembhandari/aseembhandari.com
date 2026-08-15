@@ -51,7 +51,11 @@
 
 <section style="border-top:1px solid var(--line-soft);">
   <div class="wrap">
-    <div class="hub-grid" id="post-list"></div>
+    <!-- Static fallback: posts.js replaces this whole block on load. It exists so
+         crawlers that don't run JavaScript (LinkedIn and Slack link previews, most
+         LLM crawlers) find real links to every article instead of an empty div.
+         Keep in sync with posts.js — newest first, all posts. -->
+    <div class="hub-grid" id="post-list"><a class="hub-card" href="blog-mes-build.html"><span class="kicker">MES · Leadership</span><h3>Why we built our own MES — and shipped it to two factories →</h3><p>The build-vs-buy call behind an in-house manufacturing execution system — and why the hard parts were bilingual launch gates and floor trust, not code.</p><span class="date">2026-08-10</span></a><a class="hub-card" href="blog-pilot-build.html"><span class="kicker">NPI · Process</span><h3>The pilot build is a question, not a milestone →</h3><p>A first pilot that only proves "we can build one" wastes most of its value. Treating the pilot as an experiment that answers whether the process is ready to scale.</p><span class="date">2026-07-05</span></a><a class="hub-card" href="blog-yield-signal.html"><span class="kicker">Yield · Root-Cause</span><h3>Reading a yield signal: from noise to a ranked cause list →</h3><p>"Yield dropped to 84%" is an alarm, not information. How to stratify, bound, and reproduce a yield loss until it becomes a short list of things you can actually fix.</p><span class="date">2026-06-22</span></a><a class="hub-card" href="blog-spc-system.html"><span class="kicker">Process · Data</span><h3>Building an SPC system operators actually use →</h3><p>Control charts only work if the line trusts them. Notes on standing up statistical process control at Infinitum — and the data plumbing underneath it.</p><span class="date">2026-06-08</span></a></div>
     <p id="empty" hidden style="color:var(--ink-soft);">No posts yet — check back soon.</p>
   </div>
 </section>

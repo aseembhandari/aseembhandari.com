@@ -1,0 +1,15 @@
+# Security contact for aseembhandari.com
+#
+# This is a static personal site — no backend, no database, no user accounts,
+# and no data collected from visitors. If you have found something anyway
+# (exposed file, DNS or hosting misconfiguration, dependency issue), the contact
+# below is the fastest way to reach me.
+#
+# Refresh the Expires date below when it gets close — an expired security.txt is
+# treated as invalid by the tools that read this file.
+
+Contact: https://www.linkedin.com/in/aseembhandari21
+Expires: 2027-06-30T23:59:59.000Z
+Preferred-Languages: en, es
+Canonical: https://aseembhandari.com/.well-known/security.txt
+Canonical: https://aseembhandari.com/security.txt
