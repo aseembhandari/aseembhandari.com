@@ -1,4 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="12" fill="#1c1813"/>
-  <text x="32" y="45" font-family="Georgia, 'Times New Roman', serif" font-size="38" font-weight="600" text-anchor="middle" fill="#c77b3c">A</text>
+  <!-- Mark: a PCB stator seen from above — outer copper ring, eight coil
+       spokes, centre bore — on bench slate. Same geometry as generate-favicon.py. -->
+  <rect width="64" height="64" rx="8" fill="#0F151B"/>
+  <g fill="none" stroke="#E0A030" stroke-width="3" stroke-linecap="butt">
+    <circle cx="32" cy="32" r="22"/>
+    <path d="M32 10v9M32 45v9M10 32h9M45 32h9M16.4 16.4l6.4 6.4M41.2 41.2l6.4 6.4M47.6 16.4l-6.4 6.4M22.8 41.2l-6.4 6.4"/>
+  </g>
+  <circle cx="32" cy="32" r="6" fill="none" stroke="#E0A030" stroke-width="2.5"/>
 </svg>

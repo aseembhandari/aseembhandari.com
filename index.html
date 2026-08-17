@@ -33,7 +33,7 @@
 <!-- fonts (preconnect + async-friendly load) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="styles.css">
 
 <!-- structured data -->
@@ -119,60 +119,641 @@
 
 <!-- HERO -->
 <section class="hero">
-  <span class="monogram" aria-hidden="true">AB</span>
-  <div class="hero-illos" aria-hidden="true">
-    <!-- lidar: HDL-64 silhouette — tapered spinning head, optical window, neck, bolted base -->
-    <svg class="illo illo-lidar" viewBox="0 0 250 215" fill="none" stroke="currentColor" stroke-width="1.3">
-      <ellipse cx="110" cy="45" rx="58" ry="14"/>
-      <path d="M52 45l16 85M168 45l-16 85"/>
-      <path d="M68 130a42 11 0 0 0 84 0"/>
-      <path class="pitch" d="M54 58a56 13.5 0 0 0 112 0" stroke-dasharray="3 6"/>
-      <rect x="104" y="66" width="58" height="60" rx="9"/>
-      <circle cx="133" cy="88" r="13"/>
-      <ellipse cx="133" cy="112" rx="13" ry="7"/>
-      <g class="beams" stroke-dasharray="4 5">
-        <path d="M162 92h66"/>
-        <path d="M162 92l58 -24"/>
-        <path d="M162 92l58 24"/>
-      </g>
-      <path d="M96 140v18M124 140v18"/>
-      <path d="M110 154l72 16-72 16-72-16z"/>
-      <path d="M38 170v12l72 16 72-16v-12M110 186v14"/>
-      <circle cx="74" cy="166" r="2.5"/><circle cx="146" cy="166" r="2.5"/><circle cx="110" cy="178" r="2.5"/>
-      <path d="M26 45h-10M26 130h-10"/>
-      <path d="M21 45v85" stroke-dasharray="2 4"/>
-    </svg>
-    <!-- PCB-stator motor, tilted view with shaft -->
-    <svg class="illo illo-motor" viewBox="0 0 340 300" fill="none" stroke="currentColor" stroke-width="1.3">
-      <ellipse cx="170" cy="150" rx="130" ry="55"/>
-      <path d="M40 150v24M300 150v24"/>
-      <path d="M40 174a130 55 0 0 0 260 0"/>
-      <ellipse class="pitch" cx="170" cy="150" rx="110" ry="46.5" stroke-dasharray="3 6"/>
-      <path d="M216.8 150L280.5 150M203.1 164L248.1 183.1M170 169.8L170 196.8M136.9 164L91.9 183.1M123.2 150L59.5 150M136.9 136L104 122M203.1 136L236 122"/>
-      <circle cx="280.5" cy="150" r="3"/><circle cx="170" cy="196.8" r="3"/><circle cx="59.5" cy="150" r="3"/>
-      <ellipse cx="170" cy="150" rx="46.8" ry="19.8"/>
-      <path d="M154 131.5V56M186 131.5V56"/>
-      <ellipse cx="170" cy="56" rx="16" ry="6.8"/>
-      <path d="M170 42v-22M170 234v22" stroke-dasharray="2 5"/>
-      <path d="M14 150h18M308 150h18" stroke-dasharray="2 5"/>
-    </svg>
-    <!-- optical transceiver -->
-    <svg class="illo illo-xcvr" viewBox="0 0 240 140" fill="none" stroke="currentColor" stroke-width="1.3">
-      <rect x="18" y="45" width="150" height="50" rx="4"/>
-      <path d="M168 52h42v36h-42"/>
-      <path d="M174 62h30"/><path d="M174 70h30"/><path d="M174 78h30"/>
-      <rect x="40" y="55" width="70" height="30" stroke-dasharray="3 4"/>
-      <path d="M18 55c-14 0-14 30 0 30"/>
-      <path d="M18 32h150"/><path d="M18 28v8"/><path d="M168 28v8"/>
-    </svg>
-  </div>
   <div class="wrap">
+    <div class="hero-copy">
     <span class="status load d1"><span class="dot"></span>Manufacturing leadership · open to conversations</span>
     <h1 class="load d2">Leading the shift from prototype to <em>repeatable</em> production.</h1>
     <p class="lede load d3">I'm a senior manufacturing leader who builds the teams, NPI programs, and systems that take complex hardware from first prototype to high-yield volume — leading a two-country production footprint, owning new-product introduction end-to-end, shaping manufacturing strategy, and driving contract manufacturers and suppliers to deliver. Still close enough to the floor to know why the line actually behaves the way it does.</p>
     <div class="cta-row load d4">
       <a href="#work" class="btn solid">View selected work →</a>
       <a href="#contact" class="btn ghost">Get in touch</a>
+    </div>
+    </div>
+    <!-- Signature: five CAM-style plots of the hardware Aseem has taken to volume —
+         PCB stator (Infinitum), an SMT board assembly, a chip-on-board die stack with
+         wire bonds and a TOSA laser-to-fiber attach (Fabrinet optical packaging), a
+         spinning lidar (Velodyne). Cycled by the script at the bottom of the page.
+         Decorative; hidden from assistive tech. -->
+    <div class="hero-illos" aria-hidden="true">
+      <div class="plots">
+      <figure class="frame is-active">
+<svg class="plot" viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+<g class="cu" stroke="currentColor" stroke-width="1.05" stroke-linejoin="round">
+<path pathLength="1" d="M212.5 60.6 A205.0 205.0 0 0 1 307.5 60.6 L275.5 177.4 A84.0 84.0 0 0 0 244.5 177.4 Z"/>
+<path pathLength="1" d="M218.4 65.8 A198.6 198.6 0 0 1 301.6 65.8 L274.5 174.0 A87.2 87.2 0 0 0 245.5 174.0 Z"/>
+<path pathLength="1" d="M224.1 71.2 A192.2 192.2 0 0 1 295.9 71.2 L273.5 170.6 A90.4 90.4 0 0 0 246.5 170.6 Z"/>
+<path pathLength="1" d="M229.5 76.7 A185.8 185.8 0 0 1 290.5 76.7 L272.3 167.2 A93.6 93.6 0 0 0 247.7 167.2 Z"/>
+<path pathLength="1" d="M234.7 82.4 A179.4 179.4 0 0 1 285.3 82.4 L271.0 163.8 A96.8 96.8 0 0 0 249.0 163.8 Z"/>
+<path pathLength="1" d="M239.5 88.2 A173.0 173.0 0 0 1 280.5 88.2 L269.6 160.5 A100.0 100.0 0 0 0 250.4 160.5 Z"/>
+<path pathLength="1" d="M244.1 94.2 A166.6 166.6 0 0 1 275.9 94.2 L268.1 157.1 A103.2 103.2 0 0 0 251.9 157.1 Z"/>
+<path pathLength="1" d="M248.4 100.2 A160.2 160.2 0 0 1 271.6 100.2 L266.4 153.8 A106.4 106.4 0 0 0 253.6 153.8 Z"/>
+<path pathLength="1" d="M318.6 63.5 A205.0 205.0 0 0 1 400.9 111.1 L314.7 196.2 A84.0 84.0 0 0 0 287.9 180.8 Z"/>
+<path pathLength="1" d="M321.1 71.0 A198.6 198.6 0 0 1 393.1 112.6 L315.6 192.8 A87.2 87.2 0 0 0 290.4 178.3 Z"/>
+<path pathLength="1" d="M323.3 78.5 A192.2 192.2 0 0 1 385.5 114.4 L316.3 189.3 A90.4 90.4 0 0 0 293.0 175.9 Z"/>
+<path pathLength="1" d="M325.3 86.0 A185.8 185.8 0 0 1 378.0 116.5 L317.0 185.8 A93.6 93.6 0 0 0 295.8 173.5 Z"/>
+<path pathLength="1" d="M326.9 93.5 A179.4 179.4 0 0 1 370.7 118.9 L317.6 182.2 A96.8 96.8 0 0 0 298.6 171.2 Z"/>
+<path pathLength="1" d="M328.2 101.0 A173.0 173.0 0 0 1 363.6 121.5 L318.1 178.6 A100.0 100.0 0 0 0 301.5 169.0 Z"/>
+<path pathLength="1" d="M329.1 108.4 A166.6 166.6 0 0 1 356.7 124.3 L318.4 174.9 A103.2 103.2 0 0 0 304.5 166.9 Z"/>
+<path pathLength="1" d="M329.8 115.8 A160.2 160.2 0 0 1 350.0 127.4 L318.7 171.2 A106.4 106.4 0 0 0 307.5 164.8 Z"/>
+<path pathLength="1" d="M408.9 119.1 A205.0 205.0 0 0 1 456.5 201.4 L339.2 232.1 A84.0 84.0 0 0 0 323.8 205.3 Z"/>
+<path pathLength="1" d="M407.4 126.9 A198.6 198.6 0 0 1 449.0 198.9 L341.7 229.6 A87.2 87.2 0 0 0 327.2 204.4 Z"/>
+<path pathLength="1" d="M405.6 134.5 A192.2 192.2 0 0 1 441.5 196.7 L344.1 227.0 A90.4 90.4 0 0 0 330.7 203.7 Z"/>
+<path pathLength="1" d="M403.5 142.0 A185.8 185.8 0 0 1 434.0 194.7 L346.5 224.2 A93.6 93.6 0 0 0 334.2 203.0 Z"/>
+<path pathLength="1" d="M401.1 149.3 A179.4 179.4 0 0 1 426.5 193.1 L348.8 221.4 A96.8 96.8 0 0 0 337.8 202.4 Z"/>
+<path pathLength="1" d="M398.5 156.4 A173.0 173.0 0 0 1 419.0 191.8 L351.0 218.5 A100.0 100.0 0 0 0 341.4 201.9 Z"/>
+<path pathLength="1" d="M395.7 163.3 A166.6 166.6 0 0 1 411.6 190.9 L353.1 215.5 A103.2 103.2 0 0 0 345.1 201.6 Z"/>
+<path pathLength="1" d="M392.6 170.0 A160.2 160.2 0 0 1 404.2 190.2 L355.2 212.5 A106.4 106.4 0 0 0 348.8 201.3 Z"/>
+<path pathLength="1" d="M459.4 212.5 A205.0 205.0 0 0 1 459.4 307.5 L342.6 275.5 A84.0 84.0 0 0 0 342.6 244.5 Z"/>
+<path pathLength="1" d="M454.2 218.4 A198.6 198.6 0 0 1 454.2 301.6 L346.0 274.5 A87.2 87.2 0 0 0 346.0 245.5 Z"/>
+<path pathLength="1" d="M448.8 224.1 A192.2 192.2 0 0 1 448.8 295.9 L349.4 273.5 A90.4 90.4 0 0 0 349.4 246.5 Z"/>
+<path pathLength="1" d="M443.3 229.5 A185.8 185.8 0 0 1 443.3 290.5 L352.8 272.3 A93.6 93.6 0 0 0 352.8 247.7 Z"/>
+<path pathLength="1" d="M437.6 234.7 A179.4 179.4 0 0 1 437.6 285.3 L356.2 271.0 A96.8 96.8 0 0 0 356.2 249.0 Z"/>
+<path pathLength="1" d="M431.8 239.5 A173.0 173.0 0 0 1 431.8 280.5 L359.5 269.6 A100.0 100.0 0 0 0 359.5 250.4 Z"/>
+<path pathLength="1" d="M425.8 244.1 A166.6 166.6 0 0 1 425.8 275.9 L362.9 268.1 A103.2 103.2 0 0 0 362.9 251.9 Z"/>
+<path pathLength="1" d="M419.8 248.4 A160.2 160.2 0 0 1 419.8 271.6 L366.2 266.4 A106.4 106.4 0 0 0 366.2 253.6 Z"/>
+<path pathLength="1" d="M456.5 318.6 A205.0 205.0 0 0 1 408.9 400.9 L323.8 314.7 A84.0 84.0 0 0 0 339.2 287.9 Z"/>
+<path pathLength="1" d="M449.0 321.1 A198.6 198.6 0 0 1 407.4 393.1 L327.2 315.6 A87.2 87.2 0 0 0 341.7 290.4 Z"/>
+<path pathLength="1" d="M441.5 323.3 A192.2 192.2 0 0 1 405.6 385.5 L330.7 316.3 A90.4 90.4 0 0 0 344.1 293.0 Z"/>
+<path pathLength="1" d="M434.0 325.3 A185.8 185.8 0 0 1 403.5 378.0 L334.2 317.0 A93.6 93.6 0 0 0 346.5 295.8 Z"/>
+<path pathLength="1" d="M426.5 326.9 A179.4 179.4 0 0 1 401.1 370.7 L337.8 317.6 A96.8 96.8 0 0 0 348.8 298.6 Z"/>
+<path pathLength="1" d="M419.0 328.2 A173.0 173.0 0 0 1 398.5 363.6 L341.4 318.1 A100.0 100.0 0 0 0 351.0 301.5 Z"/>
+<path pathLength="1" d="M411.6 329.1 A166.6 166.6 0 0 1 395.7 356.7 L345.1 318.4 A103.2 103.2 0 0 0 353.1 304.5 Z"/>
+<path pathLength="1" d="M404.2 329.8 A160.2 160.2 0 0 1 392.6 350.0 L348.8 318.7 A106.4 106.4 0 0 0 355.2 307.5 Z"/>
+<path pathLength="1" d="M400.9 408.9 A205.0 205.0 0 0 1 318.6 456.5 L287.9 339.2 A84.0 84.0 0 0 0 314.7 323.8 Z"/>
+<path pathLength="1" d="M393.1 407.4 A198.6 198.6 0 0 1 321.1 449.0 L290.4 341.7 A87.2 87.2 0 0 0 315.6 327.2 Z"/>
+<path pathLength="1" d="M385.5 405.6 A192.2 192.2 0 0 1 323.3 441.5 L293.0 344.1 A90.4 90.4 0 0 0 316.3 330.7 Z"/>
+<path pathLength="1" d="M378.0 403.5 A185.8 185.8 0 0 1 325.3 434.0 L295.8 346.5 A93.6 93.6 0 0 0 317.0 334.2 Z"/>
+<path pathLength="1" d="M370.7 401.1 A179.4 179.4 0 0 1 326.9 426.5 L298.6 348.8 A96.8 96.8 0 0 0 317.6 337.8 Z"/>
+<path pathLength="1" d="M363.6 398.5 A173.0 173.0 0 0 1 328.2 419.0 L301.5 351.0 A100.0 100.0 0 0 0 318.1 341.4 Z"/>
+<path pathLength="1" d="M356.7 395.7 A166.6 166.6 0 0 1 329.1 411.6 L304.5 353.1 A103.2 103.2 0 0 0 318.4 345.1 Z"/>
+<path pathLength="1" d="M350.0 392.6 A160.2 160.2 0 0 1 329.8 404.2 L307.5 355.2 A106.4 106.4 0 0 0 318.7 348.8 Z"/>
+<path pathLength="1" d="M307.5 459.4 A205.0 205.0 0 0 1 212.5 459.4 L244.5 342.6 A84.0 84.0 0 0 0 275.5 342.6 Z"/>
+<path pathLength="1" d="M301.6 454.2 A198.6 198.6 0 0 1 218.4 454.2 L245.5 346.0 A87.2 87.2 0 0 0 274.5 346.0 Z"/>
+<path pathLength="1" d="M295.9 448.8 A192.2 192.2 0 0 1 224.1 448.8 L246.5 349.4 A90.4 90.4 0 0 0 273.5 349.4 Z"/>
+<path pathLength="1" d="M290.5 443.3 A185.8 185.8 0 0 1 229.5 443.3 L247.7 352.8 A93.6 93.6 0 0 0 272.3 352.8 Z"/>
+<path pathLength="1" d="M285.3 437.6 A179.4 179.4 0 0 1 234.7 437.6 L249.0 356.2 A96.8 96.8 0 0 0 271.0 356.2 Z"/>
+<path pathLength="1" d="M280.5 431.8 A173.0 173.0 0 0 1 239.5 431.8 L250.4 359.5 A100.0 100.0 0 0 0 269.6 359.5 Z"/>
+<path pathLength="1" d="M275.9 425.8 A166.6 166.6 0 0 1 244.1 425.8 L251.9 362.9 A103.2 103.2 0 0 0 268.1 362.9 Z"/>
+<path pathLength="1" d="M271.6 419.8 A160.2 160.2 0 0 1 248.4 419.8 L253.6 366.2 A106.4 106.4 0 0 0 266.4 366.2 Z"/>
+<path pathLength="1" d="M201.4 456.5 A205.0 205.0 0 0 1 119.1 408.9 L205.3 323.8 A84.0 84.0 0 0 0 232.1 339.2 Z"/>
+<path pathLength="1" d="M198.9 449.0 A198.6 198.6 0 0 1 126.9 407.4 L204.4 327.2 A87.2 87.2 0 0 0 229.6 341.7 Z"/>
+<path pathLength="1" d="M196.7 441.5 A192.2 192.2 0 0 1 134.5 405.6 L203.7 330.7 A90.4 90.4 0 0 0 227.0 344.1 Z"/>
+<path pathLength="1" d="M194.7 434.0 A185.8 185.8 0 0 1 142.0 403.5 L203.0 334.2 A93.6 93.6 0 0 0 224.2 346.5 Z"/>
+<path pathLength="1" d="M193.1 426.5 A179.4 179.4 0 0 1 149.3 401.1 L202.4 337.8 A96.8 96.8 0 0 0 221.4 348.8 Z"/>
+<path pathLength="1" d="M191.8 419.0 A173.0 173.0 0 0 1 156.4 398.5 L201.9 341.4 A100.0 100.0 0 0 0 218.5 351.0 Z"/>
+<path pathLength="1" d="M190.9 411.6 A166.6 166.6 0 0 1 163.3 395.7 L201.6 345.1 A103.2 103.2 0 0 0 215.5 353.1 Z"/>
+<path pathLength="1" d="M190.2 404.2 A160.2 160.2 0 0 1 170.0 392.6 L201.3 348.8 A106.4 106.4 0 0 0 212.5 355.2 Z"/>
+<path pathLength="1" d="M111.1 400.9 A205.0 205.0 0 0 1 63.5 318.6 L180.8 287.9 A84.0 84.0 0 0 0 196.2 314.7 Z"/>
+<path pathLength="1" d="M112.6 393.1 A198.6 198.6 0 0 1 71.0 321.1 L178.3 290.4 A87.2 87.2 0 0 0 192.8 315.6 Z"/>
+<path pathLength="1" d="M114.4 385.5 A192.2 192.2 0 0 1 78.5 323.3 L175.9 293.0 A90.4 90.4 0 0 0 189.3 316.3 Z"/>
+<path pathLength="1" d="M116.5 378.0 A185.8 185.8 0 0 1 86.0 325.3 L173.5 295.8 A93.6 93.6 0 0 0 185.8 317.0 Z"/>
+<path pathLength="1" d="M118.9 370.7 A179.4 179.4 0 0 1 93.5 326.9 L171.2 298.6 A96.8 96.8 0 0 0 182.2 317.6 Z"/>
+<path pathLength="1" d="M121.5 363.6 A173.0 173.0 0 0 1 101.0 328.2 L169.0 301.5 A100.0 100.0 0 0 0 178.6 318.1 Z"/>
+<path pathLength="1" d="M124.3 356.7 A166.6 166.6 0 0 1 108.4 329.1 L166.9 304.5 A103.2 103.2 0 0 0 174.9 318.4 Z"/>
+<path pathLength="1" d="M127.4 350.0 A160.2 160.2 0 0 1 115.8 329.8 L164.8 307.5 A106.4 106.4 0 0 0 171.2 318.7 Z"/>
+<path pathLength="1" d="M60.6 307.5 A205.0 205.0 0 0 1 60.6 212.5 L177.4 244.5 A84.0 84.0 0 0 0 177.4 275.5 Z"/>
+<path pathLength="1" d="M65.8 301.6 A198.6 198.6 0 0 1 65.8 218.4 L174.0 245.5 A87.2 87.2 0 0 0 174.0 274.5 Z"/>
+<path pathLength="1" d="M71.2 295.9 A192.2 192.2 0 0 1 71.2 224.1 L170.6 246.5 A90.4 90.4 0 0 0 170.6 273.5 Z"/>
+<path pathLength="1" d="M76.7 290.5 A185.8 185.8 0 0 1 76.7 229.5 L167.2 247.7 A93.6 93.6 0 0 0 167.2 272.3 Z"/>
+<path pathLength="1" d="M82.4 285.3 A179.4 179.4 0 0 1 82.4 234.7 L163.8 249.0 A96.8 96.8 0 0 0 163.8 271.0 Z"/>
+<path pathLength="1" d="M88.2 280.5 A173.0 173.0 0 0 1 88.2 239.5 L160.5 250.4 A100.0 100.0 0 0 0 160.5 269.6 Z"/>
+<path pathLength="1" d="M94.2 275.9 A166.6 166.6 0 0 1 94.2 244.1 L157.1 251.9 A103.2 103.2 0 0 0 157.1 268.1 Z"/>
+<path pathLength="1" d="M100.2 271.6 A160.2 160.2 0 0 1 100.2 248.4 L153.8 253.6 A106.4 106.4 0 0 0 153.8 266.4 Z"/>
+<path pathLength="1" d="M63.5 201.4 A205.0 205.0 0 0 1 111.1 119.1 L196.2 205.3 A84.0 84.0 0 0 0 180.8 232.1 Z"/>
+<path pathLength="1" d="M71.0 198.9 A198.6 198.6 0 0 1 112.6 126.9 L192.8 204.4 A87.2 87.2 0 0 0 178.3 229.6 Z"/>
+<path pathLength="1" d="M78.5 196.7 A192.2 192.2 0 0 1 114.4 134.5 L189.3 203.7 A90.4 90.4 0 0 0 175.9 227.0 Z"/>
+<path pathLength="1" d="M86.0 194.7 A185.8 185.8 0 0 1 116.5 142.0 L185.8 203.0 A93.6 93.6 0 0 0 173.5 224.2 Z"/>
+<path pathLength="1" d="M93.5 193.1 A179.4 179.4 0 0 1 118.9 149.3 L182.2 202.4 A96.8 96.8 0 0 0 171.2 221.4 Z"/>
+<path pathLength="1" d="M101.0 191.8 A173.0 173.0 0 0 1 121.5 156.4 L178.6 201.9 A100.0 100.0 0 0 0 169.0 218.5 Z"/>
+<path pathLength="1" d="M108.4 190.9 A166.6 166.6 0 0 1 124.3 163.3 L174.9 201.6 A103.2 103.2 0 0 0 166.9 215.5 Z"/>
+<path pathLength="1" d="M115.8 190.2 A160.2 160.2 0 0 1 127.4 170.0 L171.2 201.3 A106.4 106.4 0 0 0 164.8 212.5 Z"/>
+<path pathLength="1" d="M119.1 111.1 A205.0 205.0 0 0 1 201.4 63.5 L232.1 180.8 A84.0 84.0 0 0 0 205.3 196.2 Z"/>
+<path pathLength="1" d="M126.9 112.6 A198.6 198.6 0 0 1 198.9 71.0 L229.6 178.3 A87.2 87.2 0 0 0 204.4 192.8 Z"/>
+<path pathLength="1" d="M134.5 114.4 A192.2 192.2 0 0 1 196.7 78.5 L227.0 175.9 A90.4 90.4 0 0 0 203.7 189.3 Z"/>
+<path pathLength="1" d="M142.0 116.5 A185.8 185.8 0 0 1 194.7 86.0 L224.2 173.5 A93.6 93.6 0 0 0 203.0 185.8 Z"/>
+<path pathLength="1" d="M149.3 118.9 A179.4 179.4 0 0 1 193.1 93.5 L221.4 171.2 A96.8 96.8 0 0 0 202.4 182.2 Z"/>
+<path pathLength="1" d="M156.4 121.5 A173.0 173.0 0 0 1 191.8 101.0 L218.5 169.0 A100.0 100.0 0 0 0 201.9 178.6 Z"/>
+<path pathLength="1" d="M163.3 124.3 A166.6 166.6 0 0 1 190.9 108.4 L215.5 166.9 A103.2 103.2 0 0 0 201.6 174.9 Z"/>
+<path pathLength="1" d="M170.0 127.4 A160.2 160.2 0 0 1 190.2 115.8 L212.5 164.8 A106.4 106.4 0 0 0 201.3 171.2 Z"/>
+</g>
+<g class="via" fill="currentColor">
+<circle cx="216.0" cy="62.4" r="2.1"/>
+<circle cx="260.0" cy="147.9" r="2.1"/>
+<circle cx="320.7" cy="66.9" r="2.1"/>
+<circle cx="316.1" cy="162.9" r="2.1"/>
+<circle cx="409.1" cy="123.1" r="2.1"/>
+<circle cx="357.1" cy="204.0" r="2.1"/>
+<circle cx="457.6" cy="216.0" r="2.1"/>
+<circle cx="372.1" cy="260.0" r="2.1"/>
+<circle cx="453.1" cy="320.7" r="2.1"/>
+<circle cx="357.1" cy="316.1" r="2.1"/>
+<circle cx="396.9" cy="409.1" r="2.1"/>
+<circle cx="316.1" cy="357.1" r="2.1"/>
+<circle cx="304.0" cy="457.6" r="2.1"/>
+<circle cx="260.0" cy="372.1" r="2.1"/>
+<circle cx="199.3" cy="453.1" r="2.1"/>
+<circle cx="204.0" cy="357.1" r="2.1"/>
+<circle cx="110.9" cy="396.9" r="2.1"/>
+<circle cx="162.9" cy="316.1" r="2.1"/>
+<circle cx="62.4" cy="304.0" r="2.1"/>
+<circle cx="147.9" cy="260.0" r="2.1"/>
+<circle cx="66.9" cy="199.3" r="2.1"/>
+<circle cx="162.9" cy="203.9" r="2.1"/>
+<circle cx="123.1" cy="110.9" r="2.1"/>
+<circle cx="203.9" cy="162.9" r="2.1"/>
+</g>
+<g class="ol" stroke="currentColor" stroke-width="1">
+<circle cx="260" cy="260" r="219"/>
+<circle cx="260" cy="260" r="52"/>
+<circle cx="260" cy="260" r="46" stroke-dasharray="2 4"/>
+<circle cx="260" cy="260" r="212" stroke-dasharray="1.5 6" opacity=".55"/>
+<circle cx="293.0" cy="202.8" r="4.5"/>
+<circle cx="326.0" cy="260.0" r="4.5"/>
+<circle cx="293.0" cy="317.2" r="4.5"/>
+<circle cx="227.0" cy="317.2" r="4.5"/>
+<circle cx="194.0" cy="260.0" r="4.5"/>
+<circle cx="227.0" cy="202.8" r="4.5"/>
+<circle cx="314.9" cy="55.2" r="2.4" class="fid"/><circle cx="314.9" cy="55.2" r="5.2"/>
+<circle cx="409.9" cy="409.9" r="2.4" class="fid"/><circle cx="409.9" cy="409.9" r="5.2"/>
+<circle cx="55.2" cy="314.9" r="2.4" class="fid"/><circle cx="55.2" cy="314.9" r="5.2"/>
+</g>
+<g class="dim"><path d="M41 16v10M479 16v10M41 21H220M300 21H479"/><text x="260" y="24.5" text-anchor="middle">Ø 438.0</text></g>
+</svg>
+        <figcaption><b>01</b>/05 · PCB stator · top copper</figcaption>
+      </figure>
+      <figure class="frame">
+<svg class="plot" viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+<g class="ol" stroke="currentColor" stroke-width="1">
+<rect x="60" y="92" width="400" height="336" rx="6"/>
+<circle cx="72" cy="104" r="4"/>
+<circle cx="448" cy="104" r="4"/>
+<circle cx="72" cy="416" r="4"/>
+<circle cx="448" cy="416" r="4"/>
+<circle cx="96" cy="128" r="5.4"/>
+<circle cx="424" cy="392" r="5.4"/>
+<circle cx="424" cy="128" r="5.4"/>
+<rect x="108" y="150" width="112" height="112"/><circle cx="118" cy="160" r="1.8"/>
+<rect x="300" y="150" width="100" height="100"/><circle cx="310" cy="160" r="1.8"/>
+<rect x="103" y="295" width="18" height="10"/>
+<rect x="127" y="295" width="18" height="10"/>
+<rect x="151" y="295" width="18" height="10"/>
+<rect x="175" y="295" width="18" height="10"/>
+<rect x="199" y="295" width="18" height="10"/>
+<rect x="223" y="295" width="18" height="10"/>
+<rect x="247" y="295" width="18" height="10"/>
+<rect x="271" y="295" width="18" height="10"/>
+<rect x="295" y="295" width="18" height="10"/>
+<rect x="103" y="319" width="18" height="10"/>
+<rect x="127" y="319" width="18" height="10"/>
+<rect x="151" y="319" width="18" height="10"/>
+<rect x="175" y="319" width="18" height="10"/>
+<rect x="199" y="319" width="18" height="10"/>
+<rect x="223" y="319" width="18" height="10"/>
+<rect x="247" y="319" width="18" height="10"/>
+<rect x="271" y="319" width="18" height="10"/>
+<rect x="295" y="319" width="18" height="10"/>
+<rect x="103" y="343" width="18" height="10"/>
+<rect x="127" y="343" width="18" height="10"/>
+<rect x="151" y="343" width="18" height="10"/>
+<rect x="175" y="343" width="18" height="10"/>
+<rect x="199" y="343" width="18" height="10"/>
+<rect x="223" y="343" width="18" height="10"/>
+<rect x="247" y="343" width="18" height="10"/>
+<rect x="271" y="343" width="18" height="10"/>
+<rect x="295" y="343" width="18" height="10"/>
+<rect x="427" y="151" width="10" height="18"/>
+<rect x="427" y="177" width="10" height="18"/>
+<rect x="427" y="203" width="10" height="18"/>
+<rect x="427" y="229" width="10" height="18"/>
+<rect x="427" y="255" width="10" height="18"/>
+<rect x="427" y="281" width="10" height="18"/>
+<rect x="310" y="282" width="16" height="16"/>
+<rect x="340" y="282" width="16" height="16"/>
+<rect x="370" y="282" width="16" height="16"/>
+<rect x="190" y="392" width="140" height="26"/>
+</g>
+<g class="cu" stroke="currentColor" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round">
+<path pathLength="1" d="M220 170h20l12 12h34"/>
+<path pathLength="1" d="M220 184h24l12 12h30"/>
+<path pathLength="1" d="M220 198h28l12 12h26"/>
+<path pathLength="1" d="M220 212h32l12 12h22"/>
+<path pathLength="1" d="M220 226h36l12 12h18"/>
+<path pathLength="1" d="M220 240h40l12 12h14"/>
+<path pathLength="1" d="M316 260v14l-8 8v16"/>
+<path pathLength="1" d="M336 260v18l-8 8v12"/>
+<path pathLength="1" d="M356 260v22l-8 8v8"/>
+<path pathLength="1" d="M376 260v26l-8 8v4"/>
+<path pathLength="1" d="M202 386v-18"/>
+<path pathLength="1" d="M213 386v-26"/>
+<path pathLength="1" d="M224 386v-18"/>
+<path pathLength="1" d="M235 386v-26"/>
+<path pathLength="1" d="M246 386v-18"/>
+<path pathLength="1" d="M108 206H84V140l12 -12"/><path pathLength="1" d="M400 200h24"/>
+</g>
+<g class="via" fill="currentColor">
+<circle cx="96" cy="128" r="2.4"/>
+<circle cx="424" cy="392" r="2.4"/>
+<circle cx="424" cy="128" r="2.4"/>
+<circle cx="120" cy="162" r="1.7"/>
+<circle cx="120" cy="170" r="1.7"/>
+<circle cx="120" cy="178" r="1.7"/>
+<circle cx="120" cy="186" r="1.7"/>
+<circle cx="120" cy="194" r="1.7"/>
+<circle cx="120" cy="202" r="1.7"/>
+<circle cx="120" cy="210" r="1.7"/>
+<circle cx="120" cy="218" r="1.7"/>
+<circle cx="120" cy="226" r="1.7"/>
+<circle cx="120" cy="234" r="1.7"/>
+<circle cx="120" cy="242" r="1.7"/>
+<circle cx="120" cy="250" r="1.7"/>
+<circle cx="128" cy="162" r="1.7"/>
+<circle cx="128" cy="170" r="1.7"/>
+<circle cx="128" cy="178" r="1.7"/>
+<circle cx="128" cy="186" r="1.7"/>
+<circle cx="128" cy="194" r="1.7"/>
+<circle cx="128" cy="202" r="1.7"/>
+<circle cx="128" cy="210" r="1.7"/>
+<circle cx="128" cy="218" r="1.7"/>
+<circle cx="128" cy="226" r="1.7"/>
+<circle cx="128" cy="234" r="1.7"/>
+<circle cx="128" cy="242" r="1.7"/>
+<circle cx="128" cy="250" r="1.7"/>
+<circle cx="136" cy="162" r="1.7"/>
+<circle cx="136" cy="170" r="1.7"/>
+<circle cx="136" cy="178" r="1.7"/>
+<circle cx="136" cy="186" r="1.7"/>
+<circle cx="136" cy="194" r="1.7"/>
+<circle cx="136" cy="202" r="1.7"/>
+<circle cx="136" cy="210" r="1.7"/>
+<circle cx="136" cy="218" r="1.7"/>
+<circle cx="136" cy="226" r="1.7"/>
+<circle cx="136" cy="234" r="1.7"/>
+<circle cx="136" cy="242" r="1.7"/>
+<circle cx="136" cy="250" r="1.7"/>
+<circle cx="144" cy="162" r="1.7"/>
+<circle cx="144" cy="170" r="1.7"/>
+<circle cx="144" cy="178" r="1.7"/>
+<circle cx="144" cy="186" r="1.7"/>
+<circle cx="144" cy="194" r="1.7"/>
+<circle cx="144" cy="202" r="1.7"/>
+<circle cx="144" cy="210" r="1.7"/>
+<circle cx="144" cy="218" r="1.7"/>
+<circle cx="144" cy="226" r="1.7"/>
+<circle cx="144" cy="234" r="1.7"/>
+<circle cx="144" cy="242" r="1.7"/>
+<circle cx="144" cy="250" r="1.7"/>
+<circle cx="152" cy="162" r="1.7"/>
+<circle cx="152" cy="170" r="1.7"/>
+<circle cx="152" cy="178" r="1.7"/>
+<circle cx="152" cy="186" r="1.7"/>
+<circle cx="152" cy="194" r="1.7"/>
+<circle cx="152" cy="202" r="1.7"/>
+<circle cx="152" cy="210" r="1.7"/>
+<circle cx="152" cy="218" r="1.7"/>
+<circle cx="152" cy="226" r="1.7"/>
+<circle cx="152" cy="234" r="1.7"/>
+<circle cx="152" cy="242" r="1.7"/>
+<circle cx="152" cy="250" r="1.7"/>
+<circle cx="160" cy="162" r="1.7"/>
+<circle cx="160" cy="170" r="1.7"/>
+<circle cx="160" cy="178" r="1.7"/>
+<circle cx="160" cy="186" r="1.7"/>
+<circle cx="160" cy="194" r="1.7"/>
+<circle cx="160" cy="202" r="1.7"/>
+<circle cx="160" cy="210" r="1.7"/>
+<circle cx="160" cy="218" r="1.7"/>
+<circle cx="160" cy="226" r="1.7"/>
+<circle cx="160" cy="234" r="1.7"/>
+<circle cx="160" cy="242" r="1.7"/>
+<circle cx="160" cy="250" r="1.7"/>
+<circle cx="168" cy="162" r="1.7"/>
+<circle cx="168" cy="170" r="1.7"/>
+<circle cx="168" cy="178" r="1.7"/>
+<circle cx="168" cy="186" r="1.7"/>
+<circle cx="168" cy="194" r="1.7"/>
+<circle cx="168" cy="202" r="1.7"/>
+<circle cx="168" cy="210" r="1.7"/>
+<circle cx="168" cy="218" r="1.7"/>
+<circle cx="168" cy="226" r="1.7"/>
+<circle cx="168" cy="234" r="1.7"/>
+<circle cx="168" cy="242" r="1.7"/>
+<circle cx="168" cy="250" r="1.7"/>
+<circle cx="176" cy="162" r="1.7"/>
+<circle cx="176" cy="170" r="1.7"/>
+<circle cx="176" cy="178" r="1.7"/>
+<circle cx="176" cy="186" r="1.7"/>
+<circle cx="176" cy="194" r="1.7"/>
+<circle cx="176" cy="202" r="1.7"/>
+<circle cx="176" cy="210" r="1.7"/>
+<circle cx="176" cy="218" r="1.7"/>
+<circle cx="176" cy="226" r="1.7"/>
+<circle cx="176" cy="234" r="1.7"/>
+<circle cx="176" cy="242" r="1.7"/>
+<circle cx="176" cy="250" r="1.7"/>
+<circle cx="184" cy="162" r="1.7"/>
+<circle cx="184" cy="170" r="1.7"/>
+<circle cx="184" cy="178" r="1.7"/>
+<circle cx="184" cy="186" r="1.7"/>
+<circle cx="184" cy="194" r="1.7"/>
+<circle cx="184" cy="202" r="1.7"/>
+<circle cx="184" cy="210" r="1.7"/>
+<circle cx="184" cy="218" r="1.7"/>
+<circle cx="184" cy="226" r="1.7"/>
+<circle cx="184" cy="234" r="1.7"/>
+<circle cx="184" cy="242" r="1.7"/>
+<circle cx="184" cy="250" r="1.7"/>
+<circle cx="192" cy="162" r="1.7"/>
+<circle cx="192" cy="170" r="1.7"/>
+<circle cx="192" cy="178" r="1.7"/>
+<circle cx="192" cy="186" r="1.7"/>
+<circle cx="192" cy="194" r="1.7"/>
+<circle cx="192" cy="202" r="1.7"/>
+<circle cx="192" cy="210" r="1.7"/>
+<circle cx="192" cy="218" r="1.7"/>
+<circle cx="192" cy="226" r="1.7"/>
+<circle cx="192" cy="234" r="1.7"/>
+<circle cx="192" cy="242" r="1.7"/>
+<circle cx="192" cy="250" r="1.7"/>
+<circle cx="200" cy="162" r="1.7"/>
+<circle cx="200" cy="170" r="1.7"/>
+<circle cx="200" cy="178" r="1.7"/>
+<circle cx="200" cy="186" r="1.7"/>
+<circle cx="200" cy="194" r="1.7"/>
+<circle cx="200" cy="202" r="1.7"/>
+<circle cx="200" cy="210" r="1.7"/>
+<circle cx="200" cy="218" r="1.7"/>
+<circle cx="200" cy="226" r="1.7"/>
+<circle cx="200" cy="234" r="1.7"/>
+<circle cx="200" cy="242" r="1.7"/>
+<circle cx="200" cy="250" r="1.7"/>
+<circle cx="208" cy="162" r="1.7"/>
+<circle cx="208" cy="170" r="1.7"/>
+<circle cx="208" cy="178" r="1.7"/>
+<circle cx="208" cy="186" r="1.7"/>
+<circle cx="208" cy="194" r="1.7"/>
+<circle cx="208" cy="202" r="1.7"/>
+<circle cx="208" cy="210" r="1.7"/>
+<circle cx="208" cy="218" r="1.7"/>
+<circle cx="208" cy="226" r="1.7"/>
+<circle cx="208" cy="234" r="1.7"/>
+<circle cx="208" cy="242" r="1.7"/>
+<circle cx="208" cy="250" r="1.7"/>
+<rect x="304.5" y="140" width="3" height="9"/><rect x="304.5" y="251" width="3" height="9"/>
+<rect x="290" y="304.5" width="9" height="3"/><rect x="401" y="304.5" width="9" height="3"/>
+<rect x="310.1" y="140" width="3" height="9"/><rect x="310.1" y="251" width="3" height="9"/>
+<rect x="290" y="310.1" width="9" height="3"/><rect x="401" y="310.1" width="9" height="3"/>
+<rect x="315.7" y="140" width="3" height="9"/><rect x="315.7" y="251" width="3" height="9"/>
+<rect x="290" y="315.7" width="9" height="3"/><rect x="401" y="315.7" width="9" height="3"/>
+<rect x="321.3" y="140" width="3" height="9"/><rect x="321.3" y="251" width="3" height="9"/>
+<rect x="290" y="321.3" width="9" height="3"/><rect x="401" y="321.3" width="9" height="3"/>
+<rect x="326.9" y="140" width="3" height="9"/><rect x="326.9" y="251" width="3" height="9"/>
+<rect x="290" y="326.9" width="9" height="3"/><rect x="401" y="326.9" width="9" height="3"/>
+<rect x="332.5" y="140" width="3" height="9"/><rect x="332.5" y="251" width="3" height="9"/>
+<rect x="290" y="332.5" width="9" height="3"/><rect x="401" y="332.5" width="9" height="3"/>
+<rect x="338.1" y="140" width="3" height="9"/><rect x="338.1" y="251" width="3" height="9"/>
+<rect x="290" y="338.1" width="9" height="3"/><rect x="401" y="338.1" width="9" height="3"/>
+<rect x="343.7" y="140" width="3" height="9"/><rect x="343.7" y="251" width="3" height="9"/>
+<rect x="290" y="343.7" width="9" height="3"/><rect x="401" y="343.7" width="9" height="3"/>
+<rect x="349.3" y="140" width="3" height="9"/><rect x="349.3" y="251" width="3" height="9"/>
+<rect x="290" y="349.3" width="9" height="3"/><rect x="401" y="349.3" width="9" height="3"/>
+<rect x="354.9" y="140" width="3" height="9"/><rect x="354.9" y="251" width="3" height="9"/>
+<rect x="290" y="354.9" width="9" height="3"/><rect x="401" y="354.9" width="9" height="3"/>
+<rect x="360.5" y="140" width="3" height="9"/><rect x="360.5" y="251" width="3" height="9"/>
+<rect x="290" y="360.5" width="9" height="3"/><rect x="401" y="360.5" width="9" height="3"/>
+<rect x="366.1" y="140" width="3" height="9"/><rect x="366.1" y="251" width="3" height="9"/>
+<rect x="290" y="366.1" width="9" height="3"/><rect x="401" y="366.1" width="9" height="3"/>
+<rect x="371.7" y="140" width="3" height="9"/><rect x="371.7" y="251" width="3" height="9"/>
+<rect x="290" y="371.7" width="9" height="3"/><rect x="401" y="371.7" width="9" height="3"/>
+<rect x="377.3" y="140" width="3" height="9"/><rect x="377.3" y="251" width="3" height="9"/>
+<rect x="290" y="377.3" width="9" height="3"/><rect x="401" y="377.3" width="9" height="3"/>
+<rect x="382.9" y="140" width="3" height="9"/><rect x="382.9" y="251" width="3" height="9"/>
+<rect x="290" y="382.9" width="9" height="3"/><rect x="401" y="382.9" width="9" height="3"/>
+<rect x="388.5" y="140" width="3" height="9"/><rect x="388.5" y="251" width="3" height="9"/>
+<rect x="290" y="388.5" width="9" height="3"/><rect x="401" y="388.5" width="9" height="3"/>
+<rect x="104" y="296" width="5" height="8"/><rect x="115" y="296" width="5" height="8"/>
+<rect x="128" y="296" width="5" height="8"/><rect x="139" y="296" width="5" height="8"/>
+<rect x="152" y="296" width="5" height="8"/><rect x="163" y="296" width="5" height="8"/>
+<rect x="176" y="296" width="5" height="8"/><rect x="187" y="296" width="5" height="8"/>
+<rect x="200" y="296" width="5" height="8"/><rect x="211" y="296" width="5" height="8"/>
+<rect x="224" y="296" width="5" height="8"/><rect x="235" y="296" width="5" height="8"/>
+<rect x="248" y="296" width="5" height="8"/><rect x="259" y="296" width="5" height="8"/>
+<rect x="272" y="296" width="5" height="8"/><rect x="283" y="296" width="5" height="8"/>
+<rect x="296" y="296" width="5" height="8"/><rect x="307" y="296" width="5" height="8"/>
+<rect x="104" y="320" width="5" height="8"/><rect x="115" y="320" width="5" height="8"/>
+<rect x="128" y="320" width="5" height="8"/><rect x="139" y="320" width="5" height="8"/>
+<rect x="152" y="320" width="5" height="8"/><rect x="163" y="320" width="5" height="8"/>
+<rect x="176" y="320" width="5" height="8"/><rect x="187" y="320" width="5" height="8"/>
+<rect x="200" y="320" width="5" height="8"/><rect x="211" y="320" width="5" height="8"/>
+<rect x="224" y="320" width="5" height="8"/><rect x="235" y="320" width="5" height="8"/>
+<rect x="248" y="320" width="5" height="8"/><rect x="259" y="320" width="5" height="8"/>
+<rect x="272" y="320" width="5" height="8"/><rect x="283" y="320" width="5" height="8"/>
+<rect x="296" y="320" width="5" height="8"/><rect x="307" y="320" width="5" height="8"/>
+<rect x="104" y="344" width="5" height="8"/><rect x="115" y="344" width="5" height="8"/>
+<rect x="128" y="344" width="5" height="8"/><rect x="139" y="344" width="5" height="8"/>
+<rect x="152" y="344" width="5" height="8"/><rect x="163" y="344" width="5" height="8"/>
+<rect x="176" y="344" width="5" height="8"/><rect x="187" y="344" width="5" height="8"/>
+<rect x="200" y="344" width="5" height="8"/><rect x="211" y="344" width="5" height="8"/>
+<rect x="224" y="344" width="5" height="8"/><rect x="235" y="344" width="5" height="8"/>
+<rect x="248" y="344" width="5" height="8"/><rect x="259" y="344" width="5" height="8"/>
+<rect x="272" y="344" width="5" height="8"/><rect x="283" y="344" width="5" height="8"/>
+<rect x="296" y="344" width="5" height="8"/><rect x="307" y="344" width="5" height="8"/>
+<rect x="428" y="152" width="8" height="5"/><rect x="428" y="163" width="8" height="5"/>
+<rect x="428" y="178" width="8" height="5"/><rect x="428" y="189" width="8" height="5"/>
+<rect x="428" y="204" width="8" height="5"/><rect x="428" y="215" width="8" height="5"/>
+<rect x="428" y="230" width="8" height="5"/><rect x="428" y="241" width="8" height="5"/>
+<rect x="428" y="256" width="8" height="5"/><rect x="428" y="267" width="8" height="5"/>
+<rect x="428" y="282" width="8" height="5"/><rect x="428" y="293" width="8" height="5"/>
+<rect x="311" y="283" width="4" height="5"/><rect x="321" y="283" width="4" height="5"/><rect x="316" y="292" width="4" height="5"/>
+<rect x="341" y="283" width="4" height="5"/><rect x="351" y="283" width="4" height="5"/><rect x="346" y="292" width="4" height="5"/>
+<rect x="371" y="283" width="4" height="5"/><rect x="381" y="283" width="4" height="5"/><rect x="376" y="292" width="4" height="5"/>
+<rect x="200" y="386" width="5" height="10"/>
+<rect x="211" y="386" width="5" height="10"/>
+<rect x="222" y="386" width="5" height="10"/>
+<rect x="233" y="386" width="5" height="10"/>
+<rect x="244" y="386" width="5" height="10"/>
+<rect x="255" y="386" width="5" height="10"/>
+<rect x="266" y="386" width="5" height="10"/>
+<rect x="277" y="386" width="5" height="10"/>
+<rect x="288" y="386" width="5" height="10"/>
+<rect x="299" y="386" width="5" height="10"/>
+<rect x="310" y="386" width="5" height="10"/>
+<rect x="321" y="386" width="5" height="10"/>
+</g>
+<g class="dim"><text x="108" y="144" text-anchor="start">U1</text><text x="300" y="134" text-anchor="start">U2</text><text x="190" y="386" text-anchor="start">J1</text><path d="M60 58v10M460 58v10M60 63H236M284 63H460"/><text x="260" y="66.5" text-anchor="middle">100.0</text></g>
+</svg>
+        <figcaption><b>02</b>/05 · PCBA · SMT assembly</figcaption>
+      </figure>
+      <figure class="frame">
+<svg class="plot" viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+<defs><pattern id="h-sub" patternUnits="userSpaceOnUse" width="7" height="7" patternTransform="rotate(45)"><path d="M0 0V7" stroke="currentColor" stroke-width="0.6"/></pattern></defs>
+<defs><pattern id="h-si" patternUnits="userSpaceOnUse" width="4" height="4" patternTransform="rotate(45)"><path d="M0 0V4" stroke="currentColor" stroke-width="0.5"/></pattern></defs>
+<defs><pattern id="h-daf" patternUnits="userSpaceOnUse" width="3" height="3" patternTransform="rotate(-45)"><path d="M0 0V3" stroke="currentColor" stroke-width="0.5"/></pattern></defs>
+<g transform="translate(260 300) scale(1.25) translate(-260 -300)">
+<g class="hatch">
+<rect x="40" y="350" width="440" height="42" fill="url(#h-sub)"/>
+<rect x="178" y="338" width="164" height="12" fill="url(#h-daf)"/>
+<rect x="205" y="292" width="110" height="8" fill="url(#h-daf)"/>
+<rect x="232" y="256" width="56" height="6" fill="url(#h-daf)"/>
+<rect x="170" y="300" width="180" height="38" fill="url(#h-si)"/>
+<rect x="200" y="262" width="120" height="30" fill="url(#h-si)"/>
+<rect x="228" y="232" width="64" height="24" fill="url(#h-si)"/>
+</g>
+<g class="ol" stroke="currentColor" stroke-width="1">
+<rect x="40" y="350" width="440" height="42"/>
+<rect x="178" y="338" width="164" height="12"/>
+<rect x="205" y="292" width="110" height="8"/>
+<rect x="232" y="256" width="56" height="6"/>
+<rect x="170" y="300" width="180" height="38"/>
+<rect x="200" y="262" width="120" height="30"/>
+<rect x="228" y="232" width="64" height="24"/>
+<path d="M96 350C96 246 176 206 260 206S424 246 424 350" stroke-dasharray="4 5"/>
+</g>
+<g class="cu" stroke="currentColor" stroke-width="1.05" stroke-linecap="round">
+<path pathLength="1" d="M48 364H472"/>
+<path pathLength="1" d="M48 378H472"/>
+<path pathLength="1" d="M40 350H480"/>
+<path pathLength="1" d="M180 296 C170 262, 162 273.4, 140 344"/>
+<path pathLength="1" d="M340 296 C350 262, 358 273.4, 380 344"/>
+<path pathLength="1" d="M208 258 C198 208, 130 224.2, 108 344"/>
+<path pathLength="1" d="M312 258 C322 208, 390 224.2, 412 344"/>
+<path pathLength="1" d="M236 228 C226 162, 98 183.0, 76 344"/>
+<path pathLength="1" d="M284 228 C294 162, 422 183.0, 444 344"/>
+</g>
+<g class="via" fill="currentColor">
+<rect x="68" y="344" width="16" height="6"/>
+<rect x="100" y="344" width="16" height="6"/>
+<rect x="132" y="344" width="16" height="6"/>
+<rect x="436" y="344" width="16" height="6"/>
+<rect x="404" y="344" width="16" height="6"/>
+<rect x="372" y="344" width="16" height="6"/>
+<rect x="176" y="297" width="8" height="3"/>
+<circle cx="180" cy="296.5" r="2.6"/>
+<rect x="336" y="297" width="8" height="3"/>
+<circle cx="340" cy="296.5" r="2.6"/>
+<rect x="204" y="259" width="8" height="3"/>
+<circle cx="208" cy="258.5" r="2.6"/>
+<rect x="308" y="259" width="8" height="3"/>
+<circle cx="312" cy="258.5" r="2.6"/>
+<rect x="232" y="229" width="8" height="3"/>
+<circle cx="236" cy="228.5" r="2.6"/>
+<rect x="280" y="229" width="8" height="3"/>
+<circle cx="284" cy="228.5" r="2.6"/>
+</g>
+</g>
+<g class="dim"><path d="M147.5 452v30M372.5 452v30M147.5 477H222M298 477H372.5"/><text x="260" y="480.5" text-anchor="middle">8.20</text></g>
+</svg>
+        <figcaption><b>03</b>/05 · Die stack · wire bond</figcaption>
+      </figure>
+      <figure class="frame">
+<svg class="plot" viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+<defs><pattern id="h-sub2" patternUnits="userSpaceOnUse" width="7" height="7" patternTransform="rotate(45)"><path d="M0 0V7" stroke="currentColor" stroke-width="0.6"/></pattern></defs>
+<defs><pattern id="h-si2" patternUnits="userSpaceOnUse" width="4" height="4" patternTransform="rotate(45)"><path d="M0 0V4" stroke="currentColor" stroke-width="0.5"/></pattern></defs>
+<defs><pattern id="h-daf2" patternUnits="userSpaceOnUse" width="3" height="3" patternTransform="rotate(-45)"><path d="M0 0V3" stroke="currentColor" stroke-width="0.5"/></pattern></defs>
+<g transform="translate(260 320) scale(1.1) translate(-260 -320)">
+<g class="hatch">
+<rect x="40" y="340" width="440" height="40" fill="url(#h-sub2)"/>
+<rect x="72" y="318" width="22" height="22" fill="url(#h-si2)"/>
+<rect x="120" y="312" width="84" height="28" fill="url(#h-daf2)"/>
+<rect x="152" y="300" width="50" height="12" fill="url(#h-si2)"/>
+</g>
+<g class="ol" stroke="currentColor" stroke-width="1">
+<rect x="40" y="340" width="440" height="40"/>
+<rect x="72" y="318" width="22" height="22"/>
+<rect x="120" y="312" width="84" height="28"/>
+<rect x="152" y="300" width="50" height="12"/>
+<circle cx="280" cy="306" r="22"/>
+<rect x="272" y="328" width="16" height="12"/>
+<path d="M262 262h36v10h-36zM262 262v-14M298 262v-14"/>
+<path d="M334 292H470V320H330Z"/>
+<path d="M334 302H470M330 310H470" stroke-dasharray="2 3" opacity=".8"/>
+<rect x="382" y="284" width="88" height="44"/>
+<rect x="382" y="284" width="88" height="44" fill="url(#h-daf2)" stroke="none"/>
+</g>
+<g class="cu" stroke="currentColor" stroke-width="1.05" stroke-linecap="round">
+<path pathLength="1" d="M40 340H480"/>
+<path pathLength="1" d="M160 296C150 250 128 288 107 334"/>
+<path pathLength="1" d="M82 314C76 286 62 300 56 334"/>
+<path pathLength="1" d="M332 306H470"/>
+<path pathLength="1" d="M202 306L262 288M202 306L262 324M298 289L332 306M298 323L332 306"/>
+<path pathLength="1" d="M202 306H332" stroke-dasharray="3 4"/>
+</g>
+<g class="via" fill="currentColor">
+<rect x="156" y="297" width="8" height="3"/><circle cx="160" cy="296.5" r="2.6"/>
+<rect x="100" y="334" width="14" height="6"/>
+<rect x="78" y="315" width="8" height="3"/><circle cx="82" cy="314.5" r="2.4"/><rect x="50" y="334" width="12" height="6"/>
+</g>
+</g>
+<g class="dim"><path d="M196 206v20M339 206v20M196 211H243M290 211H339"/><text x="267" y="214.5" text-anchor="middle">WD 3.60</text></g>
+</svg>
+        <figcaption><b>04</b>/05 · TOSA · die + optical attach</figcaption>
+      </figure>
+      <figure class="frame">
+<svg class="plot" viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+<defs><pattern id="h-al" patternUnits="userSpaceOnUse" width="7" height="7" patternTransform="rotate(45)"><path d="M0 0V7" stroke="currentColor" stroke-width="0.6"/></pattern></defs>
+<defs><pattern id="h-glass" patternUnits="userSpaceOnUse" width="5" height="5" patternTransform="rotate(-60)"><path d="M0 0V5" stroke="currentColor" stroke-width="0.35"/></pattern></defs>
+<g class="hatch">
+<rect x="140" y="400" width="220" height="18" fill="url(#h-al)"/>
+<rect x="150" y="200" width="200" height="62" fill="url(#h-glass)"/>
+</g>
+<g class="ol" stroke="currentColor" stroke-width="1">
+<rect x="140" y="400" width="220" height="18"/>
+<path d="M178 400V408M322 400V408" stroke-dasharray="2 3"/>
+<rect x="165" y="330" width="170" height="70"/>
+<path d="M150 330V132a12 12 0 0 1 12-12H338a12 12 0 0 1 12 12V330"/>
+<path d="M150 200H350M150 262H350"/>
+<ellipse class="pitch" cx="250" cy="120" rx="100" ry="13" stroke-dasharray="3 6"/>
+<path d="M250 84V440" stroke-dasharray="14 4 2 4" opacity=".7"/>
+</g>
+<g class="cu" stroke="currentColor" stroke-width="1.05" stroke-linecap="round">
+<path pathLength="1" d="M236 205.0h6"/>
+<path pathLength="1" d="M236 208.5h6"/>
+<path pathLength="1" d="M236 212.0h6"/>
+<path pathLength="1" d="M236 215.5h6"/>
+<path pathLength="1" d="M236 219.0h6"/>
+<path pathLength="1" d="M236 222.5h6"/>
+<path pathLength="1" d="M236 226.0h6"/>
+<path pathLength="1" d="M236 229.5h6"/>
+<path pathLength="1" d="M236 233.0h6"/>
+<path pathLength="1" d="M236 236.5h6"/>
+<path pathLength="1" d="M236 240.0h6"/>
+<path pathLength="1" d="M236 243.5h6"/>
+<path pathLength="1" d="M236 247.0h6"/>
+<path pathLength="1" d="M236 250.5h6"/>
+<path pathLength="1" d="M236 254.0h6"/>
+<path pathLength="1" d="M236 257.5h6"/>
+<path pathLength="1" d="M258 205.0h6"/>
+<path pathLength="1" d="M258 208.5h6"/>
+<path pathLength="1" d="M258 212.0h6"/>
+<path pathLength="1" d="M258 215.5h6"/>
+<path pathLength="1" d="M258 219.0h6"/>
+<path pathLength="1" d="M258 222.5h6"/>
+<path pathLength="1" d="M258 226.0h6"/>
+<path pathLength="1" d="M258 229.5h6"/>
+<path pathLength="1" d="M258 233.0h6"/>
+<path pathLength="1" d="M258 236.5h6"/>
+<path pathLength="1" d="M258 240.0h6"/>
+<path pathLength="1" d="M258 243.5h6"/>
+<path pathLength="1" d="M258 247.0h6"/>
+<path pathLength="1" d="M258 250.5h6"/>
+<path pathLength="1" d="M258 254.0h6"/>
+<path pathLength="1" d="M258 257.5h6"/>
+</g>
+<g class="cu beams" stroke="currentColor" stroke-width="1" stroke-dasharray="4 5">
+<path pathLength="1" d="M350 231L491.0 179.7"/>
+<path pathLength="1" d="M350 231L494.9 192.2"/>
+<path pathLength="1" d="M350 231L497.7 205.0"/>
+<path pathLength="1" d="M350 231L499.4 217.9"/>
+<path pathLength="1" d="M350 231L500.0 231.0"/>
+<path pathLength="1" d="M350 231L499.4 244.1"/>
+<path pathLength="1" d="M350 231L497.7 257.0"/>
+<path pathLength="1" d="M350 231L494.9 269.8"/>
+<path pathLength="1" d="M350 231L491.0 282.3"/>
+</g>
+<g class="dim"><path d="M150 60v10M350 60v10M150 65H210M290 65H350"/><text x="250" y="68.5" text-anchor="middle">Ø 165.5</text><text x="368" y="290" text-anchor="start">FOV 40°</text></g>
+</svg>
+        <figcaption><b>05</b>/05 · Spinning lidar · elevation</figcaption>
+      </figure>
+      </div>
     </div>
   </div>
 </section>
@@ -188,7 +769,7 @@
 <!-- ABOUT -->
 <section id="about">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="eyebrow">01 — About</span><h2>Process is where good design survives contact with reality.</h2></div>
+    <div class="sec-head reveal"><span class="eyebrow">OP 10 · About</span><h2>Process is where good design survives contact with reality.</h2></div>
     <div class="about-grid">
       <figure class="portrait ticked reveal">
         <img src="aseem.jpg" alt="Aseem Bhandari" width="400" height="400" loading="lazy">
@@ -228,7 +809,7 @@
 <!-- CAPABILITIES -->
 <section id="capabilities">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="eyebrow">02 — Capabilities</span><h2>What I lead — and the depth behind it.</h2><p>I lead the people, programs, and partners that turn a prototype into a shipping line — and I stay technical enough to know whether the plan will actually hold on the floor.</p></div>
+    <div class="sec-head reveal"><span class="eyebrow">OP 20 · Capabilities</span><h2>What I lead — and the depth behind it.</h2><p>I lead the people, programs, and partners that turn a prototype into a shipping line — and I stay technical enough to know whether the plan will actually hold on the floor.</p></div>
 
     <span class="cap-tier eyebrow reveal">How I lead</span>
     <div class="cap-grid lead">
@@ -253,23 +834,64 @@
 <!-- SELECTED WORK -->
 <section id="work">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="eyebrow">03 — Selected Work</span><h2>Selected work.</h2><p>Three environments, one throughline: leading the people and process that get good hardware out the door, reliably — from hands-on process engineer to manufacturing leadership.</p></div>
+    <div class="sec-head reveal"><span class="eyebrow">OP 30 · Selected work</span><h2>Selected work.</h2><p>Three environments, one throughline: leading the people and process that get good hardware out the door, reliably — from hands-on process engineer to manufacturing leadership.</p></div>
     <div class="work-list">
-      <a href="work-infinitum.html" class="work-row reveal"><span class="idx" aria-hidden="true">01</span>
+      <a href="work-infinitum.html" class="work-row reveal">
+        <svg class="work-icon" viewBox="0 0 340 300" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+          <ellipse cx="170" cy="150" rx="130" ry="55"/>
+          <path d="M40 150v24M300 150v24"/>
+          <path d="M40 174a130 55 0 0 0 260 0"/>
+          <ellipse class="pitch" cx="170" cy="150" rx="110" ry="46.5" stroke-dasharray="3 6"/>
+          <path d="M216.8 150L280.5 150M203.1 164L248.1 183.1M170 169.8L170 196.8M136.9 164L91.9 183.1M123.2 150L59.5 150M136.9 136L104 122M203.1 136L236 122"/>
+          <circle cx="280.5" cy="150" r="3"/><circle cx="170" cy="196.8" r="3"/><circle cx="59.5" cy="150" r="3"/>
+          <ellipse cx="170" cy="150" rx="46.8" ry="19.8"/>
+          <path d="M154 131.5V56M186 131.5V56"/>
+          <ellipse cx="170" cy="56" rx="16" ry="6.8"/>
+          <path d="M170 42v-22M170 234v22" stroke-dasharray="2 5"/>
+          <path d="M14 150h18M308 150h18" stroke-dasharray="2 5"/>
+        </svg>
         <div>
           <div class="meta"><h3>Infinitum</h3><span class="role">Sr. Manufacturing Manager · Electric machines</span></div>
-          <p class="summary">Leading manufacturing for next-generation air-core motors — building the team, owning NPI and process for a new PCB-stator line, and building an end-to-end MES, deployed in production across two factories, that runs the line on real-time, traceable quality data.</p>
+          <p class="summary">Leading manufacturing for next-generation air-core motors — building the team, owning NPI and process for a new PCB-stator line, and building an end-to-end MES, deployed in production across two factories, that runs the line on real-time, traceable quality data — with critical steps under SPC on top of it: control charts, capability studies, and a reaction plan per monitored characteristic.</p>
         </div>
         <span class="yr">→</span>
       </a>
-      <a href="work-velodyne.html" class="work-row reveal"><span class="idx" aria-hidden="true">02</span>
+      <a href="work-velodyne.html" class="work-row reveal">
+        <svg class="work-icon" viewBox="0 0 250 215" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+          <ellipse cx="110" cy="45" rx="58" ry="14"/>
+          <path d="M52 45l16 85M168 45l-16 85"/>
+          <path d="M68 130a42 11 0 0 0 84 0"/>
+          <path class="pitch" d="M54 58a56 13.5 0 0 0 112 0" stroke-dasharray="3 6"/>
+          <rect x="104" y="66" width="58" height="60" rx="9"/>
+          <circle cx="133" cy="88" r="13"/>
+          <ellipse cx="133" cy="112" rx="13" ry="7"/>
+          <g class="beams" stroke-dasharray="4 5">
+            <path d="M162 92h66"/>
+            <path d="M162 92l58 -24"/>
+            <path d="M162 92l58 24"/>
+          </g>
+          <path d="M96 140v18M124 140v18"/>
+          <path d="M110 154l72 16-72 16-72-16z"/>
+          <path d="M38 170v12l72 16 72-16v-12M110 186v14"/>
+          <circle cx="74" cy="166" r="2.5"/><circle cx="146" cy="166" r="2.5"/><circle cx="110" cy="178" r="2.5"/>
+          <path d="M26 45h-10M26 130h-10"/>
+          <path d="M21 45v85" stroke-dasharray="2 4"/>
+        </svg>
         <div>
           <div class="meta"><h3>Velodyne Lidar</h3><span class="role">Manufacturing / NPI · Lidar sensors</span></div>
           <p class="summary">NPI and production support for lidar sensor manufacturing — optical-mechanical assembly, alignment, and the process work behind reliable sensor yield.</p>
         </div>
         <span class="yr">→</span>
       </a>
-      <a href="work-fabrinet.html" class="work-row reveal"><span class="idx" aria-hidden="true">03</span>
+      <a href="work-fabrinet.html" class="work-row reveal">
+        <svg class="work-icon" viewBox="0 0 240 140" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+          <rect x="18" y="45" width="150" height="50" rx="4"/>
+          <path d="M168 52h42v36h-42"/>
+          <path d="M174 62h30"/><path d="M174 70h30"/><path d="M174 78h30"/>
+          <rect x="40" y="55" width="70" height="30" stroke-dasharray="3 4"/>
+          <path d="M18 55c-14 0-14 30 0 30"/>
+          <path d="M18 32h150"/><path d="M18 28v8"/><path d="M168 28v8"/>
+        </svg>
         <div>
           <div class="meta"><h3>Fabrinet</h3><span class="role">Process Engineer · Optical assembly</span></div>
           <p class="summary">Optical transceiver and module assembly at scale — SMT, precision assembly, and high-volume process optimization in a contract-manufacturing environment.</p>
@@ -284,18 +906,18 @@
      from LinkedIn recommendations received; full text on the profile. -->
 <section id="testimonials">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="eyebrow">04 — What colleagues say</span><h2>The reference check, in public.</h2><p>Excerpts from LinkedIn recommendations — the full versions are on <a href="https://www.linkedin.com/in/aseembhandari21" target="_blank" rel="noopener">my profile</a>.</p></div>
+    <div class="sec-head reveal"><span class="eyebrow">OP 40 · What colleagues say</span><h2>The reference check, in public.</h2><p>Excerpts from LinkedIn recommendations — the full versions are on <a href="https://www.linkedin.com/in/aseembhandari21" target="_blank" rel="noopener">my profile</a>.</p></div>
     <div class="hub-grid three">
       <blockquote class="hub-card reveal" style="margin:0;">
-        <p style="font-family:'Fraunces',serif;font-style:italic;font-size:1.12rem;color:var(--ink);">"I highly recommend Aseem for his outstanding project management skills and extensive manufacturing and process engineering knowledge. During the transfer of the VLS-128 sensor manufacturing line … to the contract manufacturing partner in Thailand, Aseem's expertise was instrumental in ensuring the project's success."</p>
+        <p >"I highly recommend Aseem for his outstanding project management skills and extensive manufacturing and process engineering knowledge. During the transfer of the VLS-128 sensor manufacturing line … to the contract manufacturing partner in Thailand, Aseem's expertise was instrumental in ensuring the project's success."</p>
         <span class="date">Bradley Kolb — Vice President of Operations</span>
       </blockquote>
       <blockquote class="hub-card reveal" style="margin:0;">
-        <p style="font-family:'Fraunces',serif;font-style:italic;font-size:1.12rem;color:var(--ink);">"Aseem ran the advanced optical packaging lab at Fabrinet's Santa Clara location … Aseem's technical knowledge coupled with his management skills were greatly appreciated by our customers and the Fabrinet team … his talents … extend well beyond the cleanroom."</p>
+        <p >"Aseem ran the advanced optical packaging lab at Fabrinet's Santa Clara location … Aseem's technical knowledge coupled with his management skills were greatly appreciated by our customers and the Fabrinet team … his talents … extend well beyond the cleanroom."</p>
         <span class="date">Sean Mitchell — VP of Customer Operations, Gather AI</span>
       </blockquote>
       <blockquote class="hub-card reveal" style="margin:0;">
-        <p style="font-family:'Fraunces',serif;font-style:italic;font-size:1.12rem;color:var(--ink);">"A skilled leader with a strong technical and manufacturing background … Aseem's people management skills fostered a positive work environment that encouraged open communication and effective problem-solving."</p>
+        <p >"A skilled leader with a strong technical and manufacturing background … Aseem's people management skills fostered a positive work environment that encouraged open communication and effective problem-solving."</p>
         <span class="date">Alen Mekertichian — Production Manager</span>
       </blockquote>
     </div>
@@ -305,7 +927,7 @@
 <!-- TOOLS -->
 <section id="hub">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="eyebrow">05 — Tools</span><h2>Tools for the floor.</h2><p>Interactive calculators and guides — built to be useful on the line, not just to read. Everything runs in your browser.</p></div>
+    <div class="sec-head reveal"><span class="eyebrow">OP 50 · Tools</span><h2>Tools for the floor.</h2><p>Interactive calculators and guides — built to be useful on the line, not just to read. They implement the same capability, control-limit, and defect-routing methods as the <a href="work-infinitum.html">SPC system and MES I built and deployed at Infinitum</a>. Everything runs in your browser.</p></div>
     <div class="hub-grid three">
       <a href="spc-tools.html" class="hub-card reveal">
         <span class="kicker">Interactive tools</span>
@@ -329,7 +951,7 @@
 <!-- KNOWLEDGE HUB -->
 <section id="writing">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="eyebrow">06 — Knowledge Hub</span><h2>From the floor.</h2><p>Notes on manufacturing, process, and building data systems that engineers and operators actually use.</p></div>
+    <div class="sec-head reveal"><span class="eyebrow">OP 60 · Knowledge Hub</span><h2>From the floor.</h2><p>Notes on manufacturing, process, and building data systems that engineers and operators actually use.</p></div>
     <!-- The two cards below are a static fallback: posts.js replaces this whole
          block on load. They exist because crawlers that don't run JavaScript
          (LinkedIn and Slack link previews, most LLM crawlers) would otherwise find
@@ -347,7 +969,7 @@
   <div class="wrap">
     <div class="contact-grid">
       <div class="contact-intro reveal">
-        <span class="eyebrow">07 — Contact</span>
+        <span class="eyebrow">OP 70 · Contact</span>
         <h2>Let's talk shop.</h2>
         <p>Working on an NPI ramp, a yield problem, or a process that needs to scale? Send a note.</p>
         <div class="contact-links">
@@ -398,6 +1020,20 @@
           '<span class="date">' + p.date + '</span></a>';
       }).join('');
     }
+  })();
+  // hero plots: cycle the five drawings; pause on hover / hidden tab
+  (function(){
+    var frames = document.querySelectorAll('.hero-illos .frame');
+    if (frames.length < 2) return;
+    var i = 0, paused = false, box = document.querySelector('.hero-illos');
+    box.addEventListener('mouseenter', function(){ paused = true; });
+    box.addEventListener('mouseleave', function(){ paused = false; });
+    setInterval(function(){
+      if (paused || document.hidden) return;
+      frames[i].classList.remove('is-active');
+      i = (i + 1) % frames.length;
+      frames[i].classList.add('is-active');
+    }, 6000);
   })();
   // scroll reveal
   const io = new IntersectionObserver((es) => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });

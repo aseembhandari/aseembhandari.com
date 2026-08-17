@@ -10,39 +10,42 @@ Run from the site root after changing favicon.svg:
 
     python3 generate-favicon.py
 
-Georgia is the same face the SVG asks for, so this stays visually identical to the
-vector version rather than being a separate drawing.
+The mark is pure geometry (a PCB stator seen from above: copper ring, eight coil
+spokes, centre bore) so this draws the same shapes as the SVG — no font involved.
 """
 
-from PIL import Image, ImageDraw, ImageFont
+import math
+from PIL import Image, ImageDraw
 
-# Mirrors favicon.svg: 64-unit viewBox, rx=12, "A" at font-size 38, baseline y=45.
 VIEWBOX = 64
 RENDER = 256  # render large, then let ICO downsampling do the anti-aliasing
-SCALE = RENDER / VIEWBOX
+S = RENDER / VIEWBOX
 
-INK = "#1c1813"
-COPPER = "#c77b3c"
-FONT = "/System/Library/Fonts/Supplemental/Georgia Bold.ttf"
+SLATE = "#0F151B"
+AMBER = "#E0A030"
 
 ICO_SIZES = [(16, 16), (32, 32), (48, 48), (64, 64), (128, 128), (256, 256)]
 
 
+def ring(draw, cx, cy, r, width, fill):
+    w = width / 2
+    draw.ellipse([cx - r - w, cy - r - w, cx + r + w, cy + r + w], outline=fill, width=max(1, round(width)))
+
+
 def main() -> None:
     img = Image.new("RGBA", (RENDER, RENDER), (0, 0, 0, 0))
-    draw = ImageDraw.Draw(img)
-    draw.rounded_rectangle(
-        [0, 0, RENDER - 1, RENDER - 1], radius=round(12 * SCALE), fill=INK
-    )
-    font = ImageFont.truetype(FONT, round(38 * SCALE))
-    # anchor="ms" = horizontally centered on the baseline, matching the SVG's
-    # text-anchor="middle" + y=45 baseline.
-    draw.text(
-        (RENDER / 2, 45 * SCALE), "A", font=font, fill=COPPER, anchor="ms"
-    )
+    d = ImageDraw.Draw(img)
+    d.rounded_rectangle([0, 0, RENDER - 1, RENDER - 1], radius=round(8 * S), fill=SLATE)
+    cx = cy = 32 * S
+    ring(d, cx, cy, 22 * S, 3 * S, AMBER)          # outer copper ring
+    ring(d, cx, cy, 6 * S, 2.5 * S, AMBER)         # centre bore
+    for k in range(8):                              # eight coil spokes, radius 13 → 22 units
+        a = math.radians(k * 45)
+        x0, y0 = cx + math.cos(a) * 13 * S, cy + math.sin(a) * 13 * S
+        x1, y1 = cx + math.cos(a) * 22 * S, cy + math.sin(a) * 22 * S
+        d.line([x0, y0, x1, y1], fill=AMBER, width=round(3 * S))
     img.save("favicon.ico", sizes=ICO_SIZES)
-    print(f"wrote favicon.ico ({len(ICO_SIZES)} sizes: "
-          f"{', '.join(str(w) for w, _ in ICO_SIZES)})")
+    print(f"wrote favicon.ico ({len(ICO_SIZES)} sizes: {', '.join(str(w) for w, _ in ICO_SIZES)})")
 
 
 if __name__ == "__main__":
