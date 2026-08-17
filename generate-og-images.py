@@ -2,9 +2,9 @@
 """Generate Open Graph cards (1200x630): og/<slug>.png for every page, plus the
 homepage's og-image.png at the site root.
 
-Brand ("the CAM view"): bench-slate ground with a fine grid, kapton-amber accent,
-Barlow Condensed display type, IBM Plex Mono labels — the same system as styles.css.
-The homepage card carries the PCB-stator drawing from the hero.
+Brand ("the CAM view", light): white ground with a fine plotting grid, an amber
+press-bar, copper line work, Barlow Condensed display type and IBM Plex Mono labels —
+the same system as styles.css. The homepage card carries the PCB-stator drawing.
 
 Fonts: Barlow Condensed SemiBold and IBM Plex Mono Medium are fetched once from the
 google/fonts repo into a local cache (~/Library/Caches/aseembhandari-fonts). If the
@@ -18,11 +18,12 @@ import urllib.request
 from PIL import Image, ImageDraw, ImageFont
 
 W, H = 1200, 630
-SLATE, SLATE_2 = "#0F151B", "#151D25"
-GRID = (255, 255, 255, 12)
-AMBER, AMBER_DIM = "#E0A030", "#8A5D0F"
-INK, SOFT, FAINT = "#EDF0F3", "#A5AFBA", "#7F8B97"
-OUTLINE = "#5C6873"
+PAPER = "#FFFFFF"
+AMBER = "#E0A030"        # press-bar and eyebrow mark
+COPPER = "#A0620C"       # line work — deep enough to read on white
+ACC_TEXT = "#8A5D0F"     # accent text on white
+INK, SOFT = "#0F151B", "#5F6A76"
+OUTLINE = "#6B7684"
 
 CACHE = os.path.expanduser("~/Library/Caches/aseembhandari-fonts")
 FONT_SOURCES = {
@@ -81,8 +82,8 @@ def stator(img, cx, cy, R, alpha=255):
     """Top-copper of a PCB stator: 12 coil sectors of nested loops, vias, bore, outline."""
     layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     d = ImageDraw.Draw(layer)
-    amber = (224, 160, 48, alpha)
-    outline = (92, 104, 115, alpha)
+    amber = (160, 98, 12, alpha)      # COPPER
+    outline = (107, 118, 132, alpha)  # OUTLINE
     N, loops = 12, 8
     r_out0, r_in0, step = R * 205 / 260, R * 84 / 260, R * 6.4 / 260
 
@@ -115,15 +116,15 @@ def stator(img, cx, cy, R, alpha=255):
 
 
 def card(slug, title, kicker, display, mono):
-    img = Image.new("RGBA", (W, H), SLATE)
-    # grid, fading in from the left
+    img = Image.new("RGBA", (W, H), PAPER)
+    # plotting grid, fading in from the left
     g = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     gd = ImageDraw.Draw(g)
     for x in range(0, W, 44):
-        gd.line([x, 0, x, H], fill=(255, 255, 255, 255))
+        gd.line([x, 0, x, H], fill=(15, 21, 27, 255))
     for y in range(0, H, 44):
-        gd.line([0, y, W, y], fill=(255, 255, 255, 255))
-    fade = Image.linear_gradient("L").rotate(-90, expand=True).resize((W, H)).point(lambda v: 5 + v * 9 // 255)
+        gd.line([0, y, W, y], fill=(15, 21, 27, 255))
+    fade = Image.linear_gradient("L").rotate(-90, expand=True).resize((W, H)).point(lambda v: 5 + v * 12 // 255)
     g.putalpha(Image.composite(fade, Image.new("L", (W, H), 0), g.getchannel("A")))
     img.alpha_composite(g)
 
@@ -133,14 +134,14 @@ def card(slug, title, kicker, display, mono):
         stator(img, W - 250, H // 2 + 10, 240)
         d = ImageDraw.Draw(img)
     else:
-        stator(img, W - 112, 196, 100, alpha=100)
+        stator(img, W - 112, 196, 100, alpha=78)
         d = ImageDraw.Draw(img)
 
     d.rectangle([0, 0, W, 8], fill=AMBER)                       # amber press-bar
     mono_s = ImageFont.truetype(mono, 24)
     mono_xs = ImageFont.truetype(mono, 21)
     d.rectangle([90, 100, 104, 114], fill=AMBER)                # eyebrow mark
-    d.text((122, 96), kicker, font=mono_s, fill=AMBER)
+    d.text((122, 96), kicker, font=mono_s, fill=ACC_TEXT)
 
     max_w = (W - 600) if home else (W - 330)
     size = 96
@@ -155,7 +156,7 @@ def card(slug, title, kicker, display, mono):
         d.text((88, y), ln, font=f, fill=INK)
         y += int(size * 1.0)
 
-    d.line([90, H - 104, W - 90, H - 104], fill=(255, 255, 255, 30), width=1)
+    d.line([90, H - 104, W - 90, H - 104], fill=(15, 21, 27, 38), width=1)
     d.text((90, H - 78), "ASEEM BHANDARI", font=mono_s, fill=INK)
     right = "aseembhandari.com"
     d.text((W - 90 - d.textlength(right, font=mono_xs), H - 75), right, font=mono_xs, fill=SOFT)
