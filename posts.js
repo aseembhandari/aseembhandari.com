@@ -4,8 +4,9 @@
      1. Create a new HTML file (copy blog-spc-system.html as a template).
      2. Add ONE entry to the TOP of the array below (newest first).
      3. Mirror it into the static fallback cards in the HTML:
-          - blog.html   → #post-list    (all posts)
-          - index.html  → #writing-list (newest TWO only)
+          - blog.html   → #post-list    (all posts, <h2> cards)
+          - index.html  → #writing-list (newest TWO only, <h3> cards)
+     4. Add matching entries to sitemap.xml, llms.txt, and feed.xml (RSS).
         This file renders those lists at runtime, but JS-less crawlers — LinkedIn
         and Slack link previews, most LLM crawlers — only ever see the static
         markup. Skipping step 3 makes a new post invisible to them.

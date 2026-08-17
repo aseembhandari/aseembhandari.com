@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- RSS feed for the Knowledge Hub. Newest first. When publishing a post, add an
+     <item> here alongside the posts.js / sitemap.xml / llms.txt entries. -->
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Aseem Bhandari — Knowledge Hub</title>
+    <link>https://aseembhandari.com/blog.html</link>
+    <atom:link href="https://aseembhandari.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>Notes on manufacturing, process engineering, statistical process control, and building data systems that engineers and operators actually use.</description>
+    <language>en</language>
+    <lastBuildDate>Mon, 10 Aug 2026 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Why we built our own MES — and shipped it to two factories</title>
+      <link>https://aseembhandari.com/blog-mes-build.html</link>
+      <guid isPermaLink="true">https://aseembhandari.com/blog-mes-build.html</guid>
+      <pubDate>Mon, 10 Aug 2026 00:00:00 +0000</pubDate>
+      <category>MES · Leadership</category>
+      <description>The build-vs-buy call behind an in-house manufacturing execution system — and why the hard parts were bilingual launch gates and floor trust, not code.</description>
+    </item>
+    <item>
+      <title>The pilot build is a question, not a milestone</title>
+      <link>https://aseembhandari.com/blog-pilot-build.html</link>
+      <guid isPermaLink="true">https://aseembhandari.com/blog-pilot-build.html</guid>
+      <pubDate>Sun, 05 Jul 2026 00:00:00 +0000</pubDate>
+      <category>NPI · Process</category>
+      <description>A first pilot that only proves &quot;we can build one&quot; wastes most of its value. Treating the pilot as an experiment that answers whether the process is ready to scale.</description>
+    </item>
+    <item>
+      <title>Reading a yield signal: from noise to a ranked cause list</title>
+      <link>https://aseembhandari.com/blog-yield-signal.html</link>
+      <guid isPermaLink="true">https://aseembhandari.com/blog-yield-signal.html</guid>
+      <pubDate>Mon, 22 Jun 2026 00:00:00 +0000</pubDate>
+      <category>Yield · Root-Cause</category>
+      <description>&quot;Yield dropped to 84%&quot; is an alarm, not information. How to stratify, bound, and reproduce a yield loss until it becomes a short list of things you can actually fix.</description>
+    </item>
+    <item>
+      <title>Building an SPC system operators actually use</title>
+      <link>https://aseembhandari.com/blog-spc-system.html</link>
+      <guid isPermaLink="true">https://aseembhandari.com/blog-spc-system.html</guid>
+      <pubDate>Mon, 08 Jun 2026 00:00:00 +0000</pubDate>
+      <category>Process · Data</category>
+      <description>Control charts only work if the line trusts them. Notes on standing up statistical process control at Infinitum — and the data plumbing underneath it.</description>
+    </item>
+  </channel>
+</rss>

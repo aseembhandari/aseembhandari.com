@@ -6,6 +6,7 @@
 <title>Aseem Bhandari — Manufacturing Leader</title>
 <meta name="description" content="Aseem Bhandari — senior manufacturing leader. I build the teams, NPI programs, and systems that take complex hardware from prototype to high-yield volume — across optical, lidar, and electric-machine manufacturing.">
 <link rel="canonical" href="https://aseembhandari.com/">
+<link rel="alternate" type="application/rss+xml" title="Aseem Bhandari — Knowledge Hub" href="https://aseembhandari.com/feed.xml">
 
 <!-- icons -->
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -39,23 +40,64 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Aseem Bhandari",
-  "url": "https://aseembhandari.com/",
-  "image": "https://aseembhandari.com/aseem.jpg",
-  "jobTitle": "Senior Manufacturing Manager",
-  "description": "Senior manufacturing leader specializing in new product introduction (NPI) program ownership, manufacturing team leadership, manufacturing strategy, supplier and contract-manufacturer management, and production scale-up — with hands-on depth in SMT process, yield and root-cause analysis, and statistical process control.",
-  "sameAs": ["https://www.linkedin.com/in/aseembhandari21"],
-  "knowsAbout": ["Manufacturing Leadership", "New Product Introduction", "Manufacturing Strategy", "Supplier & Contract Manufacturer Management", "Team Leadership", "Production Scale-Up", "SMT Process", "Yield & Root-Cause Analysis", "Statistical Process Control", "Manufacturing Execution Systems (MES)"],
-  "worksFor": [
-    {"@type": "Organization", "name": "Infinitum"},
-    {"@type": "Organization", "name": "Velodyne Lidar"},
-    {"@type": "Organization", "name": "Fabrinet"}
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://aseembhandari.com/#website",
+      "url": "https://aseembhandari.com/",
+      "name": "Aseem Bhandari",
+      "description": "Manufacturing leadership, NPI, SPC, and factory-floor data systems — articles and free engineering tools by Aseem Bhandari.",
+      "inLanguage": "en",
+      "publisher": {
+        "@id": "https://aseembhandari.com/#person"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://aseembhandari.com/#person",
+      "name": "Aseem Bhandari",
+      "url": "https://aseembhandari.com/",
+      "image": "https://aseembhandari.com/aseem.jpg",
+      "jobTitle": "Senior Manufacturing Manager",
+      "description": "Senior manufacturing leader specializing in new product introduction (NPI) program ownership, manufacturing team leadership, manufacturing strategy, supplier and contract-manufacturer management, and production scale-up — with hands-on depth in SMT process, yield and root-cause analysis, and statistical process control.",
+      "sameAs": [
+        "https://www.linkedin.com/in/aseembhandari21",
+        "https://github.com/aseembhandari"
+      ],
+      "knowsAbout": [
+        "Manufacturing Leadership",
+        "New Product Introduction",
+        "Manufacturing Strategy",
+        "Supplier & Contract Manufacturer Management",
+        "Team Leadership",
+        "Production Scale-Up",
+        "SMT Process",
+        "Yield & Root-Cause Analysis",
+        "Statistical Process Control",
+        "Manufacturing Execution Systems (MES)"
+      ],
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Infinitum",
+        "url": "https://goinfinitum.com/"
+      },
+      "alumniOf": [
+        {
+          "@type": "Organization",
+          "name": "Velodyne Lidar"
+        },
+        {
+          "@type": "Organization",
+          "name": "Fabrinet"
+        }
+      ]
+    }
   ]
 }
 </script>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <!-- NAV -->
 <header class="nav">
@@ -72,6 +114,8 @@
     </nav>
   </div>
 </header>
+
+<main id="main">
 
 <!-- HERO -->
 <section class="hero">
@@ -327,6 +371,8 @@
 </section>
 
 <!-- FOOTER -->
+</main>
+
 <footer class="foot">
   <div class="wrap">
     <small>© <span id="yr"></span> Aseem Bhandari</small>

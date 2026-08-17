@@ -472,3 +472,15 @@ section { padding: 108px 0; }
   .reveal { opacity: 1 !important; transform: none !important; }
   .hero .load { opacity: 1 !important; transform: none !important; animation: none !important; }
 }
+
+/* --- Accessibility / search pass (2026-08-17) --------------------------- */
+/* Skip link: first focusable element on every page, visible only on focus. */
+.skip-link { position: absolute; left: 12px; top: -100px; z-index: 100; padding: 10px 16px; background: var(--ink); color: var(--bg); font-family: 'IBM Plex Mono', monospace; font-size: .8rem; letter-spacing: .05em; border-radius: 3px; text-decoration: none; }
+.skip-link:focus { top: 12px; outline: 2px solid var(--copper); outline-offset: 2px; }
+/* Visually hidden, still read by screen readers and counted in the heading outline. */
+.sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
+/* blog.html lists articles directly under the page h1, so its cards use h2 (index.html keeps h3 under its section h2). */
+.hub-card h2 { font-size: 1.4rem; margin: 12px 0 8px; color: var(--ink); }
+/* Hero h1 rises without fading in: an opacity-0 start keeps it out of LCP until the animation ends (~1s on mobile). */
+.hero h1.load { opacity: 1; animation-name: rise-y; }
+@keyframes rise-y { to { transform: none; } }

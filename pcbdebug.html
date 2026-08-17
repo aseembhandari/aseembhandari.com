@@ -53,7 +53,7 @@
   .link-btn:hover { color:var(--copper-text); }
 
   .card { background:var(--bg-raise); border:1px solid var(--line); border-left:3px solid var(--copper); border-radius:3px; padding:28px 30px; }
-  .card h3 { font-family:'Fraunces',serif; font-size:1.6rem; color:var(--ink); }
+  .card h2 { font-family:'Fraunces',serif; font-size:1.6rem; color:var(--ink); }
   .card .defect-tag { font-family:'IBM Plex Mono',monospace; font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--copper-text); }
   .card .block { margin-top:22px; }
   .card .block .label { font-family:'IBM Plex Mono',monospace; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--copper-text); margin-bottom:8px; }
@@ -61,8 +61,41 @@
   .card li { margin-bottom:7px; }
   [hidden]{ display:none !important; }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "PCB / SMT Defect Debugger",
+  "url": "https://aseembhandari.com/pcbdebug.html",
+  "description": "A guided decision tree for diagnosing SMT solder and assembly defects: observe the symptom, answer a follow-up, and route to the specific root cause with check-and-fix steps.",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any (runs in the browser)",
+  "browserRequirements": "Requires JavaScript",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "featureList": [
+    "Guided symptom-to-root-cause decision tree for SMT solder and assembly defects",
+    "Check-and-fix steps per likely cause",
+    "Observe → Bound → Stratify → Examine → Recreate → Verify framework"
+  ],
+  "author": {
+    "@id": "https://aseembhandari.com/#person",
+    "@type": "Person",
+    "name": "Aseem Bhandari",
+    "url": "https://aseembhandari.com/"
+  },
+  "isPartOf": {
+    "@id": "https://aseembhandari.com/#website"
+  }
+}
+</script>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <header class="nav">
   <div class="wrap">
@@ -78,6 +111,8 @@
     </nav>
   </div>
 </header>
+
+<main id="main">
 
 <section class="detail-hero">
   <div class="wrap">
@@ -110,6 +145,8 @@
     </div>
   </div>
 </section>
+
+</main>
 
 <footer class="foot">
   <div class="wrap">
@@ -310,7 +347,7 @@
       panel.innerHTML =
         '<div class="card">' +
           '<span class="defect-tag">Likely cause — ' + d.tag + '</span>' +
-          '<h3>' + d.name + '</h3>' +
+          '<h2>' + d.name + '</h2>' +
           '<div class="block"><div class="label">Likely causes</div><ul>' + d.causes.map(x=>'<li>'+x+'</li>').join('') + '</ul></div>' +
           '<div class="block"><div class="label">What to check (Steps 03–04)</div><ul>' + d.check.map(x=>'<li>'+x+'</li>').join('') + '</ul></div>' +
           '<div class="block"><div class="label">How to fix &amp; prevent (Steps 05–07)</div><ul>' + d.fix.map(x=>'<li>'+x+'</li>').join('') + '</ul></div>' +

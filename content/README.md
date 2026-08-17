@@ -22,8 +22,8 @@ below), entirely outside this folder, for the same reason.
      (newest two). `posts.js` builds those lists in the browser, but crawlers that
      don't run JavaScript — LinkedIn/Slack link previews, most LLM crawlers — only
      see the static markup, so a post missing from it is invisible to them.
-   - Add the post to `llms.txt` (Articles section) alongside the `sitemap.xml`
-     entry, for the same discoverability reason.
+   - Add the post to `llms.txt` (Articles section) and `feed.xml` (RSS, newest
+     first) alongside the `sitemap.xml` entry, for the same discoverability reason.
    - Write a separate LinkedIn-optimized version to
      `content/YYYY-MM-DD-slug.linkedin.txt` — shorter, hook-first, short line-broken
      paragraphs (LinkedIn strips most formatting), ending with a link back to the

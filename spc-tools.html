@@ -72,8 +72,44 @@
   .cc-mode { font-size:.78rem; padding:9px 16px; }
   .cc-mode.active { background:var(--copper); color:#fff; border-color:var(--copper); }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "SPC & Capability Calculators",
+  "url": "https://aseembhandari.com/spc-tools.html",
+  "description": "Free interactive SPC and MSA calculators: process capability (Cp, Cpk, Pp, Ppk), yield / DPMO / process sigma, and Gage R&R (ANOVA method) — built for the manufacturing floor.",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any (runs in the browser)",
+  "browserRequirements": "Requires JavaScript",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "featureList": [
+    "Process capability: Cp, Cpk, Pp, Ppk",
+    "Yield, DPMO and process sigma",
+    "Gage R&R (MSA, ANOVA method)",
+    "Control limits: X̄–R and I–MR",
+    "Sample size",
+    "Sigma ↔ Cpk reference"
+  ],
+  "author": {
+    "@id": "https://aseembhandari.com/#person",
+    "@type": "Person",
+    "name": "Aseem Bhandari",
+    "url": "https://aseembhandari.com/"
+  },
+  "isPartOf": {
+    "@id": "https://aseembhandari.com/#website"
+  }
+}
+</script>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <header class="nav">
   <div class="wrap">
@@ -90,6 +126,8 @@
   </div>
 </header>
 
+<main id="main">
+
 <section class="detail-hero">
   <div class="wrap">
     <a href="index.html#hub" class="back-link">← Back to Tools</a>
@@ -102,16 +140,17 @@
 <section style="border-top:1px solid var(--line-soft);">
   <div class="wrap">
     <div class="tabs" role="tablist">
-      <button class="tab active" data-tab="cpk">Cp / Cpk / Pp / Ppk</button>
-      <button class="tab" data-tab="yield">Yield · DPMO · Sigma</button>
-      <button class="tab" data-tab="grr">Gage R&amp;R (MSA)</button>
-      <button class="tab" data-tab="cc">Control Limits</button>
-      <button class="tab" data-tab="ss">Sample Size</button>
-      <button class="tab" data-tab="ref">Sigma ↔ Cpk</button>
+      <button class="tab active" data-tab="cpk" role="tab" id="tabbtn-cpk" aria-selected="true" aria-controls="tab-cpk">Cp / Cpk / Pp / Ppk</button>
+      <button class="tab" data-tab="yield" role="tab" id="tabbtn-yield" aria-selected="false" aria-controls="tab-yield">Yield · DPMO · Sigma</button>
+      <button class="tab" data-tab="grr" role="tab" id="tabbtn-grr" aria-selected="false" aria-controls="tab-grr">Gage R&amp;R (MSA)</button>
+      <button class="tab" data-tab="cc" role="tab" id="tabbtn-cc" aria-selected="false" aria-controls="tab-cc">Control Limits</button>
+      <button class="tab" data-tab="ss" role="tab" id="tabbtn-ss" aria-selected="false" aria-controls="tab-ss">Sample Size</button>
+      <button class="tab" data-tab="ref" role="tab" id="tabbtn-ref" aria-selected="false" aria-controls="tab-ref">Sigma ↔ Cpk</button>
     </div>
 
     <!-- ===== CPK ===== -->
-    <div class="tabpanel" id="tab-cpk">
+    <div class="tabpanel" id="tab-cpk" role="tabpanel" aria-labelledby="tabbtn-cpk">
+      <h2 class="sr-only">Process capability calculator: Cp, Cpk, Pp, Ppk</h2>
       <div class="calc-grid">
         <div>
           <div class="field">
@@ -137,7 +176,8 @@
     </div>
 
     <!-- ===== YIELD ===== -->
-    <div class="tabpanel" id="tab-yield" hidden>
+    <div class="tabpanel" id="tab-yield" role="tabpanel" aria-labelledby="tabbtn-yield" hidden>
+      <h2 class="sr-only">Yield, DPMO and process sigma calculator</h2>
       <div class="calc-grid">
         <div>
           <div class="field">
@@ -167,7 +207,8 @@
     </div>
 
     <!-- ===== GAGE R&R ===== -->
-    <div class="tabpanel" id="tab-grr" hidden>
+    <div class="tabpanel" id="tab-grr" role="tabpanel" aria-labelledby="tabbtn-grr" hidden>
+      <h2 class="sr-only">Gage R&amp;R (MSA) calculator, ANOVA method</h2>
       <div class="row3" style="max-width:520px;">
         <div><label class="lbl" for="grrParts">Parts</label>
           <select class="in" id="grrParts"></select></div>
@@ -201,7 +242,8 @@
     </div>
 
     <!-- ===== CONTROL LIMITS ===== -->
-    <div class="tabpanel" id="tab-cc" hidden>
+    <div class="tabpanel" id="tab-cc" role="tabpanel" aria-labelledby="tabbtn-cc" hidden>
+      <h2 class="sr-only">Control limits calculator: X̄–R and I–MR charts</h2>
       <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;">
         <button class="btn ghost cc-mode active" data-mode="xbar">X̄–R (subgroups)</button>
         <button class="btn ghost cc-mode" data-mode="imr">I–MR (individuals)</button>
@@ -226,7 +268,8 @@
     </div>
 
     <!-- ===== SAMPLE SIZE ===== -->
-    <div class="tabpanel" id="tab-ss" hidden>
+    <div class="tabpanel" id="tab-ss" role="tabpanel" aria-labelledby="tabbtn-ss" hidden>
+      <h2 class="sr-only">Sample size calculator</h2>
       <div class="calc-grid">
         <div>
           <div class="field">
@@ -261,7 +304,8 @@
     </div>
 
     <!-- ===== SIGMA / CPK REFERENCE ===== -->
-    <div class="tabpanel" id="tab-ref" hidden>
+    <div class="tabpanel" id="tab-ref" role="tabpanel" aria-labelledby="tabbtn-ref" hidden>
+      <h2 class="sr-only">Sigma level ↔ Cpk reference</h2>
       <div class="calc-grid">
         <div>
           <div class="field">
@@ -283,6 +327,8 @@
     </div>
   </div>
 </section>
+
+</main>
 
 <footer class="foot">
   <div class="wrap">
@@ -711,8 +757,8 @@
   }
   document.querySelectorAll('.tab').forEach(function(btn){
     btn.addEventListener('click', function(){
-      document.querySelectorAll('.tab').forEach(function(b){ b.classList.remove('active'); });
-      btn.classList.add('active');
+      document.querySelectorAll('.tab').forEach(function(b){ b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+      btn.classList.add('active'); btn.setAttribute('aria-selected','true');
       var name=btn.dataset.tab;
       document.querySelectorAll('.tabpanel').forEach(function(pnl){ pnl.hidden = (pnl.id!=='tab-'+name); });
       initTab(name);
