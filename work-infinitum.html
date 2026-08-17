@@ -88,11 +88,13 @@
     <h3>Process development &amp; bring-up</h3>
     <p>Defined and qualified assembly processes for the PCB-stator architecture — sequencing operations, specifying fixtures and tooling, and setting the process windows that keep critical steps in control.</p>
     <h3>Yield &amp; root-cause</h3>
-    <p>Ran structured root-cause analysis on assembly and electrical defects, using the data system to isolate contributing variables and drive corrective actions back into the process so the same failure wouldn't recur.</p>
+    <p>Ran structured root-cause analysis on assembly and electrical defects, using the data system to isolate contributing variables and drive corrective actions back into the process so the same failure wouldn't recur. First-pass yield improved on every line I've owned, and the method doesn't change: stratify the loss, isolate the variable, fix the process, then lock it with a control that still holds after the project closes.</p>
+    <h3>Taking operations out, not adding them</h3>
+    <p>The cheapest operation is the one that isn't there. Three steps came out of the motor build — an adhesive operation, a thermal dispense under the inductors, and an in-process electrical test — each removed only after the data showed the build didn't need it. Removing a step is harder than tuning one: it means carrying a quality argument to sign-off rather than adding another check to be safe.</p>
 
     <div class="metrics">
-      <div class="m"><div class="big" data-count="18" data-prefix="+" data-suffix="%">+18%</div><div class="lbl">First-pass yield improvement</div></div>
-      <div class="m"><div class="big" data-count="22" data-prefix="−" data-suffix="%">−22%</div><div class="lbl">Assembly cycle time</div></div>
+      <div class="m"><div class="big" data-count="3">3</div><div class="lbl">Operations eliminated<span class="sub">Adhesive · thermal dispense · electrical test</span></div></div>
+      <div class="m"><div class="big" data-count="12" data-prefix="~" data-suffix="%">~12%</div><div class="lbl">Assembly time reduction<span class="sub">From removing those three steps</span></div></div>
       <div class="m"><div class="big" data-count="12">12</div><div class="lbl">Processes qualified</div></div>
     </div>
 
