@@ -26,7 +26,7 @@ https://www.linkedin.com/in/aseembhandari21
 
 - [Infinitum](https://aseembhandari.com/work-infinitum.html): Manufacturing leadership for air-core PCB-stator electric motors — including an end-to-end MES built and deployed in production.
 - [Velodyne Lidar](https://aseembhandari.com/work-velodyne.html): NPI and production support for lidar sensor manufacturing.
-- [Fabrinet](https://aseembhandari.com/work-fabrinet.html): Optical packaging and process engineering across two sites — Advanced Optical Packaging Engineer in Santa Clara, California (2017–2019) and Process Engineer II in Pathum Thani, Thailand (2013–2015).
+- [Fabrinet](https://aseembhandari.com/work-fabrinet.html): Optical packaging and process engineering across two sites — ran the Advanced Packaging Lab in Santa Clara, California (2017–2019), developing die attach, wire bonding, and optical attach processes and transferring them to mass production in Thailand; earlier Process Engineer II in Pathum Thani, Thailand (2013–2015).
 
 ## Interactive tools
 
