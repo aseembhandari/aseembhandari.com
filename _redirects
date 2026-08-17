@@ -23,3 +23,26 @@
 # rewrite from the root copy keeps one source file instead of two that can drift —
 # and avoids depending on whether the deploy uploads dot-directories at all.
 /.well-known/security.txt   /security.txt   200
+
+# --- One URL per page (indexing) ---------------------------------------------
+# Netlify serves both /blog-mes-build and /blog-mes-build.html with a 200, so every
+# page had two live URLs. The .html form is the one canonical tags, og:url, and
+# sitemap.xml all point at, and the one Google already crawled — so the bare form
+# 301s to it and there is exactly one indexable URL per page.
+#
+# Listed one per line because Netlify only supports "*" as a trailing wildcard, and
+# a placeholder rule like "/:slug /:slug.html" would also swallow /robots.txt,
+# /llms.txt and /favicon.ico. The "!" is needed because Netlify's implicit .html
+# resolution counts as an existing file and would otherwise beat these rules.
+/index.html        /                      301!
+/blog              /blog.html             301!
+/blog-mes-build    /blog-mes-build.html   301!
+/blog-pilot-build  /blog-pilot-build.html 301!
+/blog-yield-signal /blog-yield-signal.html 301!
+/blog-spc-system   /blog-spc-system.html  301!
+/work-infinitum    /work-infinitum.html   301!
+/work-velodyne     /work-velodyne.html    301!
+/work-fabrinet     /work-fabrinet.html    301!
+/pcbdebug          /pcbdebug.html         301!
+/npi-checklist     /npi-checklist.html    301!
+/spc-tools         /spc-tools.html        301!

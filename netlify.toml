@@ -1,0 +1,23 @@
+# Netlify configuration for aseembhandari.com
+#
+# There is no build step — the site is plain static HTML and deploys with
+# `netlify deploy --prod --dir .` from this folder. This file exists for one
+# setting only.
+#
+# Netlify's HTML post-processing ("pretty URLs") was rewriting every internal
+# link on the way out: href="blog-mes-build.html" was served as
+# href='/blog-mes-build'. That silently split each page into two live URLs —
+# the extensionless one every internal link pointed at, and the .html one that
+# canonical tags, og:url, and sitemap.xml all declare. Turning it off keeps the
+# served HTML identical to the source, so the link graph agrees with the
+# canonicals instead of contradicting them. The 301s in _redirects clean up the
+# extensionless URLs Google already crawled.
+#
+# Do NOT add a [build] publish key here — the publish directory comes from
+# `--dir .` on the deploy command, and setting both invites them to disagree.
+
+[build.processing]
+  skip_processing = false
+
+[build.processing.html]
+  pretty_urls = false
