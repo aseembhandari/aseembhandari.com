@@ -9,9 +9,14 @@
 
 # --- Working files: uploaded by the deploy, but not public --------------------
 # content/ holds article source markdown and the LinkedIn drafts (including posts
-# not published yet). Root-level .py files are the OG-image and favicon generators.
+# not published yet).
 /content/*   /404.html   404!
-/*.py        /404.html   404!
+
+# The generator scripts, listed one by one on purpose: Netlify only supports "*" as
+# a trailing wildcard, so a pattern like /*.py silently matches nothing and serves
+# the file (verified on a draft deploy). Add any new root-level script here.
+/generate-og-images.py   /404.html   404!
+/generate-favicon.py     /404.html   404!
 
 # --- security.txt ------------------------------------------------------------
 # RFC 9116 puts the canonical file at /.well-known/security.txt. Serving it as a
